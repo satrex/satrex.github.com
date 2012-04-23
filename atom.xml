@@ -1,16 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-04-23T12:12:33+09:00</updated>
+  <updated>2012-04-23T23:19:51+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[satrex]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressのインストール（後編）]]></title>
+    <link href="http://satrex.github.com/blog/2012/04/23/installed-octopress-002/"/>
+    <updated>2012-04-23T23:05:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/04/23/installed-octopress-002</id>
+    <content type="html"><![CDATA[<p>前編の続きです。</p>
+
+<h2>Octopressのインストール</h2>
+
+<p>ここからは公式サイトやGlideNoteさんの記事、またjedipunksさんの記事が参考になります。</p>
+
+<ul>
+<li><a href="http://www.glidenote.com/archives/1517">GlideNoteさんの記事</a></li>
+<li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">jedipunksさんの記事</a></li>
+</ul>
+
+
+<h2>Octopressの構成</h2>
+
+<p>インストールしたOctopressのフォルダ構成と、動作のイメージを紹介します。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/7d825d5b-1923-40c5-8d00-4237ff243e17/6bffbb3957614d2fa4438e7e0ccfa423/res/21ae89ae-4b24-4cf5-a03d-2fbc58a53742/octopress-20120423-154359.jpg.jpg" alt="_config.yamlは設定ファイル、sourceに記事やスタイルを記述、publicにhtmlとCSSが生成される" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Octopressのインストール（前編）]]></title>
+    <link href="http://satrex.github.com/blog/2012/04/23/installed-octopress-001/"/>
+    <updated>2012-04-23T12:47:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/04/23/installed-octopress-001</id>
+    <content type="html"><![CDATA[<p>OctopressとGitでブログを作ろう、と思い立ってから１週間。<br/>
+試行錯誤の末に、ようやくブログが上げられたので、ハマったポイントを紹介してみたいと思います。</p>
+
+<p>インストール環境は、mac OSX Lion + zsh。Xcodeは入ってるところからスタートしました。<br/>
+記事内で、ちらっとUbuntuでのインストールにも触れます。関係ない人はスルーで。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/1c5fcc0f-7c94-45ba-9f7d-c9c6909bdfb6/a28bb5b09a4b9d7cc11c78e691395ddd/res/0e3d3046-3527-4e16-bc47-53ff68a3a9df/mac_ball-20120423-205850.jpg.jpg" alt="Octocatに似たデザインのmac" /></p>
+
+<h2>Octopress導入まで</h2>
+
+<p>あまり何もないところから、Octopressを導入するところまでの
+手順を、ここにまとめてみます。<br/>
+大まかに、Octopressインストールまでには、以下のものが必要です。</p>
+
+<ol>
+<li>Ruby 1.9.2以上（1.9.2そのものがおすすめ）</li>
+<li>Git</li>
+</ol>
+
+
+<p>オイラのMacに入っていたRubyは1.8.7だったので、<br/>
+Ruby-1.9.2を別途入れる必要がありました。
+コマンドラインで<code>ruby --version</code>と入力して、&#8221;1.9.2&#8221;と表示されなかった方は、RVMを入れる必要があります。</p>
+
+<h2>Rubyのインストール準備</h2>
+
+<p> <a href="http://octopress.org/docs/setup/">Octopress公式サイト</a>では、RVMかrbenvで、Rubyをバージョン管理することを勧めています。<br/>
+ここでは、RVMを使って進めます。</p>
+
+<p>突然ですが、質問です。<br/>
+あなたのOSはMacですか？<br/>
+Yesの方は、RVMのインストールに進んで下さい。<br/>
+Noの方。Linuxをお使いで、Curlが入っていない方は、Curlをインストールしないといけません。</p>
+
+<h3>Curlのインストール</h3>
+
+<p>Ubuntuの場合は、以下のコマンドでcURLをインストールします。
+<code>sudo apt-get install libcurl-dev</code>
+以上。</p>
+
+<h3>RVMのインストール</h3>
+
+<p>次に、どなたさまもこのコマンドを、ターミナルで実行します。ディレクトリは、初期状態で構いません。
+<code>bash -s stable &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)</code></p>
+
+<p>ここから、シェルに何を使っているかで、二手に分かれます。<br/>
+何のことかわからない方は、最初の道を選んでください。あなたはbash組です。</p>
+
+<hr />
+
+<h4>1. bashを使っている方、何のこと？の方</h4>
+
+<p>以下のコードを、ターミナルで実行します。</p>
+
+<p><code>
+echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm" # Load RVM function' &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></p>
+
+<h4>2. zshを使っている方</h4>
+
+<p>オイラも、今回を機にzshデビューしました。このコードをどうぞ。</p>
+
+<p><code>
+echo '[[ -s $HOME/.rvm/scripts/rvm ]] &amp;&amp; source $HOME/.rvm/scripts/rvm' &gt;&gt; ~/.zshrc
+source ~/.zshrc</code></p>
+
+<hr />
+
+<p>これで、Rubyを入れる準備ができました。まだ先は長いです。<br/>
+でもげっそりしないで下さいね。<br/>
+ひとつひとつは大した事じゃないです。うまくいけば・・・</p>
+
+<h3>GCCのインストール</h3>
+
+<p>オイラがインストールを試した中で、一番のポイントは、このGCCでした。<br/>
+公式サイトにも載ってない落とし穴なので、注意して読んで下さい。<br/>
+シチュエーション別に解説します。</p>
+
+<hr />
+
+<h4>1. Macの方</h4>
+
+<p>また質問ですが、あなたのOSはLionですか？ <br/>
+Noの方は、ここでは何もしなくていいです。RVMのインストールに進みます。</p>
+
+<p>Yesの方は、ここ（→<a href="https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg">GCC-10.7.pkg</a> ）からインストーラをダウンロードして実行します。</p>
+
+<p>そして環境変数CCをシェルのプロファイルに書き込みます。<br/>
+例によって、どちらのシェルを使っているかで、手順が分かれます。<br/>
+書き込むコードはこれです。</p>
+
+<p><code>export CC=/usr/bin/gcc-4.2</code></p>
+
+<hr />
+
+<h4>bashの方＋なんだか分からない方</h4>
+
+<p>上のコードを、~/.bash_profileに書き、ターミナルを再起動します。<br/>
+こんなふうにコマンドで打つと、勝手にファイルを開くか作って書いてくれます。
+<code>
+echo "export CC=/usr/bin/gcc-4.2" &gt;&gt; ~/.bash_profile
+</code></p>
+
+<h5>zshの方</h5>
+
+<p>zshの方は、ファイル名が違います。<br/>
+<code>~/.zprofile</code>ですね。</p>
+
+<hr />
+
+<p>参考資料：<br/>
+- <a href="http://d.hatena.ne.jp/holypp/20120212/1328992440">MacOSX LionでのRubyの扱い方、またはllvm-gccについて</a>
+- <a href="https://gist.github.com/1104557">FIX for Lion&#8217;s posix_spawn_ext.bundle: [BUG] Segmentation fault</a></p>
+
+<h4>Ubuntuの方</h4>
+
+<p>UbuntuではGCCが入ってないので、build-essentialというライブラリをapt-getして下さい。<br/>
+詳しくはリンク先：thincaさんのページを参照。</p>
+
+<p>参考資料：<a href="http://thira.plavox.info/blog/2008/10/ubuntu_gcc_buildessential.html">Ubuntu のデフォルトでは gcc でコンパイルできないので build-essential を入れておく</a></p>
+
+<p>詳しくないので、その他のディストリビューションの事はわかりません。</p>
+
+<hr />
+
+<h2>Rubyのインストール</h2>
+
+<p>やっとここまで来ました。
+ここからは、手順としてはもう少しです。
+PCに頑張ってもらう感じになります。</p>
+
+<p>Rubyをインストールします。
+今回必要なライブラリは1.9.2です。
+新し過ぎても面倒がある感じなので、スバリ1.9.2そのものをおすすめします。</p>
+
+<p><code>
+rvm install 1.9.2 &amp;&amp; rvm use 1.9.2
+rvm rubygems latest
+</code></p>
+
+<p>このコマンドで、Rubyのソースコードをダウンロードしながら、<br/>
+自動的にコンパイルします。ここでさっきのGCCを使うんです。<br/>
+けっこう時間がかかります。</p>
+
+<h2>Gitのインストール</h2>
+
+<p>Gitのインストールは、<code>brew install git</code>とかやってください。
+Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
+
+<p>参考資料：
+ <a href="http://d.hatena.ne.jp/STAR_ZERO/20110815/1313416152">MacにHomebrewをインストールする（ついでにGitも</a></p>
+
+<hr />
+
+<h2>次回</h2>
+
+<p>次回は、Octopressをインストールします。</p>
+
+<hr />
+
+<p>参考資料</p>
+
+<ul>
+<li><a href="http://blog.champierre.com/670">せっかちな人のための git 入門 – git をインストールし、共同で開発できる環境を整えるまで : 僕は発展途上技術者</a></li>
+<li><a href="http://weble.org/2011/02/14/git-mac-install">最速で Git を Mac にインストールして基本的なコマンドを使う方法</a></li>
+<li><a href="http://burnsoft.github.com/blog/blog/2011/09/23/octopress-install-with-screencast/"> Octopressをインストールする動画 ： burnsoft </a></li>
+</ul>
+
+]]></content>
+  </entry>
   
 </feed>
