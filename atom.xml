@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-04-23T23:19:51+09:00</updated>
+  <updated>2012-04-23T23:37:22+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -29,6 +29,18 @@
 <li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">jedipunksさんの記事</a></li>
 </ul>
 
+
+<p>基本的には、それぞれの記事を見てもらうのが一番手っ取り早いので、ここには重ねて書きません。<br/>
+ひとつだけ書きたいと思うのは、フォルダの構成です。</p>
+
+<h2>Octopressのインストールのイメージ</h2>
+
+<p>Octopressのインストールがどんな感じかというと、<br/>
+AppStoreでアプリを買うのとは、だいぶ趣きが違います。</p>
+
+<p>すごく基本的なところから、おさらいをしてみます。
+まず、Octopressは、『アプリケーション』フォルダに入るプログラムではありません。
+ひとつのフォルダを作ってそこにインストールし、そのフォルダをブログの基地として使うイメージです。</p>
 
 <h2>Octopressの構成</h2>
 
