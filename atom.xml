@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-04-24T20:54:27+09:00</updated>
+  <updated>2012-04-24T20:58:43+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -228,7 +228,7 @@ source ~/.zshrc</code></p>
 でもげっそりしないで下さいね。<br/>
 ひとつひとつは大した事じゃないです。うまくいけば・・・</p>
 
-<h3>GCCのインストール {#gcc_install}</h3>
+<h3>GCCのインストール ###   {#gcc_install}</h3>
 
 <p>オイラがインストールを試した中で、一番のポイントは、このGCCでした。<br/>
 公式サイトにも載ってない落とし穴なので、注意して読んで下さい。<br/>
