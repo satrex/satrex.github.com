@@ -147,18 +147,17 @@ Noの方。Linuxをお使いで、Curlが入っていない方は、Curlをイ�
 
 <p>以下のコードを、ターミナルで実行します。</p>
 
-<p><code>
-echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm" # Load RVM function' &gt;&gt; ~/.bash_profile
+<pre><code>echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm" # Load RVM function' &gt;&gt; ~/.bash_profile
 source ~/.bash_profile
-</code></p>
+</code></pre>
 
 <h4>2. zshを使っている方</h4>
 
 <p>オイラも、今回を機にzshデビューしました。このコードをどうぞ。</p>
 
-<p><code>
-echo '[[ -s $HOME/.rvm/scripts/rvm ]] &amp;&amp; source $HOME/.rvm/scripts/rvm' &gt;&gt; ~/.zshrc
-source ~/.zshrc</code></p>
+<pre><code>echo '[[ -s $HOME/.rvm/scripts/rvm ]] &amp;&amp; source $HOME/.rvm/scripts/rvm' &gt;&gt; ~/.zshrc
+source ~/.zshrc`
+</code></pre>
 
 <hr />
 
@@ -183,38 +182,38 @@ Noの方は、ここでは何もしなくていいです。RVMのインストー
 <p>Yesの方は、ここ（→<a href="https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg">GCC-10.7.pkg</a> ）からインストーラをダウンロードして実行します。</p>
 
 <p>そして環境変数CCをシェルのプロファイルに書き込みます。<br/>
-例によって、どちらのシェルを使っているかで、手順が分かれます。<br/>
-書き込むコードはこれです。</p>
-
-<p><code>export CC=/usr/bin/gcc-4.2</code></p>
+例によって、どちらのシェルを使っているかで、手順が分かれます。</p>
 
 <hr />
 
 <h4>bashの方＋なんだか分からない方</h4>
 
-<p>上のコードを、~/.bash_profileに書き、ターミナルを再起動します。<br/>
-こんなふうにコマンドで打つと、勝手にファイルを開くか作って書いてくれます。
-<code>
-echo "export CC=/usr/bin/gcc-4.2" &gt;&gt; ~/.bash_profile
-</code></p>
+<p><code>export CC=/usr/bin/gcc-4.2</code>を、~/.bash_profileに追記し（ファイルがなければ作る）、ターミナルを再起動します。<br/>
+こんなふうにコマンドで打つと、勝手にファイルを開くか作って書いてくれます。</p>
+
+<pre><code>echo "export CC=/usr/bin/gcc-4.2" &gt;&gt; ~/.bash_profile
+</code></pre>
 
 <h5>zshの方</h5>
 
 <p>zshの方は、ファイル名が違います。<br/>
-<code>~/.zprofile</code>ですね。</p>
+<code>export CC=/usr/bin/gcc-4.2</code>を、<code>~/.zprofile</code>に追記してください。</p>
+
+<h5>参考資料：</h5>
+
+<p><a href="http://d.hatena.ne.jp/holypp/20120212/1328992440">MacOSX LionでのRubyの扱い方、またはllvm-gccについて</a><br/>
+<a href="https://gist.github.com/1104557">FIX for Lion&#8217;s posix_spawn_ext.bundle: [BUG] Segmentation fault</a></p>
 
 <hr />
-
-<p>参考資料：<br/>
-- <a href="http://d.hatena.ne.jp/holypp/20120212/1328992440">MacOSX LionでのRubyの扱い方、またはllvm-gccについて</a>
-- <a href="https://gist.github.com/1104557">FIX for Lion&#8217;s posix_spawn_ext.bundle: [BUG] Segmentation fault</a></p>
 
 <h4>Ubuntuの方</h4>
 
 <p>UbuntuではGCCが入ってないので、build-essentialというライブラリをapt-getして下さい。<br/>
 詳しくはリンク先：thincaさんのページを参照。</p>
 
-<p>参考資料：<a href="http://thira.plavox.info/blog/2008/10/ubuntu_gcc_buildessential.html">Ubuntu のデフォルトでは gcc でコンパイルできないので build-essential を入れておく</a></p>
+<h5>参考資料：</h5>
+
+<p><a href="http://thira.plavox.info/blog/2008/10/ubuntu_gcc_buildessential.html">Ubuntu のデフォルトでは gcc でコンパイルできないので build-essential を入れておく</a></p>
 
 <p>詳しくないので、その他のディストリビューションの事はわかりません。</p>
 
@@ -230,10 +229,9 @@ PCに頑張ってもらう感じになります。</p>
 今回必要なライブラリは1.9.2です。
 新し過ぎても面倒がある感じなので、スバリ1.9.2そのものをおすすめします。</p>
 
-<p><code>
-rvm install 1.9.2 &amp;&amp; rvm use 1.9.2
+<pre><code>rvm install 1.9.2 &amp;&amp; rvm use 1.9.2
 rvm rubygems latest
-</code></p>
+</code></pre>
 
 <p>このコマンドで、Rubyのソースコードをダウンロードしながら、<br/>
 自動的にコンパイルします。ここでさっきのGCCを使うんです。<br/>
@@ -244,10 +242,11 @@ rvm rubygems latest
 <p>Gitのインストールは、<code>brew install git</code>とかやってください。
 Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
 
-<p>参考資料：
- <a href="http://d.hatena.ne.jp/STAR_ZERO/20110815/1313416152">MacにHomebrewをインストールする（ついでにGitも</a>
- <a href="http://blog.champierre.com/670">せっかちな人のための git 入門 – git をインストールし、共同で開発できる環境を整えるまで : 僕は発展途上技術者</a><br/>
- <a href="http://weble.org/2011/02/14/git-mac-install">最速で Git を Mac にインストールして基本的なコマンドを使う方法</a></p>
+<h5>参考資料：</h5>
+
+<p><a href="http://d.hatena.ne.jp/STAR_ZERO/20110815/1313416152">MacにHomebrewをインストールする（ついでにGitも</a>
+<a href="http://blog.champierre.com/670">せっかちな人のための git 入門 – githubt をインストールし、共同で開発できる環境を整えるまで : 僕は発展途上技術者</a>
+<a href="http://weble.org/2011/02/14/git-mac-install">最速で Git を Mac にインストールして基本的なコマンドを使う方法</a></p>
 
 <hr />
 

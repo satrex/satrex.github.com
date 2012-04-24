@@ -10,7 +10,7 @@
 
   
   <meta name="description" content="前編の続きです。 Octopressのインストール いよいよOctopressをインストールしていきます。
-ここからは公式サイトやGlideNoteさんの記事、またjedipunksさんの記事が参考になります。 GithubとOctopressでモダンな技術系ブログを作ってみる - &hellip;">
+公式サイトやGlideNoteさんの記事、またjedipunksさんの記事が参考になります。 GithubとOctopressでモダンな技術系ブログを作ってみる - GlideNote &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,13 +96,15 @@
 <h2>Octopressのインストール</h2>
 
 <p>いよいよOctopressをインストールしていきます。
-ここからは公式サイトやGlideNoteさんの記事、またjedipunksさんの記事が参考になります。</p>
+公式サイトやGlideNoteさんの記事、またjedipunksさんの記事が参考になります。</p>
 
 <ul>
 <li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/">GithubとOctopressでモダンな技術系ブログを作ってみる - GlideNote</a></li>
 <li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">github.com で Octopress 構築 - jedipunks</a></li>
 </ul>
 
+
+<p><img src="https://www.evernote.com/shard/s75/sh/1c5fcc0f-7c94-45ba-9f7d-c9c6909bdfb6/a28bb5b09a4b9d7cc11c78e691395ddd/res/0e3d3046-3527-4e16-bc47-53ff68a3a9df/mac_ball-20120423-205850.jpg.jpg" alt="Octocatに似たデザインのmac" /></p>
 
 <h2>GithubPageの取得</h2>
 
@@ -123,15 +125,14 @@ Octopressは、『アプリケーション』フォルダに入るプログラ�
 
 <h2>Octopressのインストール</h2>
 
-<p><code>
-mkdir ユーザー名.github.com  
+<pre><code>mkdir ユーザー名.github.com  
 cd  ユーザー名.github.com  
 git clone git://github.com/imathis/octopress.git octopress  
 cd octopress  
 gem install bundler  
 bundle install  
 rake install # classic テーマのインストール
-</code></p>
+</code></pre>
 
 <p>こんな感じで入れて下さい。
 上の例だと、~/ユーザー名.github.com/octopress
@@ -150,28 +151,26 @@ rake install # classic テーマのインストール
 <p>上の図で示すとおり、Octopressのフォルダ構成は、Octopressフォルダの中にいろいろある感じです。<br/>
 コマンドラインで作業する時には、基本的にカレントディレクトリは『Octopress』フォルダです。</p>
 
-<p> <a href="http://burnsoft.github.com/blog/blog/2011/09/23/octopress-install-with-screencast/"> Octopressをインストールする動画 ： burnsoft </a>
+<p>参考資料；
+ <a href="http://burnsoft.github.com/blog/blog/2011/09/23/octopress-install-with-screencast/"> Octopressをインストールする動画 ： burnsoft </a>
 英語ですが、作業の流れがわかりやすいです。</p>
 
 <h2>Octopressの初期設定</h2>
 
 <p>Octopressの初期設定を行います。</p>
 
-<p><code>
-rake setup_github_pages
+<pre><code>rake setup_github_pages
 Enter the read/write url for your repository:
-</code></p>
+</code></pre>
 
 <p>上で作成したGithub PagesのリポジトリURLを指定します。
-オイラの場合だとこうです。
-<code>
-git@github.com:satrex/satrex.github.com.git
-</code></p>
+オイラの場合だとこうです。</p>
 
-<p><code>
+<pre><code>git@github.com:satrex/satrex.github.com.git
+
 rake generate
 rake deploy
-</code></p>
+</code></pre>
 
 <p>しばらくすると http://satrex.github.com/ にアクセス出来るようになります。</p>
 
@@ -179,8 +178,7 @@ rake deploy
 
 <p>octopressフォルダにある、_config.ymlを変更し、ブログの設定を行います。</p>
 
-<p><code>
-url:                # For rewriting urls for RSS, etc
+<pre><code>url:                # For rewriting urls for RSS, etc
 title:              # Used in the header and title tags
 subtitle:           # A description used in the header
 author:             # Your name, for RSS, Copyright, Metadata
@@ -188,18 +186,19 @@ simple_search:      # Search engine for simple site search
 subscribe_rss:      # Url for your blog's feed, defauts to /atom.xml
 subscribe_email:    # Url to subscribe by email (service required)
 email:              # Email address for the RSS feed if you want it.
-</code></p>
+</code></pre>
 
 <p>設定終了後は、<code>rake gen_deploy</code>でデプロイできます。</p>
 
 <h2>記事の投稿</h2>
 
-<p>ターミナルで、次のコマンドを実行します。
-<code>
-rake new_post["title"]
+<p>ターミナルで、次のコマンドを実行します。</p>
+
+<pre><code>rake new_post["title"]
 rake new_post\["title"\] # zsh の場合
-</code>
-octopress/source/-postsフォルダに、『日付-title.markdown』のようなファイルが生成されます。
+</code></pre>
+
+<p>octopress/source/-postsフォルダに、『日付-title.markdown』のようなファイルが生成されます。
 それを、好きなエディタで編集します。</p>
 
 <p>Markdownという記法を使います。
@@ -213,7 +212,7 @@ Markdownのプレビュー機能が付いているので、書いた記事がど
 <h3>rake installで、バージョンエラーが出る</h3>
 
 <p>お使いのPCに入っているrakeが新しすぎると起こるようです。
-<a href="http://satrex.github.com/blog/2012/04/23/installed-octopress-001/#rvm_install">RVMの設定やインストールを見直し</a>、バージョンを合わせます。
+<a href="http://satrex.github.com/blog/2012Octopress_movie/04/23/installed-octopress-001/#rvm_install">RVMの設定やインストールを見直し</a>、バージョンを合わせます。
 <code>bundle exec rake install</code>と表記すると回避できます。</p>
 
 <h3>rake generateで、コンパイルエラーが出る</h3>
