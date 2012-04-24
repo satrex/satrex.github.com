@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-04-23T23:37:22+09:00</updated>
+  <updated>2012-04-24T20:54:27+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -18,35 +18,135 @@
     <link href="http://satrex.github.com/blog/2012/04/23/installed-octopress-002/"/>
     <updated>2012-04-23T23:05:00+09:00</updated>
     <id>http://satrex.github.com/blog/2012/04/23/installed-octopress-002</id>
-    <content type="html"><![CDATA[<p>前編の続きです。</p>
+    <content type="html"><![CDATA[<p><a href="http://satrex.github.com/blog/2012/04/23/installed-octopress-001/">前編</a>の続きです。</p>
 
 <h2>Octopressのインストール</h2>
 
-<p>ここからは公式サイトやGlideNoteさんの記事、またjedipunksさんの記事が参考になります。</p>
+<p>いよいよOctopressをインストールしていきます。
+ここからは公式サイトやGlideNoteさんの記事、またjedipunksさんの記事が参考になります。</p>
 
 <ul>
-<li><a href="http://www.glidenote.com/archives/1517">GlideNoteさんの記事</a></li>
-<li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">jedipunksさんの記事</a></li>
+<li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/">GithubとOctopressでモダンな技術系ブログを作ってみる - GlideNote</a></li>
+<li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">github.com で Octopress 構築 - jedipunks</a></li>
 </ul>
 
 
-<p>基本的には、それぞれの記事を見てもらうのが一番手っ取り早いので、ここには重ねて書きません。<br/>
-ひとつだけ書きたいと思うのは、フォルダの構成です。</p>
+<h2>GithubPageの取得</h2>
+
+<p><a href="https://github.com/new">Githubの新規プロジェクト画面</a>から、好きな名前でブログ用のリポジトリを作っておきます。</p>
+
+<p><a href="http://www.flickr.com/photos/77475127@N05/6961440688/">Githubから、ブログ用のリポジトリを作る</a></p>
 
 <h2>Octopressのインストールのイメージ</h2>
 
 <p>Octopressのインストールがどんな感じかというと、<br/>
 AppStoreでアプリを買うのとは、だいぶ趣きが違います。</p>
 
-<p>すごく基本的なところから、おさらいをしてみます。
-まず、Octopressは、『アプリケーション』フォルダに入るプログラムではありません。
+<p>すごく基本的なところから解説してみます。
+Octopressは、『アプリケーション』フォルダに入るプログラムではありません。
 ひとつのフォルダを作ってそこにインストールし、そのフォルダをブログの基地として使うイメージです。</p>
+
+<p><img src="" alt="ここにイメージを入れる" /></p>
+
+<h2>Octopressのインストール</h2>
+
+<p><code>
+mkdir ユーザー名.github.com  
+cd  ユーザー名.github.com  
+git clone git://github.com/imathis/octopress.git octopress  
+cd octopress  
+gem install bundler  
+bundle install  
+rake install # classic テーマのインストール
+</code>
+こんな感じで入れて下さい。
+上の例だと、~/ユーザー名.github.com/octopress
+のようになります。</p>
+
+<p>別にアカウントごとにフォルダに分ける必要がなければ、
+~/octopress/ のように構成しても問題ないです。
+その場合は、上のコマンドの最初２つを飛ばします。</p>
 
 <h2>Octopressの構成</h2>
 
 <p>インストールしたOctopressのフォルダ構成と、動作のイメージを紹介します。</p>
 
 <p><img src="https://www.evernote.com/shard/s75/sh/7d825d5b-1923-40c5-8d00-4237ff243e17/6bffbb3957614d2fa4438e7e0ccfa423/res/21ae89ae-4b24-4cf5-a03d-2fbc58a53742/octopress-20120423-154359.jpg.jpg" alt="_config.yamlは設定ファイル、sourceに記事やスタイルを記述、publicにhtmlとCSSが生成される" /></p>
+
+<p>上の図で示すとおり、Octopressのフォルダ構成は、Octopressフォルダの中にいろいろある感じです。<br/>
+コマンドラインで作業する時には、基本的にカレントディレクトリは『Octopress』フォルダです。</p>
+
+<p> <a href="http://burnsoft.github.com/blog/blog/2011/09/23/octopress-install-with-screencast/"> Octopressをインストールする動画 ： burnsoft </a>
+英語ですが、作業の流れがわかりやすいです。</p>
+
+<h2>Octopressの初期設定</h2>
+
+<p>Octopressの初期設定を行います。</p>
+
+<p><code>
+rake setup_github_pages
+Enter the read/write url for your repository:
+</code></p>
+
+<p>上で作成したGithub PagesのリポジトリURLを指定します。
+オイラの場合だとこうです。
+<code>
+git@github.com:satrex/satrex.github.com.git
+</code></p>
+
+<p><code>
+rake generate
+rake deploy
+</code></p>
+
+<p>しばらくすると http://satrex.github.com/ にアクセス出来るようになります。</p>
+
+<h3>_config.ymlの設定</h3>
+
+<p>octopressフォルダにある、_config.ymlを変更し、ブログの設定を行います。</p>
+
+<p><code>
+url:                # For rewriting urls for RSS, etc
+title:              # Used in the header and title tags
+subtitle:           # A description used in the header
+author:             # Your name, for RSS, Copyright, Metadata
+simple_search:      # Search engine for simple site search
+subscribe_rss:      # Url for your blog's feed, defauts to /atom.xml
+subscribe_email:    # Url to subscribe by email (service required)
+email:              # Email address for the RSS feed if you want it.
+</code></p>
+
+<p>設定終了後は、<code>rake gen_deploy</code>でデプロイできます。</p>
+
+<h2>記事の投稿</h2>
+
+<p>ターミナルで、次のコマンドを実行します。
+<code>
+rake new_post["title"]
+rake new_post\["title"\] # zsh の場合
+</code>
+octopress/source/-postsフォルダに、『日付-title.markdown』のようなファイルが生成されます。
+それを、好きなエディタで編集します。</p>
+
+<p>Markdownという記法を使います。
+オイラはVimでやっていますが、まったく予備知識がない場合は、<a href="http://www.bywordapp.com">Byword</a>というエディタをおすすめします。
+Markdownのプレビュー機能が付いているので、書いた記事がどう見えるのか確認しやすいはずです。</p>
+
+<h2>トラブルシューティング</h2>
+
+<p>作業をしてて困った事を、ここにメモとして残しておきます。</p>
+
+<h3>rake installで、バージョンエラーが出る</h3>
+
+<p>お使いのPCに入っているrakeが新しすぎると起こるようです。
+RVMの設定やインストールを見直し、バージョンを合わせます。
+<code>bundle exec rake install</code>と表記すると回避できます。</p>
+
+<h3>rake generateで、コンパイルエラーが出る</h3>
+
+<p>posix-spawnなどのエラーに悩みました。
+GCCの問題で起こるようです。
+<a href="http://satrex.github.com/blog/2012/04/23/installed-octopress-001/#gcc_install">GCCのインストール</a>の項を見直してください。</p>
 ]]></content>
   </entry>
   
@@ -128,7 +228,7 @@ source ~/.zshrc</code></p>
 でもげっそりしないで下さいね。<br/>
 ひとつひとつは大した事じゃないです。うまくいけば・・・</p>
 
-<h3>GCCのインストール</h3>
+<h3>GCCのインストール {#gcc_install}</h3>
 
 <p>オイラがインストールを試した中で、一番のポイントは、このGCCでした。<br/>
 公式サイトにも載ってない落とし穴なので、注意して読んで下さい。<br/>
@@ -206,24 +306,15 @@ rvm rubygems latest
 Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
 
 <p>参考資料：
- <a href="http://d.hatena.ne.jp/STAR_ZERO/20110815/1313416152">MacにHomebrewをインストールする（ついでにGitも</a></p>
+ <a href="http://d.hatena.ne.jp/STAR_ZERO/20110815/1313416152">MacにHomebrewをインストールする（ついでにGitも</a>
+ <a href="http://blog.champierre.com/670">せっかちな人のための git 入門 – git をインストールし、共同で開発できる環境を整えるまで : 僕は発展途上技術者</a><br/>
+ <a href="http://weble.org/2011/02/14/git-mac-install">最速で Git を Mac にインストールして基本的なコマンドを使う方法</a></p>
 
 <hr />
 
 <h2>次回</h2>
 
-<p>次回は、Octopressをインストールします。</p>
-
-<hr />
-
-<p>参考資料</p>
-
-<ul>
-<li><a href="http://blog.champierre.com/670">せっかちな人のための git 入門 – git をインストールし、共同で開発できる環境を整えるまで : 僕は発展途上技術者</a></li>
-<li><a href="http://weble.org/2011/02/14/git-mac-install">最速で Git を Mac にインストールして基本的なコマンドを使う方法</a></li>
-<li><a href="http://burnsoft.github.com/blog/blog/2011/09/23/octopress-install-with-screencast/"> Octopressをインストールする動画 ： burnsoft </a></li>
-</ul>
-
+<p><a href="http://satrex.github.com/blog/2012/04/23/installed-octopress-002/">次回</a>は、いよいよOctopressをインストールします。</p>
 ]]></content>
   </entry>
   
