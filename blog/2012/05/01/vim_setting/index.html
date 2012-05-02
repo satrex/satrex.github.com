@@ -5,15 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Blog Archive - 電気羊の執務室</title>
+  <title>vimの設定見直し中 - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="Blog Archive 2012 vimの設定見直し中
-May 01 2012 これからやりたいこと
-Apr 27 2012 Octopressのインストール（後編）
-Apr 23 2012 Octopressのインストール（前編）
-Apr 23 2012 Recent Posts &hellip;">
+  <meta name="description" content="vimの設定を見直しています。
+最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
+コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。 今の設定で行くと、いろいろと超えないといけない壁がある感じがしています。 NeoComplCacheが使えない &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +20,7 @@ Apr 23 2012 Recent Posts &hellip;">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/archives">
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/05/01/vim_setting">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -67,61 +65,113 @@ Apr 23 2012 Recent Posts &hellip;">
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Blog Archive</h1>
+    
+      <h1 class="entry-title">Vimの設定見直し中</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-01T22:43:00+09:00" pubdate data-updated="true">2012-05-01 22:43 +0900</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives">
 
 
+<div class="entry-content"><p>vimの設定を見直しています。
+最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
+コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。</p>
 
-  
-  <h2>2012</h2>
+<p>今の設定で行くと、いろいろと超えないといけない壁がある感じがしています。</p>
 
-<article>
-  
-<h1><a href="/blog/2012/05/01/vim_setting/">vimの設定見直し中</a></h1>
-<time datetime="2012-05-01T22:43:00+09:00" pubdate><span class='month'>May</span> <span class='day'>01</span> <span class='year'>2012</span></time>
+<h3>NeoComplCacheが使えない</h3>
 
+<p>最大の問題は、NeoComplCacheがコマンドラインからは使えないこと。
+rbファイルやHTMLファイルを編集しようとすると、
+ファイルを開いた時か保存した時のどちらかに、猛烈な勢いでエラーを吐きまくります（詳細は画像参照）。</p>
 
-</article>
+<p>もう一点重大な問題として、日本語入力などの設定が、コマンドラインからのVimでは不便すぎる。</p>
 
-
-
-<article>
-  
-<h1><a href="/blog/2012/04/27/task_remain/">これからやりたいこと</a></h1>
-<time datetime="2012-04-27T07:51:00+09:00" pubdate><span class='month'>Apr</span> <span class='day'>27</span> <span class='year'>2012</span></time>
-
-
-</article>
+<ul>
+<li>IMEが全ての入力に優先している。Vimのモード切替などは、日本語入力中でも、半角で受け付けてくれないと不便です。</li>
+<li>Insertモードにすると、カーソルキーでカーソルが移動できない（A〜Dの入力で代替される）
+nocompatible作戦と, imap ^[OA <Up>作戦を試した結果、改善されないので諦めました。</li>
+</ul>
 
 
+<p>基本はGvimを立ち上げるが吉、で当面やってみようかと思います。
+むしろGvimのコマンドラインがzshになってくれたら文句ないんですが、
+Vimのコマンドでlessを使うたびに、『ターミナルの全機能が使えるなんて思うなよ』と言われてしまうので、
+半ば諦めています。おわり。</p>
 
-<article>
-  
-<h1><a href="/blog/2012/04/23/installed-octopress-002/">Octopressのインストール（後編）</a></h1>
-<time datetime="2012-04-23T23:05:00+09:00" pubdate><span class='month'>Apr</span> <span class='day'>23</span> <span class='year'>2012</span></time>
+<h3>エラーメッセージの画像</h3>
 
-
-</article>
-
-
-
-<article>
-  
-<h1><a href="/blog/2012/04/23/installed-octopress-001/">Octopressのインストール（前編）</a></h1>
-<time datetime="2012-04-23T12:47:00+09:00" pubdate><span class='month'>Apr</span> <span class='day'>23</span> <span class='year'>2012</span></time>
+<div class="thumbnail"><a href="https://skitch.com/sat-rex/8aqq2/tmux-114x44"><img style="max-width:638px" src="https://img.skitch.com/20120502-ep9y7r2mj68ey3rcgdmy2u86kj.medium.jpg" alt="tmux-114×44" /></a></div>
 
 
-</article>
+<div class="thumbnail"><a href="https://skitch.com/sat-rex/8axfu/tmux-114x44-1-3"><img style="max-width:638px" src="https://img.skitch.com/20120502-cb8ih2ksrnnfxk7bkgsujpk1ud.medium.jpg" alt="tmux-114×44-1-3" /></a></div>
+
+
+<div class="thumbnail"><a href="https://skitch.com/sat-rex/8axrb/tmux-114x44-3"><img style="max-width:638px" src="https://img.skitch.com/20120502-tt6iku576gwk3sx96yeh32jspx.medium.jpg" alt="tmux-114×44-3" /></a></div>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-01T22:43:00+09:00" pubdate data-updated="true">2012-05-01 22:43 +0900</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/05/01/vim_setting/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/05/01/vim_setting/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/27/task_remain/" title="Previous Post: これからやりたいこと">&laquo; これからやりたいこと</a>
+      
+      
+    </p>
+  </footer>
 </article>
 
 </div>
