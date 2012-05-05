@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-05-03T21:27:41+09:00</updated>
+  <updated>2012-05-05T23:07:07+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -12,6 +12,25 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[デザイン変えてみた]]></title>
+    <link href="http://satrex.github.com/blog/2012/05/05/design_changed/"/>
+    <updated>2012-05-05T22:14:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/05/05/design_changed</id>
+    <content type="html"><![CDATA[<p>連休のまとまった時間を利用して、Octopressの勉強がてら、スタイルの設定をがっつりやってみました。
+デフォルトのClassicテーマから、<a href="http://blog.glidenote.com/">GlideNote</a>風のデザインへ。</p>
+
+<p>たぶん、細かい書式を使うとレイアウトが崩れると思うので、これから少しずつブラッシュアップしていければよいでしょう。</p>
+
+<h2>感謝を込めて</h2>
+
+<p>かなりの部分を参考にさせて頂いた<a href="http://twitter.com/glidenote">GlideNoteさん</a>に、感謝の意を表します。好き過ぎてパクっちゃいました★</p>
+
+<p>そもそもOctopress、zshなど、GlideNoteさんの記事を読んでは、もろもろパクり倒してます。
+本当にありがとうございます。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[vimの設定見直し中]]></title>
@@ -22,20 +41,21 @@
 最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
 コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。</p>
 
-<p>今の設定で行くと、いろいろと超えないといけない壁がある感じがしています。</p>
+<p>今の設定で行くと、いろいろと超えないといけない壁がある感じです。</p>
 
 <h3>NeoComplCacheが使えない</h3>
 
-<p>最大の問題は、NeoComplCacheがコマンドラインからは使えないこと。
+<p>最大の問題は、NeoComplCacheがコマンドラインからは使えないこと。<br/>
 rbファイルやHTMLファイルを編集しようとすると、
 ファイルを開いた時か保存した時のどちらかに、猛烈な勢いでエラーを吐きまくります（詳細は画像参照）。</p>
 
-<p>もう一点重大な問題として、日本語入力などの設定が、コマンドラインからのVimでは不便すぎる。</p>
+<p>もう一点重大な問題として、日本語入力などの設定が、コマンドラインからのVimでは不便すぎます。</p>
 
 <ul>
-<li>IMEが全ての入力に優先している。Vimのモード切替などは、日本語入力中でも、半角で受け付けてくれないと不便です。</li>
-<li>Insertモードにすると、カーソルキーでカーソルが移動できない（A〜Dの入力で代替される）
-nocompatible作戦と, imap ^[OA <Up>作戦を試した結果、改善されないので諦めました。</li>
+<li>IMEが全ての入力に優先している。<br/>
+Vimのモード切替などは、日本語入力中でも、半角で受け付けてくれないと不便です。</li>
+<li>Insertモードにすると、カーソルキーでカーソルが移動できない（A〜Dの入力で代替される）。
+set nocompatibleと, imap ^[OA <Up>を試した結果、改善されないので諦めました。</li>
 </ul>
 
 

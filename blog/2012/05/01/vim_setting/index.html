@@ -11,7 +11,7 @@
   
   <meta name="description" content="vimの設定を見直しています。
 最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
-コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。 今の設定で行くと、いろいろと超えないといけない壁がある感じがしています。 NeoComplCacheが使えない &hellip;">
+コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。 今の設定で行くと、いろいろと超えないといけない壁がある感じです。 NeoComplCacheが使えない &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -30,6 +30,8 @@
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="/stylesheets/e-sheep.css" media="screen, projection" rel="stylesheet" type="text/css">
+
 
   
 
@@ -37,7 +39,11 @@
 
 <body   >
   <header role="banner"><hgroup>
-  <h1><a href="/">電気羊の執務室</a></h1>
+<div class="title_img">
+    <a href="/"><img src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+ <!--   <img src="/images/sheep3.png" alt="ひつじマーク" />
+--></div>
+<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
   
     <h2>魔法を作る仕事をしています。</h2>
   
@@ -96,20 +102,21 @@
 最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
 コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。</p>
 
-<p>今の設定で行くと、いろいろと超えないといけない壁がある感じがしています。</p>
+<p>今の設定で行くと、いろいろと超えないといけない壁がある感じです。</p>
 
 <h3>NeoComplCacheが使えない</h3>
 
-<p>最大の問題は、NeoComplCacheがコマンドラインからは使えないこと。
+<p>最大の問題は、NeoComplCacheがコマンドラインからは使えないこと。<br/>
 rbファイルやHTMLファイルを編集しようとすると、
 ファイルを開いた時か保存した時のどちらかに、猛烈な勢いでエラーを吐きまくります（詳細は画像参照）。</p>
 
-<p>もう一点重大な問題として、日本語入力などの設定が、コマンドラインからのVimでは不便すぎる。</p>
+<p>もう一点重大な問題として、日本語入力などの設定が、コマンドラインからのVimでは不便すぎます。</p>
 
 <ul>
-<li>IMEが全ての入力に優先している。Vimのモード切替などは、日本語入力中でも、半角で受け付けてくれないと不便です。</li>
-<li>Insertモードにすると、カーソルキーでカーソルが移動できない（A〜Dの入力で代替される）
-nocompatible作戦と, imap ^[OA <Up>作戦を試した結果、改善されないので諦めました。</li>
+<li>IMEが全ての入力に優先している。<br/>
+Vimのモード切替などは、日本語入力中でも、半角で受け付けてくれないと不便です。</li>
+<li>Insertモードにすると、カーソルキーでカーソルが移動できない（A〜Dの入力で代替される）。
+set nocompatibleと, imap ^[OA <Up>を試した結果、改善されないので諦めました。</li>
 </ul>
 
 
@@ -170,6 +177,8 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
         <a class="basic-alignment left" href="/blog/2012/04/27/task_remain/" title="Previous Post: これからやりたいこと">&laquo; これからやりたいこと</a>
       
       
+        <a class="basic-alignment right" href="/blog/2012/05/05/design_changed/" title="Next Post: デザイン変えてみた">デザイン変えてみた &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -195,6 +204,10 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/05/design_changed/">デザイン変えてみた</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2012/05/01/vim_setting/">vimの設定見直し中</a>
