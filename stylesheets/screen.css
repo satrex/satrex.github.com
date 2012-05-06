@@ -163,10 +163,10 @@ body {
 }
 
 .entry-content p {
-  line-height: 1.98em;
+  line-height: 1.76em;
 }
 .entry-content li {
-  margin-bottom: 0.6em;
+  margin-bottom: 0.4em;
 }
 
 @media only screen and (min-width: 992px) {
@@ -201,7 +201,7 @@ h6, section h5, section section h4, section section section h3 {
 }
 
 p, blockquote, ul, ol {
-  margin-bottom: 1.5em;
+  margin-bottom: 1.1em;
 }
 
 ul {
@@ -560,7 +560,6 @@ body.sidebar-footer .toggle-sidebar {
     margin-right: 20px;
   }
   #content > div, #content > article {
-    padding-top: 17.5px;
     padding-bottom: 17.5px;
     float: left;
   }
@@ -620,7 +619,6 @@ body.sidebar-footer .toggle-sidebar {
   }
 
   #content > div, #content > article {
-    padding-top: 27.5px;
     padding-bottom: 27.5px;
   }
 
@@ -1584,7 +1582,7 @@ figure.code .highlight {
   color: #002b36;
 }
 #blog-archives article {
-  padding: 1em 0 1em;
+  padding: 0em 0 1em;
   position: relative;
   background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAABCAYAAACsXeyTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAFUlEQVQIHWNIS0sr/v//PwMMDzY+ADqMahlW4J91AAAAAElFTkSuQmCC') bottom left repeat-x;
 }
@@ -1984,4 +1982,11 @@ body > footer p:last-child {
 .entry-content {
   margin-left: 40px;
   margin-right: 40px;
+}
+.entry-content h2 {
+  padding-left: 34px;
+  padding-bottom: 0.1em;
+  background-image: url("/images/sheep2.png");
+  background-repeat: no-repeat;
+  background-position: left bottom;
 }
