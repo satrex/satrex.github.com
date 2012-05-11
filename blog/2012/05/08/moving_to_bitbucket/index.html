@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>デザイン変えてみた - 電気羊の執務室</title>
+  <title>bitbucketへ引っ越してみた - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="連休のまとまった時間を利用して、Octopressの勉強がてら、スタイルの設定をがっつりやってみました。デフォルトのClassicテーマから、GlideNote風のデザインへ。たぶん、細かい書式を使うとレイアウトが崩れると思うので、これから少しずつブラッシュアップしていければよいでしょう。 &hellip;">
+  <meta name="description" content="ブログのリポジトリを、githubからbitbucketへ移してみました。だんだんGitの使い方に習熟してきたので、楽になってきました。下書きモードoctopressの取り扱いに慣れるため、published=falseの下書きモードを使ってみています。記事のヘッダーのpublished: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2012/05/05/design_changed">
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -101,7 +101,7 @@
   
   <header>
     
-      <h1 class="entry-title">デザイン変えてみた</h1>
+      <h1 class="entry-title">Bitbucketへ引っ越してみた</h1>
     
     
       <p class="meta">
@@ -117,24 +117,37 @@
   
 
 
-<time datetime="2012-05-05T22:14:00+09:00" pubdate data-updated="true">2012-05-05 22:14</time>
+<time datetime="2012-05-08T20:59:00+09:00" pubdate data-updated="true">2012-05-08 20:59</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>連休のまとまった時間を利用して、Octopressの勉強がてら、スタイルの設定をがっつりやってみました。
-デフォルトのClassicテーマから、<a href="http://blog.glidenote.com/">GlideNote</a>風のデザインへ。</p>
+<div class="entry-content"><p>ブログのリポジトリを、githubからbitbucketへ移してみました。
+だんだんGitの使い方に習熟してきたので、楽になってきました。</p>
 
-<p>たぶん、細かい書式を使うとレイアウトが崩れると思うので、これから少しずつブラッシュアップしていければよいでしょう。</p>
+<h2>下書きモード</h2>
 
-<h2>感謝を込めて</h2>
+<p>octopressの取り扱いに慣れるため、published=falseの下書きモードを使ってみています。
+記事のヘッダーのpublished:をfalseに設定することで、その記事は下書きとなります。
+ローカルでプレビューすることができるのはpublish:trueの時と同じですが、リポジトリにpushしても非公開になっているところが違います。</p>
 
-<p>かなりの部分を参考にさせて頂いた<a href="http://twitter.com/glidenote">GlideNoteさん</a>に、感謝の意を表します。好き過ぎてパクっちゃいました★</p>
+<h2>使い道について考えてみた</h2>
 
-<p>そもそもOctopress、zshなど、GlideNoteさんの記事を読んでは、もろもろパクり倒してます。
-本当にありがとうございます。</p>
+<p>ローカルのプレビューができれば、下書きモードのpushはあまり恩恵がないような気がしますが・・・
+どんな時に便利なんでしょうか。</p>
+
+<p>タイマーで予約投稿ができれば便利な気がします。</p>
+
+<h2>その後</h2>
+
+<p>結局、bitbucketは記事のソースだけを管理することにし、
+記事はgithub pagesを使う事にしました。</p>
+
+<p>理由は、bitbucketは<strong>CNAMEが有料オプション</strong>だからです。
+画像はSkitchに置くことにし、Skitchから効率よくMarkdownに書けるように
+工夫します。</p>
 </div>
 
 
@@ -157,15 +170,21 @@
   
 
 
-<time datetime="2012-05-05T22:14:00+09:00" pubdate data-updated="true">2012-05-05 22:14</time>
+<time datetime="2012-05-08T20:59:00+09:00" pubdate data-updated="true">2012-05-08 20:59</time>
       
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/octopress/'>octopress</a>
+  
+</span>
 
 
     </p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/05/05/design_changed/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/05/05/design_changed/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket/" >Tweet</a>
   
   
   
@@ -174,10 +193,10 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/05/01/vim_setting/" title="Previous Post: vimの設定見直し中">&laquo; vimの設定見直し中</a>
+        <a class="basic-alignment left" href="/blog/2012/05/06/todo/" title="Previous Post: これからやりたいこと">&laquo; これからやりたいこと</a>
       
       
-        <a class="basic-alignment right" href="/blog/2012/05/06/todo/" title="Next Post: これからやりたいこと">これからやりたいこと &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2012/05/08/hatena_never_appears/" title="Next Post: はてブが表示されないなぁ">はてブが表示されないなぁ &raquo;</a>
       
     </p>
   </footer>
@@ -297,8 +316,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2012/05/05/design_changed/';
-        var disqus_url = 'http://satrex.github.com/blog/2012/05/05/design_changed/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket/';
         var disqus_script = 'embed.js';
       
     (function () {

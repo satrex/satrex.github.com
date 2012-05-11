@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-05-06T10:47:46+09:00</updated>
+  <updated>2012-05-12T06:50:42+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -12,6 +12,60 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[はてブが表示されないなぁ]]></title>
+    <link href="http://satrex.github.com/blog/2012/05/08/hatena_never_appears/"/>
+    <updated>2012-05-08T21:43:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/05/08/hatena_never_appears</id>
+    <content type="html"><![CDATA[<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">T.I.D</a>さんの記事を見ながら、<br/>
+このブログにはてブボタンを設置しようとしています。</p>
+
+<p>ブックマークされる事は書けないかも知れませんが、何事も勉強です。</p>
+
+<h2>どううまく行かないか</h2>
+
+<p>はてブボタンの領域は確保してありそうなのですが、表示がうまくいっていないようです。</p>
+
+<p><img src="https://img.skitch.com/20120511-mibj9s3y2ijm21iasjsjcs8i5k.gif" alt="はてブボタンがある？？" /></p>
+
+<h2>参考資料</h2>
+
+<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">Octopressにはてブボタンを設置する - T.I.D.</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[bitbucketへ引っ越してみた]]></title>
+    <link href="http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket/"/>
+    <updated>2012-05-08T20:59:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket</id>
+    <content type="html"><![CDATA[<p>ブログのリポジトリを、githubからbitbucketへ移してみました。
+だんだんGitの使い方に習熟してきたので、楽になってきました。</p>
+
+<h2>下書きモード</h2>
+
+<p>octopressの取り扱いに慣れるため、published=falseの下書きモードを使ってみています。
+記事のヘッダーのpublished:をfalseに設定することで、その記事は下書きとなります。
+ローカルでプレビューすることができるのはpublish:trueの時と同じですが、リポジトリにpushしても非公開になっているところが違います。</p>
+
+<h2>使い道について考えてみた</h2>
+
+<p>ローカルのプレビューができれば、下書きモードのpushはあまり恩恵がないような気がしますが・・・
+どんな時に便利なんでしょうか。</p>
+
+<p>タイマーで予約投稿ができれば便利な気がします。</p>
+
+<h2>その後</h2>
+
+<p>結局、bitbucketは記事のソースだけを管理することにし、
+記事はgithub pagesを使う事にしました。</p>
+
+<p>理由は、bitbucketは<strong>CNAMEが有料オプション</strong>だからです。
+画像はSkitchに置くことにし、Skitchから効率よくMarkdownに書けるように
+工夫します。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[これからやりたいこと]]></title>
