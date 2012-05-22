@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | 電気羊の執務室]]></title>
   <link href="http://satrex.github.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-05-12T07:08:53+09:00</updated>
+  <updated>2012-05-22T23:40:21+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[はてブが表示されないなぁ]]></title>
-    <link href="http://satrex.github.com/blog/2012/05/08/hatena_never_appears/"/>
-    <updated>2012-05-08T21:43:00+09:00</updated>
-    <id>http://satrex.github.com/blog/2012/05/08/hatena_never_appears</id>
+    <link href="http://satrex.github.com/blog/2012/05/11/hatena_never_appears/"/>
+    <updated>2012-05-11T07:09:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/05/11/hatena_never_appears</id>
     <content type="html"><![CDATA[<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">T.I.D</a>さんの記事を見ながら、<br/>
 このブログにはてブボタンを設置しようとしています。</p>
 

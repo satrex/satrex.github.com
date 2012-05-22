@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-05-12T07:08:53+09:00</updated>
+  <updated>2012-05-22T23:40:21+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -14,10 +14,66 @@
 
   
   <entry>
+    <title type="html"><![CDATA[Three.jsを試してみた]]></title>
+    <link href="http://satrex.github.com/blog/2012/05/22/three_js_tutorial/"/>
+    <updated>2012-05-22T19:50:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/05/22/three_js_tutorial</id>
+    <content type="html"><![CDATA[<p><a href="http://kray.jp/blog/three-js/">krayさんのサイト</a>を丸写しで、Three.jsを試してみました。
+うまくいったので、お礼かたがた書いてみます。</p>
+
+<h3>うまくいったこと</h3>
+
+<p>いくつか、これは助かったなぁと思う事を書いてみます。</p>
+
+<h4>Three.jsの扱い</h4>
+
+<p>まず<a href="https://github.com/mrdoob/three.js/">ソース</a>をCloneして、さてどう使うんだろうと考えちゃいました。
+そうだ<a href="https://github.com/mrdoob/three.js/#readme">ReadMe</a>を見よう、という事で見てみると、minimize版をHTMLヘッダーで参照すればいいとのこと。</p>
+
+<p><img src="https://img.skitch.com/20120522-xguus9rca1pn9eeps3ceygnrbn.gif" alt="３Dの立方体がぐりぐり動く" /></p>
+
+<p>なるほど。
+チュートリアルやwikiも充実してるようなので、しばらく入り浸ってみたいです。</p>
+
+<h4>FireFoxのいいところ</h4>
+
+<p>とくに他のブラウザと比較しての話ではないです。
+cmd-uでソースの表示。そこからリンクを辿ってスクリプトなど見れるので、追いかけやすいなぁと。
+強いて言えば、ソースにシンタックスハイライトしてくれれば最高です。</p>
+
+<p>あと、３DでDOMツリーが見れるのが面白いです。</p>
+
+<h3>うまくいかなかったこと</h3>
+
+<p>逆に、これはまだよくわかってないぞ、という部分について。</p>
+
+<h4>javascriptの補完</h4>
+
+<p>neocomplcacheがないVimは使いません。というくらい、オイラは補完が好きです。
+補完がないとコードが書きたくないです。
+で、javascriptのシンタックスや、Three.js内のメソッド名など、持ってきてほしいものがいくつかありました。</p>
+
+<p>あとでneocomplcacheのヘルプをよく読んでみます。</p>
+
+<h4>SketchUpとThree.jsの連携</h4>
+
+<p>SketchUpでモデリングして、Webサイトに載せてぐりぐり動かす、とかできると最高です。</p>
+
+<p>SketchUpはWindows版だとBridgeというライブラリでEclipseからスクリプトが実行できるのですが、いかんせんmacではBridgeが通用せず。
+まだレベルが足りなくて、Bridgeを移植しようにも、どう手をつけていいのかわかりません。</p>
+
+<p>VimからSketchUpのRubyコンソールのウィンドウハンドルを取って、文字を入力してExecuteScriptコマンドを流せばいいはずです。</p>
+
+<p>でもどうすればそれができるか分かりません。
+ざんねん。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[はてブが表示されないなぁ]]></title>
-    <link href="http://satrex.github.com/blog/2012/05/08/hatena_never_appears/"/>
-    <updated>2012-05-08T21:43:00+09:00</updated>
-    <id>http://satrex.github.com/blog/2012/05/08/hatena_never_appears</id>
+    <link href="http://satrex.github.com/blog/2012/05/11/hatena_never_appears/"/>
+    <updated>2012-05-11T07:09:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/05/11/hatena_never_appears</id>
     <content type="html"><![CDATA[<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">T.I.D</a>さんの記事を見ながら、<br/>
 このブログにはてブボタンを設置しようとしています。</p>
 
