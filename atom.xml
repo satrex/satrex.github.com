@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-05-22T23:42:40+09:00</updated>
+  <updated>2012-05-23T05:14:22+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -35,7 +35,7 @@
 <p>なるほど。
 チュートリアルやwikiも充実してるようなので、しばらく入り浸ってみたいです。</p>
 
-<h4>FireFoxのいいところ</h4>
+<h3>FireFoxのいいところ</h3>
 
 <p>とくに他のブラウザと比較しての話ではないです。
 cmd-uでソースの表示。そこからリンクを辿ってスクリプトなど見れるので、追いかけやすいなぁと。
@@ -43,11 +43,11 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 
 <p>あと、３DでDOMツリーが見れるのが面白いです。</p>
 
-<h3>うまくいかなかったこと</h3>
+<h2>うまくいかなかったこと</h2>
 
 <p>逆に、これはまだよくわかってないぞ、という部分について。</p>
 
-<h4>javascriptの補完</h4>
+<h3>javascriptの補完</h3>
 
 <p>neocomplcacheがないVimは使いません。というくらい、オイラは補完が好きです。
 補完がないとコードが書きたくないです。
@@ -55,7 +55,7 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 
 <p>あとでneocomplcacheのヘルプをよく読んでみます。</p>
 
-<h4>SketchUpとThree.jsの連携</h4>
+<h3>SketchUpとThree.jsの連携</h3>
 
 <p>SketchUpでモデリングして、Webサイトに載せてぐりぐり動かす、とかできると最高です。</p>
 
@@ -65,7 +65,8 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 <p>VimからSketchUpのRubyコンソールのウィンドウハンドルを取って、文字を入力してExecuteScriptコマンドを流せばいいはずです。</p>
 
 <p>でもどうすればそれができるか分かりません。
-ざんねん。</p>
+ざんねん。
+いつかは！</p>
 ]]></content>
   </entry>
   
