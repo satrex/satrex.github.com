@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-05-23T05:14:22+09:00</updated>
+  <updated>2012-05-30T02:00:37+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MacでSketchUpのRubyスクリプトを自動実行]]></title>
+    <link href="http://satrex.github.com/blog/2012/05/29/sketchup_activation/"/>
+    <updated>2012-05-29T21:39:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/05/29/sketchup_activation</id>
+    <content type="html"><![CDATA[<p>以前に書いていた、GoogleSketchUpのコードをVimから書けるプラグインを書いています。</p>
+
+<p>Windowsでは、Bridgeという神アプリで、Eclipse上から
+SketchUpを操作する事ができますが、macには対応しません。</p>
+
+<h2>AppleScriptでなんとかしてみた</h2>
+
+<p>そこで、macで実行中のSketchUpでRubyコードを実行できる
+AppleScriptを書きました。</p>
+
+<p>これをVimから実行することで、Vimで書いているRubyスクリプトを、
+SketchUp上で実行する事ができるはずです。</p>
+
+<p>Bridgeと比べると格段にしょぼい作りですが、
+今までの面倒に比べれば天と地の差です。</p>
+
+<h2>現状</h2>
+
+<p>とりあえず、SketchUpが最前面に出て、Rubyコンソールが開き、
+クリップボードの文字列をペーストするだけです。</p>
+
+<p>Vim側はまだありません。</p>
+
+<h2>次のアクション</h2>
+
+<p>Vim側で、バッファの全文字列を取得する処理＋
+このAppleScriptを呼び出す処理を書けば、
+うまくいくかも知れません。</p>
+
+<p>SketchUpスクリプトファイルのフォルダは込み入ったパスにあるので、
+新規作成機能も欲しいです。</p>
+
+<p>glidenoteさんのOctoEditorをForkして作ってみようかな・・・
+と考えています。</p>
+
+<h2>ソース</h2>
+
+<script src="https://gist.github.com/2829474.js"> </script>
+
+
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Three.jsを試してみた]]></title>
