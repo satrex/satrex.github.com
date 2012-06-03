@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-06-04T05:45:14+09:00</updated>
+  <updated>2012-06-04T06:05:19+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -23,17 +23,21 @@ VimでSketchUpRubyを実行できるプラグインをリリースしました�
 
 <h2>動作のイメージ</h2>
 
+<p>例えば、スクリプトで三角形を描いてみます。
+初めに、SketchUpを起動します。
+これが初期画面。ちなみに、女の子の名前はサンちゃんです。</p>
+
 <p><img src="https://img.skitch.com/20120603-bi3hcwd594ubauj132rkhkwk92.gif" alt="SketchUpの初期画面" /></p>
 
-<p>何もないところに、スクリプトで三角形を描きます。</p>
+<p>何もないところに、Rubyスクリプトで三角形を描きます。
+まず、VimでSketchUp用のスクリプトを書きます。</p>
 
 <p><img src="https://img.skitch.com/20120603-e29j4n2sq9hk15mmfrqj461sib.gif" alt="VimでRubyスクリプトを書いたところ" /></p>
 
-<p>VimでSketchUp用のスクリプトを書きます。
-そして、”￥sur”とキーボードで入力すると、
+<p>そして、”￥sur”とキーボードで入力すると、
 SketchUpの画面に変化が起きます。</p>
 
-<p><img src="https://img.skitch.com/20120603-ceka4adyr816iw66db3q2u1ca1.gif" alt="三角形が出たところ" /></p>
+<p><img src="https://img.skitch.com/20120603-jmbeicj5qw2xp1rmujb42cqub.gif" alt="三角形が出たところ" /></p>
 
 <p>三角形が描けました。</p>
 
@@ -42,9 +46,12 @@ SketchUpの画面に変化が起きます。</p>
 <p>このスクリプトを、GitHubに登録しました。
 リポジトリは<a href="https://github.com/satrex/VimSketchUpRuby">ここです</a>。</p>
 
-<h2>ここからの展望</h2>
+<h2>これから</h2>
 
-<p>Vimで書けるようになったからには、
+<p>インストールの仕方、初期設定など、
+使い方に関する記事を書きます。</p>
+
+<p>VimでSketchUpRubyが書けるようになったからには、
 補完の支援を受けたり、SketchUpAPIのヘルプをローカルで
 見たりできるようになりたいです。</p>
 
