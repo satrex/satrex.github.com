@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-05-30T02:00:37+09:00</updated>
+  <updated>2012-06-04T01:59:26+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[vimsketchup]]></title>
+    <link href="http://satrex.github.com/blog/2012/06/04/vimsketchup/"/>
+    <updated>2012-06-04T00:38:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/06/04/vimsketchup</id>
+    <content type="html"><![CDATA[<p>VimでSketchUpのRubyスクリプトを書きたい方に朗報です。
+VimでSketchUpRubyを実行できるプラグインをリリースしました。</p>
+
+<h2>動作のイメージ</h2>
+
+<p><img src="https://img.skitch.com/20120603-bi3hcwd594ubauj132rkhkwk92.gif" alt="SketchUpの初期画面" /></p>
+
+<p>何もないところに、スクリプトで三角形を描きます。</p>
+
+<p><img src="https://img.skitch.com/20120603-e29j4n2sq9hk15mmfrqj461sib.gif" alt="VimでRubyスクリプトを書いたところ" /></p>
+
+<p>VimでSketchUp用のスクリプトを書きます。
+そして、”￥sur”とキーボードで入力すると、
+SketchUpの画面に変化が起きます。</p>
+
+<p><img src="https://img.skitch.com/20120603-ceka4adyr816iw66db3q2u1ca1.gif" alt="三角形が出たところ" /></p>
+
+<p>三角形が描けました。</p>
+
+<h2>GitHubに登録しました</h2>
+
+<p>このスクリプトを、GitHubに登録しました。
+リポジトリは<a href="https://github.com/satrex/VimSketchUpRuby">ここです</a>。</p>
+
+<h2>ここからの展望</h2>
+
+<p>Vimで書けるようになったからには、
+補完の支援を受けたり、SketchUpAPIのヘルプをローカルで
+見たりできるようになりたいです。</p>
+
+<p>Rubyの補完は弱いので限界はあるのですが、
+現在はdictファイルを使って、補完に挑戦しています。</p>
+
+<h2>感想</h2>
+
+<p>前々から作りたいと言っていたプラグインです。
+やっと完成を見ることができました。
+長かったです。</p>
+
+<p>相変わらず、VimScriptもSketchUpAPIも手探りですが、
+困るのに慣れてきました。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[MacでSketchUpのRubyスクリプトを自動実行]]></title>

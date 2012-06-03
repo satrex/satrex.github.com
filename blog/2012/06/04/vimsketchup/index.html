@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Three.jsを試してみた - 電気羊の執務室</title>
+  <title>vimsketchup - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="krayさんのサイトを丸写しで、Three.jsを試してみました。うまくいったので、お礼かたがた書いてみます。うまくいったこといくつか、これは助かったなぁと思う事を書いてみます。Three.jsの扱いまずソースをCloneして、さてどう使うんだろうと考えちゃいました。そうだReadMeを見よう、 &hellip;">
+  <meta name="description" content="VimでSketchUpのRubyスクリプトを書きたい方に朗報です。VimでSketchUpRubyを実行できるプラグインをリリースしました。動作のイメージ何もないところに、スクリプトで三角形を描きます。VimでSketchUp用のスクリプトを書きます。そして、”￥sur”とキーボードで入力すると &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2012/05/22/three_js_tutorial">
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/06/04/vimsketchup">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -101,7 +101,7 @@
   
   <header>
     
-      <h1 class="entry-title">Three.jsを試してみた</h1>
+      <h1 class="entry-title">Vimsketchup</h1>
     
     
       <p class="meta">
@@ -117,62 +117,54 @@
   
 
 
-<time datetime="2012-05-22T19:50:00+09:00" pubdate data-updated="true">2012-05-22 19:50</time>
+<time datetime="2012-06-04T00:38:00+09:00" pubdate data-updated="true">2012-06-04 00:38</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><a href="http://kray.jp/blog/three-js/">krayさんのサイト</a>を丸写しで、Three.jsを試してみました。
-うまくいったので、お礼かたがた書いてみます。</p>
+<div class="entry-content"><p>VimでSketchUpのRubyスクリプトを書きたい方に朗報です。
+VimでSketchUpRubyを実行できるプラグインをリリースしました。</p>
 
-<h3>うまくいったこと</h3>
+<h2>動作のイメージ</h2>
 
-<p>いくつか、これは助かったなぁと思う事を書いてみます。</p>
+<p><img src="https://img.skitch.com/20120603-bi3hcwd594ubauj132rkhkwk92.gif" alt="SketchUpの初期画面" /></p>
 
-<h4>Three.jsの扱い</h4>
+<p>何もないところに、スクリプトで三角形を描きます。</p>
 
-<p>まず<a href="https://github.com/mrdoob/three.js/">ソース</a>をCloneして、さてどう使うんだろうと考えちゃいました。
-そうだ<a href="https://github.com/mrdoob/three.js/#readme">ReadMe</a>を見よう、という事で見てみると、minimize版をHTMLヘッダーで参照すればいいとのこと。</p>
+<p><img src="https://img.skitch.com/20120603-e29j4n2sq9hk15mmfrqj461sib.gif" alt="VimでRubyスクリプトを書いたところ" /></p>
 
-<p><img src="https://img.skitch.com/20120522-xguus9rca1pn9eeps3ceygnrbn.gif" alt="３Dの立方体がぐりぐり動く" /></p>
+<p>VimでSketchUp用のスクリプトを書きます。
+そして、”￥sur”とキーボードで入力すると、
+SketchUpの画面に変化が起きます。</p>
 
-<p>なるほど。
-チュートリアルやwikiも充実してるようなので、しばらく入り浸ってみたいです。</p>
+<p><img src="https://img.skitch.com/20120603-ceka4adyr816iw66db3q2u1ca1.gif" alt="三角形が出たところ" /></p>
 
-<h3>FireFoxのいいところ</h3>
+<p>三角形が描けました。</p>
 
-<p>とくに他のブラウザと比較しての話ではないです。
-cmd-uでソースの表示。そこからリンクを辿ってスクリプトなど見れるので、追いかけやすいなぁと。
-強いて言えば、ソースにシンタックスハイライトしてくれれば最高です。</p>
+<h2>GitHubに登録しました</h2>
 
-<p>あと、３DでDOMツリーが見れるのが面白いです。</p>
+<p>このスクリプトを、GitHubに登録しました。
+リポジトリは<a href="https://github.com/satrex/VimSketchUpRuby">ここです</a>。</p>
 
-<h2>うまくいかなかったこと</h2>
+<h2>ここからの展望</h2>
 
-<p>逆に、これはまだよくわかってないぞ、という部分について。</p>
+<p>Vimで書けるようになったからには、
+補完の支援を受けたり、SketchUpAPIのヘルプをローカルで
+見たりできるようになりたいです。</p>
 
-<h3>javascriptの補完</h3>
+<p>Rubyの補完は弱いので限界はあるのですが、
+現在はdictファイルを使って、補完に挑戦しています。</p>
 
-<p>neocomplcacheがないVimは使いません。というくらい、オイラは補完が好きです。
-補完がないとコードが書きたくないです。
-で、javascriptのシンタックスや、Three.js内のメソッド名など、持ってきてほしいものがいくつかありました。</p>
+<h2>感想</h2>
 
-<p>あとでneocomplcacheのヘルプをよく読んでみます。</p>
+<p>前々から作りたいと言っていたプラグインです。
+やっと完成を見ることができました。
+長かったです。</p>
 
-<h3>SketchUpとThree.jsの連携</h3>
-
-<p>SketchUpでモデリングして、Webサイトに載せてぐりぐり動かす、とかできると最高です。</p>
-
-<p>SketchUpはWindows版だとBridgeというライブラリでEclipseからスクリプトが実行できるのですが、いかんせんmacではBridgeが通用せず。
-まだレベルが足りなくて、Bridgeを移植しようにも、どう手をつけていいのかわかりません。</p>
-
-<p>VimからSketchUpのRubyコンソールのウィンドウハンドルを取って、文字を入力してExecuteScriptコマンドを流せばいいはずです。</p>
-
-<p>でもどうすればそれができるか分かりません。
-ざんねん。
-いつかは！</p>
+<p>相変わらず、VimScriptもSketchUpAPIも手探りですが、
+困るのに慣れてきました。</p>
 </div>
 
 
@@ -195,7 +187,7 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
   
 
 
-<time datetime="2012-05-22T19:50:00+09:00" pubdate data-updated="true">2012-05-22 19:50</time>
+<time datetime="2012-06-04T00:38:00+09:00" pubdate data-updated="true">2012-06-04 00:38</time>
       
 
 
@@ -203,12 +195,12 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/05/22/three_js_tutorial/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/05/22/three_js_tutorial/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/06/04/vimsketchup/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/06/04/vimsketchup/" >Tweet</a>
   
   
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
       data-hatena-bookmark-layout="standard"
-      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/05/22/three_js_tutorial/">
+      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/06/04/vimsketchup/">
     <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
         alt="このエントリーをはてなブックマークに追加" width="20" height="20"
         style="border: none">
@@ -219,10 +211,8 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/05/11/hatena_never_appears/" title="Previous Post: はてブが表示されないなぁ">&laquo; はてブが表示されないなぁ</a>
+        <a class="basic-alignment left" href="/blog/2012/05/29/sketchup_activation/" title="Previous Post: MacでSketchUpのRubyスクリプトを自動実行">&laquo; MacでSketchUpのRubyスクリプトを自動実行</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/05/29/sketchup_activation/" title="Next Post: MacでSketchUpのRubyスクリプトを自動実行">MacでSketchUpのRubyスクリプトを自動実行 &raquo;</a>
       
     </p>
   </footer>
@@ -342,8 +332,8 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2012/05/22/three_js_tutorial/';
-        var disqus_url = 'http://satrex.github.com/blog/2012/05/22/three_js_tutorial/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/06/04/vimsketchup/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/06/04/vimsketchup/';
         var disqus_script = 'embed.js';
       
     (function () {
