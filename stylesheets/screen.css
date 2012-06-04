@@ -125,7 +125,7 @@ body > div > div {
 }
 
 .serif, body, #content .blog-index a[rel=full-article] {
-  font-family: "Baskerville", "Times New Roman", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", serif;
+  font-family: "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴ Pro W3", "Meiryo", "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
 }
 
 .mono, pre, code, tt, p code, li code {
@@ -143,14 +143,14 @@ body > header h1 {
 }
 
 body > header h2 {
-  font-family: "Baskerville", "Times New Roman", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", serif;
+  font-family: "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴ Pro W3", "Meiryo", "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
   font-size: 1em;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
 }
 
 body {
-  font-size: 1.1em;
+  font-size: 1.0em;
   line-height: 1.43em;
   color: #3f2a18;
 }
@@ -159,7 +159,7 @@ body {
   font-size: 1.4em;
   line-height: 1.7em;
   font-weight: normal;
-  font-family: "Baskerville", "Times New Roman", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", serif;
+  font-family: "ヒラギノ角ゴ Pro W3", "", serif;
 }
 
 .entry-content p {
@@ -269,7 +269,7 @@ em, dfn {
 }
 
 strong, dfn {
-  font-family: "Baskerville", "Times New Roman", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", serif;
+  font-family: "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴ Pro W3", "Meiryo", "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
   font-weight: bold;
 }
 
