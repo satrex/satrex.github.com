@@ -2,23 +2,23 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://satrex.github.com/blog/2012/04/23/installed-octopress-001/</loc>
-        <lastmod>2012-05-03T20:51:01+09:00</lastmod>
+        <lastmod>2012-06-13T07:24:58+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/04/23/installed-octopress-002/</loc>
-        <lastmod>2012-05-03T20:51:01+09:00</lastmod>
+        <lastmod>2012-06-13T07:23:31+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/04/27/task_remain/</loc>
-        <lastmod>2012-05-06T06:43:26+09:00</lastmod>
+        <lastmod>2012-06-13T07:22:57+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/05/01/vim_setting/</loc>
-        <lastmod>2012-05-05T22:58:03+09:00</lastmod>
+        <lastmod>2012-06-13T07:23:40+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/05/05/design_changed/</loc>
-        <lastmod>2012-05-05T22:48:58+09:00</lastmod>
+        <lastmod>2012-06-13T07:24:04+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/05/06/todo/</loc>
@@ -26,30 +26,34 @@
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket/</loc>
-        <lastmod>2012-05-12T06:44:41+09:00</lastmod>
+        <lastmod>2012-06-13T07:26:11+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/05/11/hatena_never_appears/</loc>
-        <lastmod>2012-05-12T07:09:50+09:00</lastmod>
+        <lastmod>2012-06-13T07:25:52+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/05/22/three_js_tutorial/</loc>
-        <lastmod>2012-05-22T23:50:33+09:00</lastmod>
+        <lastmod>2012-06-13T07:26:34+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/05/29/sketchup_activation/</loc>
-        <lastmod>2012-05-30T02:19:29+09:00</lastmod>
+        <lastmod>2012-06-13T07:26:51+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/2012/06/04/vimsketchup/</loc>
-        <lastmod>2012-06-04T06:05:01+09:00</lastmod>
+        <lastmod>2012-06-13T07:27:04+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://satrex.github.com/blog/2012/06/20/sakura_start/</loc>
+        <lastmod>2012-06-20T06:20:34+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/blog/archives/</loc>
-        <lastmod>2012-06-04T06:05:01+09:00</lastmod>
+        <lastmod>2012-06-20T06:20:34+09:00</lastmod>
     </url>
     <url>
         <loc>http://satrex.github.com/</loc>
-        <lastmod>2012-06-04T06:05:01+09:00</lastmod>
+        <lastmod>2012-06-20T06:20:34+09:00</lastmod>
     </url>
 </urlset>

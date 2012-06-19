@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: octopress - 電気羊の執務室</title>
+  <title>さくらのレンタルサーバーを借りた - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="Category: octopress">
+  <meta name="description" content="SketchUpのRubyに関するWebサイトを作るため、サーバーを借りてみたくなったsatrexです。あわよくばWebサービスも作ってみたいものです。さくらのレンタルサーバー対VPSさて、レンタルサーバーとVPSで迷いました。メリット・デメリットを比較すると、おおむね以下のようになりました。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.comblog/categories/octopress">
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/06/20/sakura_start">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -97,50 +97,216 @@
   <div id="main">
     <div id="content">
       <div>
-<article role="article">
+<article class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Octopress</h1>
+    
+      <h1 class="entry-title">さくらのレンタルサーバーを借りた</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-20T05:09:00+09:00" pubdate data-updated="true">2012-06-20 05:09</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>SketchUpのRubyに関するWebサイトを作るため、サーバーを借りてみたくなったsatrexです。
+あわよくばWebサービスも作ってみたいものです。</p>
 
-  
-  <h2>2012</h2>
+<h2>さくらのレンタルサーバー対VPS</h2>
 
-<article>
-  
-<h1><a href="/blog/2012/05/11/hatena_never_appears/">はてブが表示されないなぁ</a></h1>
-<time datetime="2012-05-11T07:09:00+09:00" pubdate><span class='month'>May</span> <span class='day'>11</span> <span class='year'>2012</span></time>
+<p>さて、レンタルサーバーとVPSで迷いました。<br/>
+メリット・デメリットを比較すると、おおむね以下のようになりました。</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/octopress/'>octopress</a></span>
-</footer>
+<hr />
+
+<h3><strong>レンタルサーバー</strong></h3>
+
+<ul>
+<li>メリット：
+
+<ul>
+<li>セキュリティがしっかりしている</li>
+<li>設定がめんどくさくない</li>
+<li>ちょっと安い</li>
+</ul>
+</li>
+<li>デメリット：
+
+<ul>
+<li>自由度が低い</li>
+<li>OSを選べない</li>
+</ul>
+</li>
+</ul>
 
 
-</article>
+<hr />
+
+<h3>VPS</h3>
+
+<ul>
+<li>メリット：
+
+<ul>
+<li>自由度が高い</li>
+<li>OSを選べる</li>
+</ul>
+</li>
+<li>デメリット：
+
+<ul>
+<li>セキュリティは自分で設定(やや不安)</li>
+<li>いろいろと設定しないと</li>
+<li>ちょっと高い</li>
+</ul>
+</li>
+</ul>
 
 
+<hr />
 
-<article>
-  
-<h1><a href="/blog/2012/05/08/moving_to_bitbucket/">bitbucketへ引っ越してみた</a></h1>
-<time datetime="2012-05-08T20:59:00+09:00" pubdate><span class='month'>May</span> <span class='day'>08</span> <span class='year'>2012</span></time>
+<p>コストはたいした問題ではありません。<br/>
+月500円が1000円でも似たようなもんです。</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/octopress/'>octopress</a></span>
-</footer>
+<h3>まずはレンタルサーバー</h3>
 
+<p>迷ったらとりあえずミニマルな選択肢を試します。<br/>
+レンタルサーバーを仮登録してみました。</p>
 
-</article>
+<p>そこで感じたことをレポします。</p>
 
+<h3>sshログイン</h3>
+
+<p>サーバー屋さんが数多くある中で、
+さくらのレンタルサーバーを選んだのは、
+sshログインできるからです。<br/>
+WordPressとか、GUIだけでメンテするのはしんどそうです。</p>
+
+<h2>さっそくログインしてみた</h2>
+
+<p>サーバーのパスワードが書かれたメールが
+見当たらず、サポートにメールを送った朝7時でした。</p>
+
+<p>昼の13時ごろにはメールの再送を受けられ、
+無事にログインはできました。</p>
+
+<p>しかし、新たな問題の幕開けに、そのころのオイラは気づいていなかったのです。</p>
+
+<h2>Gitが入らない</h2>
+
+<p>次に欲しいのはGitです。
+これがあれば、ローカルの仮想マシンと同期できます。<br/>
+仮想マシンでコンテンツを作り、
+Pushしておき、レンタルサーバーからPullすれば、
+電車の中でもWebが作れるというものです。</p>
+
+<p>さっそく、gitをインストールする手段を講じました。<br/>
+徒労に終わるとは知らずに・・・</p>
+
+<h3>Portsの憂鬱</h3>
+
+<p>FreeBSDのパッケージ管理は、Portsで行うようです。<br/>
+さっそくtarボールをダウンロードしました。<br/>
+解凍しますが・・・</p>
+
+<pre><code>%tar -x ports.tar
+tar: Error opening archive: Failed to open '/dev/sa0'
+</code></pre>
+
+<p>当然ですがroot権限がないため、
+Portsが入れられません。</p>
+
+<h3>pkgの挫折</h3>
+
+<p>Portsがダメならpkgです。
+pkgは、WordPressをインストールするために、すでにインストールされているようです。</p>
+
+<p>さっそくこれを使ってみますが・・・
+パッケージのインストールを認めてくれません。</p>
+
+<p>残念ながら、gitは諦めました。</p>
+
+<h2>仮の結論</h2>
+
+<p>まだ、サポートに問い合わせていないので、
+とりあえずの結論です。</p>
+
+<p><strong>Git使いは、ちょっといいプランを借りないとだめ</strong></p>
+
+<p>お試し期間中なのでキャンセルし、プランを見直そうと思います。</p>
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-20T05:09:00+09:00" pubdate data-updated="true">2012-06-20 05:09</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/06/20/sakura_start/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/06/20/sakura_start/" >Tweet</a>
+  
+  
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+      data-hatena-bookmark-layout="standard"
+      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/06/20/sakura_start/">
+    <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+        alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+        style="border: none">
+  </a>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/06/04/vimsketchup/" title="Previous Post: VimSketchUpをリリースしました">&laquo; VimSketchUpをリリースしました</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -159,6 +325,10 @@
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/06/20/sakura_start/">さくらのレンタルサーバーを借りた</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/06/04/vimsketchup/">VimSketchUpをリリースしました</a>
       </li>
     
@@ -172,10 +342,6 @@
     
       <li class="post">
         <a href="/blog/2012/05/11/hatena_never_appears/">はてブが表示されないなぁ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/08/moving_to_bitbucket/">bitbucketへ引っ越してみた</a>
       </li>
     
   </ul>
@@ -249,7 +415,10 @@
       var disqus_shortname = 'e-sheep';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/06/20/sakura_start/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/06/20/sakura_start/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
