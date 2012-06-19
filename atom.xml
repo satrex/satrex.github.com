@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-06-20T06:21:18+09:00</updated>
+  <updated>2012-06-20T06:25:28+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -18,17 +18,16 @@
     <link href="http://satrex.github.com/blog/2012/06/20/sakura_start/"/>
     <updated>2012-06-20T05:09:00+09:00</updated>
     <id>http://satrex.github.com/blog/2012/06/20/sakura_start</id>
-    <content type="html"><![CDATA[<p>SketchUpのRubyに関するWebサイトを作るため、サーバーを借りてみたくなったsatrexです。
-あわよくばWebサービスも作ってみたいものです。</p>
+    <content type="html"><![CDATA[<p>Webサイトを作るため、サーバーを借りてみたくなったsatrexです。</p>
 
 <h2>さくらのレンタルサーバー対VPS</h2>
 
-<p>さて、レンタルサーバーとVPSで迷いました。<br/>
+<p>さて、さくらのレンタルサーバーとさくらのVPSで迷いました。<br/>
 メリット・デメリットを比較すると、おおむね以下のようになりました。</p>
 
 <hr />
 
-<h3><strong>レンタルサーバー</strong></h3>
+<h3>レンタルサーバー</h3>
 
 <ul>
 <li>メリット：
