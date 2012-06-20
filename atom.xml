@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-06-20T06:25:28+09:00</updated>
+  <updated>2012-06-20T23:20:39+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[さくらのレンタルサーバーにgitをインストールした]]></title>
+    <link href="http://satrex.github.com/blog/2012/06/20/sakura-git-installed/"/>
+    <updated>2012-06-20T19:29:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/06/20/sakura-git-installed</id>
+    <content type="html"><![CDATA[<p><a href="http://blog.satrex.jp/blog/2012/06/20/sakura_start/">前回の記事</a>では、さくらのレンタルサーバーにGitを入れようとして失敗しました。
+今回は、その解決法を書きます。</p>
+
+<h3>解決法</h3>
+
+<p>パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。</p>
+
+<p>gitのtarballからコンパイルしてインストールします。</p>
+
+<pre><code>mkdir gitinstall  
+cd gitinstall  
+wget https://github.com/git/git/tarball/v1.7.11-rc3 --no-check-certificate
+tar xjvf git-1.7.3.5.tar.bz2
+.cd git-1.7.3.5
+./configure -prefix=$HOME/local
+gmake
+vi Makefile
+# prefix = $(HOME)/local  を記述
+gmake install
+</code></pre>
+
+<p>これで、~/local/binにgitがインストールされます。
+Makefileを変更しないと、~/binに入ってしまい、具合が悪いようです。</p>
+
+<h3>パスを通す</h3>
+
+<p>最後に、パスを通します。</p>
+
+<pre><code>vi ~/.cshrc
+</code></pre>
+
+<p>set path=( で始まる行を見つけ、括弧の中に、以下を追加します。</p>
+
+<pre><code>/$HOME/local/bin
+</code></pre>
+
+<p>直前の文字と、スペースを挟んで区切るのを忘れないでください。
+これで、gitにパスが通り、which gitが成功するはずです。
+光へ続く道が開かれました。</p>
+
+<h3>参考文献</h3>
+
+<p><a href="http://noumenon-th.net/text-hymn/2011/01/git.php">さくらのレンタルサーバーにGitをインストールする方法</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[さくらのレンタルサーバーを借りた]]></title>
@@ -43,6 +94,7 @@
 <ul>
 <li>自由度が低い</li>
 <li>OSを選べない</li>
+<li>ディスク容量が少ない（10G）</li>
 </ul>
 </li>
 </ul>
@@ -58,6 +110,7 @@
 <ul>
 <li>自由度が高い</li>
 <li>OSを選べる</li>
+<li>ディスク容量が多い（100G〜）</li>
 </ul>
 </li>
 <li>デメリット：
@@ -108,8 +161,7 @@ WordPressとか、GUIだけでメンテするのはしんどそうです。</p>
 Pushしておき、レンタルサーバーからPullすれば、
 電車の中でもWebが作れるというものです。</p>
 
-<p>さっそく、gitをインストールする手段を講じました。<br/>
-徒労に終わるとは知らずに・・・</p>
+<p>さっそく、gitをインストールする手段を講じました。</p>
 
 <h3>Portsの憂鬱</h3>
 
@@ -132,16 +184,13 @@ pkgは、WordPressをインストールするために、すでにインスト�
 <p>さっそくこれを使ってみますが・・・
 パッケージのインストールを認めてくれません。</p>
 
-<p>残念ながら、gitは諦めました。</p>
+<p><span style='text-decoration:line-through'>とりあえずの結論です。<br/>
+<strong>Git使いは、ちょっといいプランを借りないとだめ</strong><br/>
+お試し期間中なのでキャンセルし、プランを見直そうと思います。  </span></p>
 
-<h2>仮の結論</h2>
+<p>パッケージ管理をあきらめ、ソースコードからgitをコンパイルしてインストールすることにしました。</p>
 
-<p>まだ、サポートに問い合わせていないので、
-とりあえずの結論です。</p>
-
-<p><strong>Git使いは、ちょっといいプランを借りないとだめ</strong></p>
-
-<p>お試し期間中なのでキャンセルし、プランを見直そうと思います。</p>
+<p><a href="http://blog.satrex.dev/blog/2012/06/20/sakura-git-installed">次の記事</a>で詳しく書きます。</p>
 ]]></content>
   </entry>
   

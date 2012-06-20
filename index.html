@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="Webサイトを作るため、サーバーを借りてみたくなったsatrexです。さくらのレンタルサーバー対VPSさて、さくらのレンタルサーバーとさくらのVPSで迷いました。メリット・デメリットを比較すると、おおむね以下のようになりました。レンタルサーバーメリット： &hellip;">
+  <meta name="description" content="前回の記事では、さくらのレンタルサーバーにGitを入れようとして失敗しました。今回は、その解決法を書きます。解決法パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。gitのtarballからコンパイルしてインストールします。mkdir &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,6 +104,84 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/06/20/sakura-git-installed/">さくらのレンタルサーバーにgitをインストールした</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-20T19:29:00+09:00" pubdate data-updated="true">2012-06-20 19:29</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/06/20/sakura_start/">前回の記事</a>では、さくらのレンタルサーバーにGitを入れようとして失敗しました。
+今回は、その解決法を書きます。</p>
+
+<h3>解決法</h3>
+
+<p>パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。</p>
+
+<p>gitのtarballからコンパイルしてインストールします。</p>
+
+<pre><code>mkdir gitinstall  
+cd gitinstall  
+wget https://github.com/git/git/tarball/v1.7.11-rc3 --no-check-certificate
+tar xjvf git-1.7.3.5.tar.bz2
+.cd git-1.7.3.5
+./configure -prefix=$HOME/local
+gmake
+vi Makefile
+# prefix = $(HOME)/local  を記述
+gmake install
+</code></pre>
+
+<p>これで、~/local/binにgitがインストールされます。
+Makefileを変更しないと、~/binに入ってしまい、具合が悪いようです。</p>
+
+<h3>パスを通す</h3>
+
+<p>最後に、パスを通します。</p>
+
+<pre><code>vi ~/.cshrc
+</code></pre>
+
+<p>set path=( で始まる行を見つけ、括弧の中に、以下を追加します。</p>
+
+<pre><code>/$HOME/local/bin
+</code></pre>
+
+<p>直前の文字と、スペースを挟んで区切るのを忘れないでください。
+これで、gitにパスが通り、which gitが成功するはずです。
+光へ続く道が開かれました。</p>
+
+<h3>参考文献</h3>
+
+<p><a href="http://noumenon-th.net/text-hymn/2011/01/git.php">さくらのレンタルサーバーにGitをインストールする方法</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/06/20/sakura_start/">さくらのレンタルサーバーを借りた</a></h1>
     
     
@@ -152,6 +230,7 @@
 <ul>
 <li>自由度が低い</li>
 <li>OSを選べない</li>
+<li>ディスク容量が少ない（10G）</li>
 </ul>
 </li>
 </ul>
@@ -167,6 +246,7 @@
 <ul>
 <li>自由度が高い</li>
 <li>OSを選べる</li>
+<li>ディスク容量が多い（100G〜）</li>
 </ul>
 </li>
 <li>デメリット：
@@ -217,8 +297,7 @@ WordPressとか、GUIだけでメンテするのはしんどそうです。</p>
 Pushしておき、レンタルサーバーからPullすれば、
 電車の中でもWebが作れるというものです。</p>
 
-<p>さっそく、gitをインストールする手段を講じました。<br/>
-徒労に終わるとは知らずに・・・</p>
+<p>さっそく、gitをインストールする手段を講じました。</p>
 
 <h3>Portsの憂鬱</h3>
 
@@ -241,16 +320,13 @@ pkgは、WordPressをインストールするために、すでにインスト�
 <p>さっそくこれを使ってみますが・・・
 パッケージのインストールを認めてくれません。</p>
 
-<p>残念ながら、gitは諦めました。</p>
+<p><span style='text-decoration:line-through'>とりあえずの結論です。<br/>
+<strong>Git使いは、ちょっといいプランを借りないとだめ</strong><br/>
+お試し期間中なのでキャンセルし、プランを見直そうと思います。  </span></p>
 
-<h2>仮の結論</h2>
+<p>パッケージ管理をあきらめ、ソースコードからgitをコンパイルしてインストールすることにしました。</p>
 
-<p>まだ、サポートに問い合わせていないので、
-とりあえずの結論です。</p>
-
-<p><strong>Git使いは、ちょっといいプランを借りないとだめ</strong></p>
-
-<p>お試し期間中なのでキャンセルし、プランを見直そうと思います。</p>
+<p><a href="http://blog.satrex.dev/blog/2012/06/20/sakura-git-installed">次の記事</a>で詳しく書きます。</p>
 </div>
   
   
@@ -871,69 +947,6 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/27/task_remain/">これからやりたいこと</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-27T07:51:00+09:00" pubdate data-updated="true">2012-04-27 07:51</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ひととおりブログの形はできたので、<br/>
-これからやりたいことをまとめて、優先順位を付けてみたいと思います。</p>
-
-<ol>
-<li><p>ブログのデザインを変更する</p>
-
-<ul>
-<li>トップページの画像を作る</li>
-<li>スタイル（sass）を設定する</li>
-<li>はてブとか入れる</li>
-</ul>
-</li>
-<li><p>Skitchの画像管理を楽にする</p>
-
-<ul>
-<li>Skitchで編集した画像が、Octopress配下にコピーされる仕組みを構築する</li>
-</ul>
-</li>
-<li>LokkaでCSSとjavascriptの勉強をする
-
-<ul>
-<li>よくColissとかに載ってるサンプルを、実際に書いてみたい</li>
-</ul>
-</li>
-</ol>
-
-
-<p>Octopressへの投稿じたい、まだまだ練習です。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -957,6 +970,10 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/06/20/sakura-git-installed/">さくらのレンタルサーバーにgitをインストールした</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/06/20/sakura_start/">さくらのレンタルサーバーを借りた</a>
       </li>
     
@@ -970,10 +987,6 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
     
       <li class="post">
         <a href="/blog/2012/05/22/three_js_tutorial/">Three.jsを試してみた</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/11/hatena_never_appears/">はてブが表示されないなぁ</a>
       </li>
     
   </ul>
