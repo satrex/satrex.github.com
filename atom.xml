@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-06-20T23:30:00+09:00</updated>
+  <updated>2012-06-22T06:22:58+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -41,6 +41,11 @@ gmake install
 
 <p>これで、~/local/binにgitがインストールされます。
 Makefileを変更しないと、~/binに入ってしまい、具合が悪いようです。</p>
+
+<h4>2012/06/22追記：</h4>
+
+<p><em>~/binに入ってしまうと、組み込みのコマンドと混ざるので、<br/>
+環境が汚くなってしまうからかな・・・と思いました。</em></p>
 
 <h2>パスを通す</h2>
 
