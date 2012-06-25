@@ -4,8 +4,8 @@ title: "bitbucketへ引っ越してみた"
 published: true
 date: 2012-05-08 20:59
 comments: true
-tags: 
-categories: octopress 
+tags: octopress 
+categories: 
 ---
 
 ブログのリポジトリを、githubからbitbucketへ移してみました。

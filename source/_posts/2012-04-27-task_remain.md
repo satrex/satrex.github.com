@@ -4,7 +4,7 @@ title: "これからやりたいこと"
 published: true
 date: 2012-04-27 07:51
 comments: true
-tags: 
+tags: todo
 categories: todo 
 ---
 

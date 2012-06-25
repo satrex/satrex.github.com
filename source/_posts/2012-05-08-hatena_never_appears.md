@@ -4,8 +4,8 @@ title: "はてブが表示されないなぁ"
 published: true
 date: 2012-05-11 07:09
 comments: true
-tags: 
-categories: octopress
+tags: octopress
+categories: 
 ---
 
 [T.I.D][TID]さんの記事を見ながら、  

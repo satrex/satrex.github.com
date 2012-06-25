@@ -4,7 +4,7 @@ title: "Octopressのインストール（前編）"
 published: true
 date: 2012-04-23 12:47
 comments: true
-tags: 
+tags: Octopress
 categories: 
 ---
 

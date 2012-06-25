@@ -4,7 +4,7 @@ title: "Three.jsを試してみた"
 published: true
 date: 2012-05-22 19:50
 comments: true
-tags: 
+tags: 3D, JavaScript
 categories: 
 ---
 

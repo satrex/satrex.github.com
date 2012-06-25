@@ -4,7 +4,7 @@ title: "VimSketchUpをリリースしました"
 published: true
 date: 2012-06-04 00:38
 comments: true
-tags: 
+tags: SketchUp
 categories: 
 ---
 

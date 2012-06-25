@@ -4,7 +4,7 @@ title: "MacでSketchUpのRubyスクリプトを自動実行"
 published: true
 date: 2012-05-29 21:39
 comments: true
-tags: 
+tags: SketchUp
 categories: 
 ---
 

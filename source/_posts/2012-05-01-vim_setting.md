@@ -4,7 +4,7 @@ title: "vimの設定見直し中"
 published: true
 date: 2012-05-01 22:43
 comments: true
-tags: 
+tags: vim
 categories: 
 ---
 

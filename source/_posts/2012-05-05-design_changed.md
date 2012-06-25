@@ -4,7 +4,7 @@ title: デザイン変えてみた
 published: true
 date: 2012-05-05 22:14
 comments: true
-tags: 
+tags: octopress
 categories: 
 ---
 

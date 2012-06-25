@@ -77,7 +77,7 @@ google_plus_one_size: medium
 
 # Google Plus Profile
 # Hidden: No visible button, just add author information to search results
-googleplus_user:
+googleplus_user: sat1501@gmail.com
 googleplus_hidden: false
 
 # Pinboard
@@ -96,4 +96,4 @@ disqus_show_comment_count: false
 google_analytics_tracking_id: UA-31451390-1
 
 # Facebook Like
-facebook_like: false
+facebook_like: true
