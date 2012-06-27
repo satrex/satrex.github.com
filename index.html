@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="前回の記事では、さくらのレンタルサーバーにGitを入れようとして失敗しました。今回は、その解決法を書きます。解決法パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。gitのtarballからコンパイルしてインストールします。mkdir &hellip;">
+  <meta name="description" content="これをお読みの皆さんは、仮想マシンを使っておいででしょうか？Windows XPのマシンを、macのVMWareで使うために仮想化しました。そこでハマったポイントを、後に続く方のためにまとめておきます。環境ホストOS：mac OSX (Lion) 10.7.4実行環境：VMWare Fusion &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,6 +98,132 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-25T22:47:00+09:00" pubdate data-updated="true">2012-06-25 22:47</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>これをお読みの皆さんは、仮想マシンを使っておいででしょうか？<br/>
+Windows XPのマシンを、macのVMWareで使うために仮想化しました。<br/>
+そこでハマったポイントを、後に続く方のためにまとめておきます。</p>
+
+<h2>環境</h2>
+
+<p>ホストOS：mac OSX (Lion) 10.7.4<br/>
+実行環境：VMWare Fusion 4.1.3<br/>
+仮想化するマシンのOS：Windows XP Pro<br/>
+仮想化するアプリ： VMWWare Converter 5.0.0</p>
+
+<h2>ポイント</h2>
+
+<ol>
+<li>VMWare Converterをダウンロードして使う
+　（VMWare Fusion付属のMigrationAgentは使わない）</li>
+<li>WindowsXPのCD-ROMから、sysprepファイルをコピーする</li>
+<li>仮想化するマシンは、十分に容量を減らしておく</li>
+<li>仮想化するマシンのVolume Shadow Copyサービスを有効にする</li>
+</ol>
+
+
+<h3>1.VMWare Converterをダウンロードして使う</h3>
+
+<p>明らかに、速さも信頼性も、Converterのほうが上です。<br/>
+物理マシンを吸い出す目的のためには、ぜひConverterを使うべきです。</p>
+
+<p>以下のURLからダウンロードして、XPマシンにインストールしてください。<br/>
+構成について尋ねられます。<br/>
+『ローカル』と『クライアントサーバー』の二択から、『ローカル』を選びます。</p>
+
+<h3>2.WindowsXPのCD-ROMから、sysprepファイルをコピーする</h3>
+
+<p>公式ヘルプなどでsysprepと呼ばれるものは、以下の圧縮フォルダのファイル一式です。<br/>
+(OSのディスク)￥￥SUPPORT￥TOOLS￥</p>
+
+<p><img src="https://img.skitch.com/20120625-b7a5a973xx41ic6qje142y627i.gif" alt="sysprepツール" /></p>
+
+<p>これを、以下のパスに保存します。</p>
+
+<pre><code>C:\Documents and Settings\All Users\Application Data\VMware\VMware vCenter Converter Standalone\sysprep\xp
+</code></pre>
+
+<p>保存するパスは、VMWareConverterを実行すると教えてくれます。<br/>
+全ファイルまとめて保存して構いません。</p>
+
+<h3>3.仮想化するマシンは、十分に容量を減らしておく</h3>
+
+<p>具体的には、次のような事をします。</p>
+
+<ul>
+<li>ディスクのクリーンアップ</li>
+<li>アプリケーションの削除</li>
+<li>データを外部に移動</li>
+</ul>
+
+
+<p>これが足りていないと、次のエラーが発生するようです。</p>
+
+<pre><code>Failed to create VSS snapshot of source volume. Error code: 2147754783(0x8004231F). 
+</code></pre>
+
+<h3>4.仮想化するマシンのVolume Shadow Copyサービスを有効にする</h3>
+
+<p>コントロールパネルから、『管理ツール->サービス』を選択し、<br/>
+サービス一覧を表示します。
+一覧からVolume Shadow Copy Serviceを捜し、<br/>
+『スタートアップの種類』を『自動』に設定します。</p>
+
+<p>![コンパネ→管理ツール] (https://img.skitch.com/20120625-ghgec3kruxiirgkmkd6k1wftjm.gif)
+![サービス] (https://img.skitch.com/20120625-q1f2a5d35a8bjj7kqhpbixbxj5.gif)</p>
+
+<p>これが足りていないと、次のエラーが発生します。</p>
+
+<pre><code>FAILED: Unable to create a VSS snapshot of the source volume(s). Error code: 2147754758 (0x80042306).
+</code></pre>
+
+<h2>参考資料</h2>
+
+<p>VMware Converter の使用とトラブルシューティングに関するベスト プラクティス</p>
+
+<p><a href="http://kb.vmware.com/selfservice/documentLinkInt.do?micrositeID=&amp;popup=true&amp;languageId=&amp;externalID=1033253">http://kb.vmware.com/selfservice/documentLinkInt.do?micrositeID=&amp;popup=true&amp;languageId=&amp;externalID=1033253</a></p>
+
+<p>公式サイトのサポートページです。</p>
+
+<p><a href="http://www.vmware.com/support/converter/doc/releasenotes_conv40.html">http://www.vmware.com/support/converter/doc/releasenotes_conv40.html</a>
+<a href="http://communities.vmware.com/thread/308014">http://communities.vmware.com/thread/308014</a></p>
+
+<p>公式サイトのフォーラムです。<br/>
+エラーが発生した場合は、『VMware (エラーコード)』で検索すると、
+手がかりが得られるかも知れません。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -880,78 +1006,6 @@ GitHubの無料アカウント容量が300MBしかないので、画像の管理
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/01/vim_setting/">Vimの設定見直し中</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-01T22:43:00+09:00" pubdate data-updated="true">2012-05-01 22:43</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>vimの設定を見直しています。
-最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
-コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。</p>
-
-<p>今の設定で行くと、いろいろと超えないといけない壁がある感じです。</p>
-
-<h3>NeoComplCacheが使えない</h3>
-
-<p>最大の問題は、NeoComplCacheがコマンドラインからは使えないこと。<br/>
-rbファイルやHTMLファイルを編集しようとすると、
-ファイルを開いた時か保存した時のどちらかに、猛烈な勢いでエラーを吐きまくります（詳細は画像参照）。</p>
-
-<p>もう一点重大な問題として、日本語入力などの設定が、コマンドラインからのVimでは不便すぎます。</p>
-
-<ul>
-<li>IMEが全ての入力に優先している。<br/>
-Vimのモード切替などは、日本語入力中でも、半角で受け付けてくれないと不便です。</li>
-<li>Insertモードにすると、カーソルキーでカーソルが移動できない（A〜Dの入力で代替される）。
-set nocompatibleと, imap ^[OA <Up>を試した結果、改善されないので諦めました。</li>
-</ul>
-
-
-<p>基本はGvimを立ち上げるが吉、で当面やってみようかと思います。
-むしろGvimのコマンドラインがzshになってくれたら文句ないんですが、
-Vimのコマンドでlessを使うたびに、『ターミナルの全機能が使えるなんて思うなよ』と言われてしまうので、
-半ば諦めています。おわり。</p>
-
-<h3>エラーメッセージの画像</h3>
-
-<div class="thumbnail"><a href="https://skitch.com/sat-rex/8aqq2/tmux-114x44"><img style="max-width:638px" src="https://img.skitch.com/20120502-ep9y7r2mj68ey3rcgdmy2u86kj.medium.jpg" alt="tmux-114×44" /></a></div>
-
-
-<div class="thumbnail"><a href="https://skitch.com/sat-rex/8axfu/tmux-114x44-1-3"><img style="max-width:638px" src="https://img.skitch.com/20120502-cb8ih2ksrnnfxk7bkgsujpk1ud.medium.jpg" alt="tmux-114×44-1-3" /></a></div>
-
-
-<div class="thumbnail"><a href="https://skitch.com/sat-rex/8axrb/tmux-114x44-3"><img style="max-width:638px" src="https://img.skitch.com/20120502-tt6iku576gwk3sx96yeh32jspx.medium.jpg" alt="tmux-114×44-3" /></a></div>
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -975,6 +1029,10 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/06/20/sakura-git-installed/">さくらのレンタルサーバーにgitをインストールした</a>
       </li>
     
@@ -988,10 +1046,6 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
     
       <li class="post">
         <a href="/blog/2012/05/29/sketchup_activation/">MacでSketchUpのRubyスクリプトを自動実行</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/22/three_js_tutorial/">Three.jsを試してみた</a>
       </li>
     
   </ul>
@@ -1045,6 +1099,15 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
 
 
 
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/sat1501@gmail.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
 
 
   
@@ -1085,6 +1148,8 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
 
     a("//platform.twitter.com/widgets.js");
 
+
+    a("//connect.facebook.net/en_US/all.js#xfbml=1","facebook-jssdk");
 
     a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
     f.parentNode.insertBefore(e,f);
