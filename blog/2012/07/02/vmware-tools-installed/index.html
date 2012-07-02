@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>さくらのレンタルサーバーにgitをインストールした - 電気羊の執務室</title>
+  <title>ゲストubuntuに、VMware-Toolsをインストールする - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="前回の記事では、さくらのレンタルサーバーにGitを入れようとして失敗しました。今回は、その解決法を書きます。解決法パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。gitのtarballからコンパイルしてインストールします。mkdir &hellip;">
+  <meta name="description" content="仮想マシンでsshを使うために、毎回苦労します。約１年前には、まっさらで始めたVMに、Sambaをインストールして公開鍵を渡しました。今回は、ホストの共有フォルダ経由でファイルを渡します。ホストの共有フォルダにゲストからアクセスするには、VMware-Toolsが必要です。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2012/06/20/sakura-git-installed">
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -101,7 +101,7 @@
   
   <header>
     
-      <h1 class="entry-title">さくらのレンタルサーバーにgitをインストールした</h1>
+      <h1 class="entry-title">ゲストubuntuに、VMware-Toolsをインストールする</h1>
     
     
       <p class="meta">
@@ -117,61 +117,102 @@
   
 
 
-<time datetime="2012-06-20T19:29:00+09:00" pubdate data-updated="true">2012-06-20 19:29</time>
+<time datetime="2012-07-02T19:42:00+09:00" pubdate data-updated="true">2012-07-02 19:42</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/06/20/sakura_start/">前回の記事</a>では、さくらのレンタルサーバーにGitを入れようとして失敗しました。
-今回は、その解決法を書きます。</p>
+<div class="entry-content"><p>仮想マシンでsshを使うために、毎回苦労します。<br/>
+約１年前には、まっさらで始めたVMに、Sambaをインストールして公開鍵を渡しました。<br/>
+今回は、ホストの共有フォルダ経由でファイルを渡します。</p>
 
-<h2>解決法</h2>
+<p>ホストの共有フォルダにゲストからアクセスするには、VMware-Toolsが必要です。<br/>
+VMwareFudsionの仮想マシンに、VMwareToolsをインストールする方法を解説します。</p>
 
-<p>パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。</p>
+<h2>VMWare Toolsの導入</h2>
 
-<p>gitのtarballからコンパイルしてインストールします。</p>
+<ol>
+<li>VMware-Toolsの仮想CDを挿入</li>
+<li>カーネルの番号を確認する</li>
+<li>カーネルヘッダーをインストールする</li>
+<li>VMware-Toolsをインストールする</li>
+</ol>
 
-<pre><code>mkdir gitinstall  
-cd gitinstall  
-wget https://github.com/git/git/tarball/v1.7.11-rc3 --no-check-certificate
-tar xjvf git-1.7.3.5.tar.bz2
-.cd git-1.7.3.5
-./configure -prefix=$HOME/local
-gmake
-vi Makefile
-# prefix = $(HOME)/local  を記述
-gmake install
+
+<h3>VMwareToolsの仮想CDを挿入</h3>
+
+<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を<br/>
+選択します。
+その後、以下のように仮想CDをマウントします。</p>
+
+<pre><code>cd /tmp/
+sudo mount /dev/cdrom /mnt/cdrom
 </code></pre>
 
-<p>これで、~/local/binにgitがインストールされます。
-Makefileを変更しないと、~/binに入ってしまい、具合が悪いようです。</p>
+<p>ここでインストールを行うと、失敗します。</p>
 
-<h4>2012/06/22追記：</h4>
+<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz -C /tmp/
+cd ./vmware-tools-distrib/
+sudo ./vmware-install.pl -d
 
-<p><em>~/binに入ってしまうと、組み込みのコマンドと混ざるので、<br/>
-環境が汚くなってしまうからかな・・・と思いました。</em></p>
+...
 
-<h2>パスを通す</h2>
-
-<p>最後に、パスを通します。</p>
-
-<pre><code>vi ~/.cshrc
+Searching for a valid kernel header path...
+The path "" is not valid.
+Would you like to change it? [yes] 
 </code></pre>
 
-<p>set path=( で始まる行を見つけ、括弧の中に、以下を追加します。</p>
+<p>カーネルヘッダーがないとだめだそうです。</p>
 
-<pre><code>/$HOME/local/bin
+<h3>カーネルのバージョンを確認する</h3>
+
+<p>カーネルのバージョンを確認し、適切なヘッダーを取得します。</p>
+
+<pre><code>uname -a
+
+`linux 3.2.0-24-virtual #39-ubuntu SMP Mon May 21 18:44:18 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux`  
 </code></pre>
 
-<p>直前の文字と、スペースを挟んで区切るのを忘れないでください。
-これで、gitにパスが通り、which gitが成功するはずです。
-光へ続く道が開かれました。</p>
+<p>このカーネルバージョンは、3.2.0-24-virtual だということがわかりました。</p>
 
-<h3>参考文献</h3>
+<h3>ヘッダーファイルをインストールする</h3>
 
-<p><a href="http://noumenon-th.net/text-hymn/2011/01/git.php">さくらのレンタルサーバーにGitをインストールする方法</a></p>
+<p>ヘッダーファイルをインストールします。</p>
+
+<pre><code>sudo apt-get install linux-headers-3.2.0-24-virtual
+</code></pre>
+
+<h3>VMware-Toolsをインストールする</h3>
+
+<p>もう一度、VMware-Toolsをインストールします。</p>
+
+<pre><code>sudo ./vmware-install.pl -d
+
+Searching for a valid kernel header path...
+Detected the kernel headers at "/lib/modules/3.2.0-24-virtual/build/include".
+The path "/lib/modules/3.2.0-24-virtual/build/include" appears to be a valid path to the 3.2.0-virtual kernel headers.
+Would you like to change it? [no]
+</code></pre>
+
+<p>今度は、カーネルヘッダーを認識しているようです。</p>
+
+<h2>おわりに</h2>
+
+<p>これをちゃんと読む人はとても少ないはずですが、
+いるとすれば、とても困っている方でしょう。</p>
+
+<p>この記事が少しでもお役に立てれば嬉しいものですね。</p>
+
+<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば
+ホストOSの共有フォルダにアクセスできると思うのですが、<br/>
+設定がうまくいかず、今回はあきらめました。</p>
+
+<h2>参考資料</h2>
+
+<p>CentOS 5.5 x86 に VMware Tools をインストールする<br/>
+<a href="http://d.hatena.ne.jp/yohei-a/20101222/1293051179">http://d.hatena.ne.jp/yohei-a/20101222/1293051179</a></p>
 </div>
 
 
@@ -194,7 +235,7 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
   
 
 
-<time datetime="2012-06-20T19:29:00+09:00" pubdate data-updated="true">2012-06-20 19:29</time>
+<time datetime="2012-07-02T19:42:00+09:00" pubdate data-updated="true">2012-07-02 19:42</time>
       
 
 
@@ -202,12 +243,12 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/06/20/sakura-git-installed/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/06/20/sakura-git-installed/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/" >Tweet</a>
   
   
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
       data-hatena-bookmark-layout="standard"
-      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/06/20/sakura-git-installed/">
+      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/">
     <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
         alt="このエントリーをはてなブックマークに追加" width="20" height="20"
         style="border: none">
@@ -220,10 +261,8 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/06/20/sakura_start/" title="Previous Post: さくらのレンタルサーバーを借りた">&laquo; さくらのレンタルサーバーを借りた</a>
+        <a class="basic-alignment left" href="/blog/2012/06/25/xp_converted/" title="Previous Post: ConverterでXPマシンを仮想化するために必要な4つのこと">&laquo; ConverterでXPマシンを仮想化するために必要な4つのこと</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/06/25/xp_converted/" title="Next Post: ConverterでXPマシンを仮想化するために必要な4つのこと">ConverterでXPマシンを仮想化するために必要な4つのこと &raquo;</a>
       
     </p>
   </footer>
@@ -352,8 +391,8 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2012/06/20/sakura-git-installed/';
-        var disqus_url = 'http://satrex.github.com/blog/2012/06/20/sakura-git-installed/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/';
         var disqus_script = 'embed.js';
       
     (function () {

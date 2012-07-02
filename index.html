@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="これをお読みの皆さんは、仮想マシンを使っておいででしょうか？Windows XPのマシンを、macのVMWareで使うために仮想化しました。そこでハマったポイントを、後に続く方のためにまとめておきます。環境ホストOS：mac OSX (Lion) 10.7.4実行環境：VMWare Fusion &hellip;">
+  <meta name="description" content="仮想マシンでsshを使うために、毎回苦労します。約１年前には、まっさらで始めたVMに、Sambaをインストールして公開鍵を渡しました。今回は、ホストの共有フォルダ経由でファイルを渡します。ホストの共有フォルダにゲストからアクセスするには、VMware-Toolsが必要です。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,6 +98,130 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-02T19:42:00+09:00" pubdate data-updated="true">2012-07-02 19:42</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>仮想マシンでsshを使うために、毎回苦労します。<br/>
+約１年前には、まっさらで始めたVMに、Sambaをインストールして公開鍵を渡しました。<br/>
+今回は、ホストの共有フォルダ経由でファイルを渡します。</p>
+
+<p>ホストの共有フォルダにゲストからアクセスするには、VMware-Toolsが必要です。<br/>
+VMwareFudsionの仮想マシンに、VMwareToolsをインストールする方法を解説します。</p>
+
+<h2>VMWare Toolsの導入</h2>
+
+<ol>
+<li>VMware-Toolsの仮想CDを挿入</li>
+<li>カーネルの番号を確認する</li>
+<li>カーネルヘッダーをインストールする</li>
+<li>VMware-Toolsをインストールする</li>
+</ol>
+
+
+<h3>VMwareToolsの仮想CDを挿入</h3>
+
+<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を<br/>
+選択します。
+その後、以下のように仮想CDをマウントします。</p>
+
+<pre><code>cd /tmp/
+sudo mount /dev/cdrom /mnt/cdrom
+</code></pre>
+
+<p>ここでインストールを行うと、失敗します。</p>
+
+<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz -C /tmp/
+cd ./vmware-tools-distrib/
+sudo ./vmware-install.pl -d
+
+...
+
+Searching for a valid kernel header path...
+The path "" is not valid.
+Would you like to change it? [yes] 
+</code></pre>
+
+<p>カーネルヘッダーがないとだめだそうです。</p>
+
+<h3>カーネルのバージョンを確認する</h3>
+
+<p>カーネルのバージョンを確認し、適切なヘッダーを取得します。</p>
+
+<pre><code>uname -a
+
+`linux 3.2.0-24-virtual #39-ubuntu SMP Mon May 21 18:44:18 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux`  
+</code></pre>
+
+<p>このカーネルバージョンは、3.2.0-24-virtual だということがわかりました。</p>
+
+<h3>ヘッダーファイルをインストールする</h3>
+
+<p>ヘッダーファイルをインストールします。</p>
+
+<pre><code>sudo apt-get install linux-headers-3.2.0-24-virtual
+</code></pre>
+
+<h3>VMware-Toolsをインストールする</h3>
+
+<p>もう一度、VMware-Toolsをインストールします。</p>
+
+<pre><code>sudo ./vmware-install.pl -d
+
+Searching for a valid kernel header path...
+Detected the kernel headers at "/lib/modules/3.2.0-24-virtual/build/include".
+The path "/lib/modules/3.2.0-24-virtual/build/include" appears to be a valid path to the 3.2.0-virtual kernel headers.
+Would you like to change it? [no]
+</code></pre>
+
+<p>今度は、カーネルヘッダーを認識しているようです。</p>
+
+<h2>おわりに</h2>
+
+<p>これをちゃんと読む人はとても少ないはずですが、
+いるとすれば、とても困っている方でしょう。</p>
+
+<p>この記事が少しでもお役に立てれば嬉しいものですね。</p>
+
+<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば
+ホストOSの共有フォルダにアクセスできると思うのですが、<br/>
+設定がうまくいかず、今回はあきらめました。</p>
+
+<h2>参考資料</h2>
+
+<p>CentOS 5.5 x86 に VMware Tools をインストールする<br/>
+<a href="http://d.hatena.ne.jp/yohei-a/20101222/1293051179">http://d.hatena.ne.jp/yohei-a/20101222/1293051179</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -960,52 +1084,6 @@ GitHubの無料アカウント容量が300MBしかないので、画像の管理
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/05/design_changed/">デザイン変えてみた</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-05T22:14:00+09:00" pubdate data-updated="true">2012-05-05 22:14</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>連休のまとまった時間を利用して、Octopressの勉強がてら、スタイルの設定をがっつりやってみました。
-デフォルトのClassicテーマから、<a href="http://blog.glidenote.com/">GlideNote</a>風のデザインへ。</p>
-
-<p>たぶん、細かい書式を使うとレイアウトが崩れると思うので、これから少しずつブラッシュアップしていければよいでしょう。</p>
-
-<h2>感謝を込めて</h2>
-
-<p>かなりの部分を参考にさせて頂いた<a href="http://twitter.com/glidenote">GlideNoteさん</a>に、感謝の意を表します。好き過ぎてパクっちゃいました★</p>
-
-<p>そもそもOctopress、zshなど、GlideNoteさんの記事を読んでは、もろもろパクり倒してます。
-本当にありがとうございます。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1029,6 +1107,10 @@ GitHubの無料アカウント容量が300MBしかないので、画像の管理
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a>
       </li>
     
@@ -1042,10 +1124,6 @@ GitHubの無料アカウント容量が300MBしかないので、画像の管理
     
       <li class="post">
         <a href="/blog/2012/06/04/vimsketchup/">VimSketchUpをリリースしました</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/05/29/sketchup_activation/">MacでSketchUpのRubyスクリプトを自動実行</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-06-27T22:15:44+09:00</updated>
+  <updated>2012-07-02T20:55:04+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -12,6 +12,103 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[ゲストubuntuに、VMware-Toolsをインストールする]]></title>
+    <link href="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/"/>
+    <updated>2012-07-02T19:42:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/07/02/vmware-tools-installed</id>
+    <content type="html"><![CDATA[<p>仮想マシンでsshを使うために、毎回苦労します。<br/>
+約１年前には、まっさらで始めたVMに、Sambaをインストールして公開鍵を渡しました。<br/>
+今回は、ホストの共有フォルダ経由でファイルを渡します。</p>
+
+<p>ホストの共有フォルダにゲストからアクセスするには、VMware-Toolsが必要です。<br/>
+VMwareFudsionの仮想マシンに、VMwareToolsをインストールする方法を解説します。</p>
+
+<h2>VMWare Toolsの導入</h2>
+
+<ol>
+<li>VMware-Toolsの仮想CDを挿入</li>
+<li>カーネルの番号を確認する</li>
+<li>カーネルヘッダーをインストールする</li>
+<li>VMware-Toolsをインストールする</li>
+</ol>
+
+
+<h3>VMwareToolsの仮想CDを挿入</h3>
+
+<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を<br/>
+選択します。
+その後、以下のように仮想CDをマウントします。</p>
+
+<pre><code>cd /tmp/
+sudo mount /dev/cdrom /mnt/cdrom
+</code></pre>
+
+<p>ここでインストールを行うと、失敗します。</p>
+
+<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz -C /tmp/
+cd ./vmware-tools-distrib/
+sudo ./vmware-install.pl -d
+
+...
+
+Searching for a valid kernel header path...
+The path "" is not valid.
+Would you like to change it? [yes] 
+</code></pre>
+
+<p>カーネルヘッダーがないとだめだそうです。</p>
+
+<h3>カーネルのバージョンを確認する</h3>
+
+<p>カーネルのバージョンを確認し、適切なヘッダーを取得します。</p>
+
+<pre><code>uname -a
+
+`linux 3.2.0-24-virtual #39-ubuntu SMP Mon May 21 18:44:18 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux`  
+</code></pre>
+
+<p>このカーネルバージョンは、3.2.0-24-virtual だということがわかりました。</p>
+
+<h3>ヘッダーファイルをインストールする</h3>
+
+<p>ヘッダーファイルをインストールします。</p>
+
+<pre><code>sudo apt-get install linux-headers-3.2.0-24-virtual
+</code></pre>
+
+<h3>VMware-Toolsをインストールする</h3>
+
+<p>もう一度、VMware-Toolsをインストールします。</p>
+
+<pre><code>sudo ./vmware-install.pl -d
+
+Searching for a valid kernel header path...
+Detected the kernel headers at "/lib/modules/3.2.0-24-virtual/build/include".
+The path "/lib/modules/3.2.0-24-virtual/build/include" appears to be a valid path to the 3.2.0-virtual kernel headers.
+Would you like to change it? [no]
+</code></pre>
+
+<p>今度は、カーネルヘッダーを認識しているようです。</p>
+
+<h2>おわりに</h2>
+
+<p>これをちゃんと読む人はとても少ないはずですが、
+いるとすれば、とても困っている方でしょう。</p>
+
+<p>この記事が少しでもお役に立てれば嬉しいものですね。</p>
+
+<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば
+ホストOSの共有フォルダにアクセスできると思うのですが、<br/>
+設定がうまくいかず、今回はあきらめました。</p>
+
+<h2>参考資料</h2>
+
+<p>CentOS 5.5 x86 に VMware Tools をインストールする<br/>
+<a href="http://d.hatena.ne.jp/yohei-a/20101222/1293051179">http://d.hatena.ne.jp/yohei-a/20101222/1293051179</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[ConverterでXPマシンを仮想化するために必要な4つのこと]]></title>
