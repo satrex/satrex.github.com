@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-07-04T22:58:39+09:00</updated>
+  <updated>2012-07-04T23:04:34+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -112,6 +112,19 @@ authorized-keysというファイルです。
 <p><strong>>>に注目。</strong></p>
 
 <p>これで、ゲストOSに、ホストOSの公開鍵がコピーされました。</p>
+
+<h2>sshの設定</h2>
+
+<p>ゲストOSで、以下のコマンドを実行します。</p>
+
+<pre><code>$ sudo vi /etc/ssh/sshd_config
+</code></pre>
+
+<p>以下の行を探して、下のように変更します。</p>
+
+<p>  ChallengeResponseAuthentication no
+  PasswordAuthentication no
+  UsePAM no</p>
 
 <h2>sshデーモン、いでよ！</h2>
 

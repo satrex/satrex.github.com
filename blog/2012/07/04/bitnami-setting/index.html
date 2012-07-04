@@ -219,6 +219,19 @@ authorized-keysというファイルです。
 
 <p>これで、ゲストOSに、ホストOSの公開鍵がコピーされました。</p>
 
+<h2>sshの設定</h2>
+
+<p>ゲストOSで、以下のコマンドを実行します。</p>
+
+<pre><code>$ sudo vi /etc/ssh/sshd_config
+</code></pre>
+
+<p>以下の行を探して、下のように変更します。</p>
+
+<p>  ChallengeResponseAuthentication no
+  PasswordAuthentication no
+  UsePAM no</p>
+
 <h2>sshデーモン、いでよ！</h2>
 
 <p>ゲストOSがアクセスを待ち構えるために、
