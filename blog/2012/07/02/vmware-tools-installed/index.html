@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="仮想マシンでsshを使うために、毎回苦労します。約１年前には、まっさらで始めたVMに、Sambaをインストールして公開鍵を渡しました。今回は、ホストの共有フォルダ経由でファイルを渡します。ホストの共有フォルダにゲストからアクセスするには、VMware-Toolsが必要です。 &hellip;">
+  <meta name="description" content="ゲストOSの仮想サーバーへ、ホストOSからssh接続するために、公開鍵を渡します。今回は、ホストの共有フォルダ経由でファイルを渡します。ホストOSの共有フォルダを使うには、VMware-Toolsが必要です。VMwareToolsをインストールする方法を解説します。VMWare &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -124,12 +124,12 @@
   </header>
 
 
-<div class="entry-content"><p>仮想マシンでsshを使うために、毎回苦労します。<br/>
-約１年前には、まっさらで始めたVMに、Sambaをインストールして公開鍵を渡しました。<br/>
+<div class="entry-content"><p>ゲストOSの仮想サーバーへ、ホストOSからssh接続するために、<br/>
+公開鍵を渡します。<br/>
 今回は、ホストの共有フォルダ経由でファイルを渡します。</p>
 
-<p>ホストの共有フォルダにゲストからアクセスするには、VMware-Toolsが必要です。<br/>
-VMwareFudsionの仮想マシンに、VMwareToolsをインストールする方法を解説します。</p>
+<p>ホストOSの共有フォルダを使うには、VMware-Toolsが必要です。<br/>
+VMwareToolsをインストールする方法を解説します。</p>
 
 <h2>VMWare Toolsの導入</h2>
 
@@ -143,19 +143,19 @@ VMwareFudsionの仮想マシンに、VMwareToolsをインストールする方�
 
 <h3>VMwareToolsの仮想CDを挿入</h3>
 
-<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を<br/>
-選択します。
+<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を選択します。<br/>
 その後、以下のように仮想CDをマウントします。</p>
 
-<pre><code>cd /tmp/
-sudo mount /dev/cdrom /mnt/cdrom
+<pre><code>$ sudo mkdir -p /mnt/cdrom
+$ sudo mount /dev/cdrom /mnt/cdrom
+&gt; mount: block device /dev/sr0 is write-protected, mounting read-only
 </code></pre>
 
 <p>ここでインストールを行うと、失敗します。</p>
 
-<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz -C /tmp/
+<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz 
 cd ./vmware-tools-distrib/
-sudo ./vmware-install.pl -d
+sudo ./vmware-install.pl 
 
 ...
 
@@ -167,6 +167,9 @@ Would you like to change it? [yes]
 <p>カーネルヘッダーがないとだめだそうです。</p>
 
 <h3>カーネルのバージョンを確認する</h3>
+
+<p>メニューから、『仮想マシン->設定->ネットワークアダプタ』を選択し、<br/>
+ネットワークにブリッジ接続を指定します。</p>
 
 <p>カーネルのバージョンを確認し、適切なヘッダーを取得します。</p>
 
@@ -184,6 +187,10 @@ Would you like to change it? [yes]
 <pre><code>sudo apt-get install linux-headers-3.2.0-24-virtual
 </code></pre>
 
+<p>バージョンのないヘッダーファイル（linux-headers-virtual）も存在しますが、<br/>
+自分の環境では、サーバー接続エラー（404）が発生して、<br/>
+インストールが成功しませんでした。</p>
+
 <h3>VMware-Toolsをインストールする</h3>
 
 <p>もう一度、VMware-Toolsをインストールします。</p>
@@ -192,11 +199,13 @@ Would you like to change it? [yes]
 
 Searching for a valid kernel header path...
 Detected the kernel headers at "/lib/modules/3.2.0-24-virtual/build/include".
-The path "/lib/modules/3.2.0-24-virtual/build/include" appears to be a valid path to the 3.2.0-virtual kernel headers.
+The path "/lib/modules/3.2.0-24-virtual/build/include" appears 
+to be a valid path to the 3.2.0-virtual kernel headers.
 Would you like to change it? [no]
 </code></pre>
 
-<p>今度は、カーネルヘッダーを認識しているようです。</p>
+<p>今度は、カーネルヘッダーを認識しているようです。
+正しくVMware-Toolsがインストールされました。</p>
 
 <h2>おわりに</h2>
 
@@ -205,7 +214,7 @@ Would you like to change it? [no]
 
 <p>この記事が少しでもお役に立てれば嬉しいものですね。</p>
 
-<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば
+<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば<br/>
 ホストOSの共有フォルダにアクセスできると思うのですが、<br/>
 設定がうまくいかず、今回はあきらめました。</p>
 
@@ -264,6 +273,8 @@ Would you like to change it? [no]
         <a class="basic-alignment left" href="/blog/2012/06/25/xp_converted/" title="Previous Post: ConverterでXPマシンを仮想化するために必要な4つのこと">&laquo; ConverterでXPマシンを仮想化するために必要な4つのこと</a>
       
       
+        <a class="basic-alignment right" href="/blog/2012/07/04/bitnami-setting/" title="Next Post: bitnamiの仮想マシンを使うためのステップ">bitnamiの仮想マシンを使うためのステップ &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -291,6 +302,10 @@ Would you like to change it? [no]
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/07/04/bitnami-setting/">bitnamiの仮想マシンを使うためのステップ</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a>
       </li>
     
@@ -304,10 +319,6 @@ Would you like to change it? [no]
     
       <li class="post">
         <a href="/blog/2012/06/20/sakura_start/">さくらのレンタルサーバーを借りた</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/04/vimsketchup/">VimSketchUpをリリースしました</a>
       </li>
     
   </ul>

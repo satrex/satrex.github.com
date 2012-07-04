@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-07-02T20:55:04+09:00</updated>
+  <updated>2012-07-04T22:58:39+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -14,16 +14,167 @@
 
   
   <entry>
+    <title type="html"><![CDATA[bitnamiの仮想マシンを使うためのステップ]]></title>
+    <link href="http://satrex.github.com/blog/2012/07/04/bitnami-setting/"/>
+    <updated>2012-07-04T07:35:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/07/04/bitnami-setting</id>
+    <content type="html"><![CDATA[<p>WordPressを使ったWebサイト作りをしようとしています。
+ローカルの仮想サーバーでサイトのソースをGitに上げ、
+公開用のサーバーでGitからPullすることで、デプロイする構成です。</p>
+
+<p>そこで、ローカルの仮想サーバーには、
+WordPressとMySQLとPHPのスタックである、
+bitnamiを使ってみます。</p>
+
+<h2>bitnami仮想マシンのダウンロード</h2>
+
+<p>bitnamiを使うためには、２つの方法があります。</p>
+
+<ol>
+<li>既存の仮想マシンに、bitnamiをインストールする</li>
+<li>bitnamiインストール済の仮想マシンを、新規にダウンロードする</li>
+</ol>
+
+
+<p>今回は、2.を解説します。
+公式サイトから、bitnamiがインストールされた仮想マシンをダウンロードします。</p>
+
+<h2>sshの導入</h2>
+
+<p>コマンドラインから操作するため、仮想マシンでsshを有効にします。
+公開鍵の受け渡しが、最も苦労した部分です。</p>
+
+<h3>公開鍵の渡し方</h3>
+
+<p>仮想サーバーの公開鍵を、開発用マシンに渡すための方法は、
+次のような選択肢があります。</p>
+
+<ol>
+<li>仮想マシンがSmabaサーバーとなり、ホストOSのがクライアントとなってファイルを受け渡す</li>
+<li>逆に、ホストOSの共有フォルダに、仮想マシンからアクセスしてファイルを受け渡す</li>
+<li>GitHubなど、外部ストレージを経由してファイルを受け渡す</li>
+</ol>
+
+
+<p>ここでは、2.を解説します。</p>
+
+<h3>VMware-Toolsの導入</h3>
+
+<p>ホストOSの共有フォルダにゲストOSからアクセスするには、<br/>
+VMware-Toolsをインストールします。</p>
+
+<p>別の記事にまとめていますので、参照してください。
+<a href="http://satrex.github.com/2012-07-02-vmware-tools-installed.html">vmware-tools-install</a></p>
+
+<h3>ssh鍵の生成</h3>
+
+<p>ホストOSで、以下のコマンドを入力します。</p>
+
+<pre><code>sudo ssh-keygen
+</code></pre>
+
+<p>画面に従ってパスワードを入力すると、公開鍵と秘密鍵が生成されます。
+id_rsa.pubファイルが公開鍵、id_rsaファイルが秘密鍵です。</p>
+
+<h3>公開鍵を、共有フォルダに置く</h3>
+
+<p>これから、いまホストOSで作った公開鍵をサーバーに渡します。</p>
+
+<p>まず、id_rsa.pubファイルを、ホストOSの共有フォルダにコピーします。
+オイラの環境では、Macの~/shareフォルダです。</p>
+
+<p>マウスでポイっと入れればOKです。</p>
+
+<h3>ゲストubuntuに、ホストOSの公開鍵をインストール</h3>
+
+<p>共有フォルダに入れた公開鍵を、ゲストOSから見てみます。</p>
+
+<pre><code>$ ls /mnt/hgfs/share
+&gt; id_rsa.pub
+</code></pre>
+
+<p>ホストOSの公開鍵が見えています。
+これを、ゲストOSにインストールします。</p>
+
+<p>でも、いったいどこにインストールするのでしょうか？</p>
+
+<p>サーバーには『この鍵をくれたマシンのアクセスには応じるよ』というファイルがあります。<br/>
+authorized-keysというファイルです。
+今回受け取った公開鍵を、authorized_keysファイルに追記します。</p>
+
+<p>このファイルには、複数の鍵を書き込むことができます。
+上書きすると、今までアクセスできたマシンがアクセスできなくなる、
+という現象が起こりますよ。</p>
+
+<pre><code>cat /mnt/hgfs/share/id_rsa.pub &gt;&gt; /home/bitnami/.ssh/authorized_keys
+</code></pre>
+
+<p><strong>>>に注目。</strong></p>
+
+<p>これで、ゲストOSに、ホストOSの公開鍵がコピーされました。</p>
+
+<h2>sshデーモン、いでよ！</h2>
+
+<p>ゲストOSがアクセスを待ち構えるために、
+sshデーモンを召喚します。
+このデーモンが、サーバーの門番を務めてくれるわけです。</p>
+
+<p>召喚の呪文は、これです。</p>
+
+<pre><code>$ sudo start ssh
+</code></pre>
+
+<p>これで、ゲストOS上でsshが有効になりました。</p>
+
+<h2>ホストOSからアクセスしてみる</h2>
+
+<p>ホストOS上で、sshコマンドを入力します。</p>
+
+<pre><code>ssh 192.168.100.xxx（ゲストOSのIPアドレス）-l bitnami
+</code></pre>
+
+<p>ゲストOSのIPアドレスは、ゲストOSでifconfigコマンドを使用すると、<br/>
+表示されます。<br/>
+・・・大丈夫ですよね？？</p>
+
+<p>あと、-l bitnamiの部分がなんなのかというと、
+bitnamiユーザーでログインします、という意味です。
+サーバーにはbitnamiユーザーしかいないため、
+他のユーザーではログインできません。</p>
+
+<p>別のユーザーを作っている場合は、
+そのユーザー名を指定してください。</p>
+
+<p>これを指定しない場合は、ホストOSのユーザー名でログインします。</p>
+
+<pre><code>$ ssh 192.168.100.101 -l bitnami         
+&gt; The authenticity of host '192.168.100.101 (192.168.100.101)' can't be established.
+&gt; RSA key fingerprint is 86:74:fe:6b:8b:b1:c2:64:3f:d0:80:bc:92:f3:c0:75.
+&gt; Are you sure you want to continue connecting (yes/no)? yes
+</code></pre>
+
+<p>何か聞かれた場合は、yesと答えて下さい。</p>
+
+<pre><code>&gt; Warning: Permanently added '192.168.100.101' (RSA) to the list of known hosts.
+&gt; Last login: Tue Jul  3 13:10:37 2012
+</code></pre>
+
+<p>これで、sshログインできました。<br/>
+めでたし。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[ゲストubuntuに、VMware-Toolsをインストールする]]></title>
     <link href="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/"/>
     <updated>2012-07-02T19:42:00+09:00</updated>
     <id>http://satrex.github.com/blog/2012/07/02/vmware-tools-installed</id>
-    <content type="html"><![CDATA[<p>仮想マシンでsshを使うために、毎回苦労します。<br/>
-約１年前には、まっさらで始めたVMに、Sambaをインストールして公開鍵を渡しました。<br/>
+    <content type="html"><![CDATA[<p>ゲストOSの仮想サーバーへ、ホストOSからssh接続するために、<br/>
+公開鍵を渡します。<br/>
 今回は、ホストの共有フォルダ経由でファイルを渡します。</p>
 
-<p>ホストの共有フォルダにゲストからアクセスするには、VMware-Toolsが必要です。<br/>
-VMwareFudsionの仮想マシンに、VMwareToolsをインストールする方法を解説します。</p>
+<p>ホストOSの共有フォルダを使うには、VMware-Toolsが必要です。<br/>
+VMwareToolsをインストールする方法を解説します。</p>
 
 <h2>VMWare Toolsの導入</h2>
 
@@ -37,19 +188,19 @@ VMwareFudsionの仮想マシンに、VMwareToolsをインストールする方�
 
 <h3>VMwareToolsの仮想CDを挿入</h3>
 
-<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を<br/>
-選択します。
+<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を選択します。<br/>
 その後、以下のように仮想CDをマウントします。</p>
 
-<pre><code>cd /tmp/
-sudo mount /dev/cdrom /mnt/cdrom
+<pre><code>$ sudo mkdir -p /mnt/cdrom
+$ sudo mount /dev/cdrom /mnt/cdrom
+&gt; mount: block device /dev/sr0 is write-protected, mounting read-only
 </code></pre>
 
 <p>ここでインストールを行うと、失敗します。</p>
 
-<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz -C /tmp/
+<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz 
 cd ./vmware-tools-distrib/
-sudo ./vmware-install.pl -d
+sudo ./vmware-install.pl 
 
 ...
 
@@ -61,6 +212,9 @@ Would you like to change it? [yes]
 <p>カーネルヘッダーがないとだめだそうです。</p>
 
 <h3>カーネルのバージョンを確認する</h3>
+
+<p>メニューから、『仮想マシン->設定->ネットワークアダプタ』を選択し、<br/>
+ネットワークにブリッジ接続を指定します。</p>
 
 <p>カーネルのバージョンを確認し、適切なヘッダーを取得します。</p>
 
@@ -78,6 +232,10 @@ Would you like to change it? [yes]
 <pre><code>sudo apt-get install linux-headers-3.2.0-24-virtual
 </code></pre>
 
+<p>バージョンのないヘッダーファイル（linux-headers-virtual）も存在しますが、<br/>
+自分の環境では、サーバー接続エラー（404）が発生して、<br/>
+インストールが成功しませんでした。</p>
+
 <h3>VMware-Toolsをインストールする</h3>
 
 <p>もう一度、VMware-Toolsをインストールします。</p>
@@ -86,11 +244,13 @@ Would you like to change it? [yes]
 
 Searching for a valid kernel header path...
 Detected the kernel headers at "/lib/modules/3.2.0-24-virtual/build/include".
-The path "/lib/modules/3.2.0-24-virtual/build/include" appears to be a valid path to the 3.2.0-virtual kernel headers.
+The path "/lib/modules/3.2.0-24-virtual/build/include" appears 
+to be a valid path to the 3.2.0-virtual kernel headers.
 Would you like to change it? [no]
 </code></pre>
 
-<p>今度は、カーネルヘッダーを認識しているようです。</p>
+<p>今度は、カーネルヘッダーを認識しているようです。
+正しくVMware-Toolsがインストールされました。</p>
 
 <h2>おわりに</h2>
 
@@ -99,7 +259,7 @@ Would you like to change it? [no]
 
 <p>この記事が少しでもお役に立てれば嬉しいものですね。</p>
 
-<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば
+<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば<br/>
 ホストOSの共有フォルダにアクセスできると思うのですが、<br/>
 設定がうまくいかず、今回はあきらめました。</p>
 

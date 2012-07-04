@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>vimの設定見直し中 - 電気羊の執務室</title>
+  <title>bitnamiの仮想マシンを使うためのステップ - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="vimの設定を見直しています。最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。今の設定で行くと、いろいろと超えないといけない壁がある感じです。NeoComplCacheが使えない最大の問題は、 &hellip;">
+  <meta name="description" content="WordPressを使ったWebサイト作りをしようとしています。ローカルの仮想サーバーでサイトのソースをGitに上げ、公開用のサーバーでGitからPullすることで、デプロイする構成です。そこで、ローカルの仮想サーバーには、WordPressとMySQLとPHPのスタックである、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2012/05/01/vim_setting">
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/07/04/bitnami-setting">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -101,7 +101,7 @@
   
   <header>
     
-      <h1 class="entry-title">Vimの設定見直し中</h1>
+      <h1 class="entry-title">Bitnamiの仮想マシンを使うためのステップ</h1>
     
     
       <p class="meta">
@@ -117,50 +117,156 @@
   
 
 
-<time datetime="2012-05-01T22:43:00+09:00" pubdate data-updated="true">2012-05-01 22:43</time>
+<time datetime="2012-07-04T07:35:00+09:00" pubdate data-updated="true">2012-07-04 07:35</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>vimの設定を見直しています。
-最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
-コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。</p>
+<div class="entry-content"><p>WordPressを使ったWebサイト作りをしようとしています。
+ローカルの仮想サーバーでサイトのソースをGitに上げ、
+公開用のサーバーでGitからPullすることで、デプロイする構成です。</p>
 
-<p>今の設定で行くと、いろいろと超えないといけない壁がある感じです。</p>
+<p>そこで、ローカルの仮想サーバーには、
+WordPressとMySQLとPHPのスタックである、
+bitnamiを使ってみます。</p>
 
-<h3>NeoComplCacheが使えない</h3>
+<h2>bitnami仮想マシンのダウンロード</h2>
 
-<p>最大の問題は、NeoComplCacheがコマンドラインからは使えないこと。<br/>
-rbファイルやHTMLファイルを編集しようとすると、
-ファイルを開いた時か保存した時のどちらかに、猛烈な勢いでエラーを吐きまくります（詳細は画像参照）。</p>
+<p>bitnamiを使うためには、２つの方法があります。</p>
 
-<p>もう一点重大な問題として、日本語入力などの設定が、コマンドラインからのVimでは不便すぎます。</p>
-
-<ul>
-<li>IMEが全ての入力に優先している。<br/>
-Vimのモード切替などは、日本語入力中でも、半角で受け付けてくれないと不便です。</li>
-<li>Insertモードにすると、カーソルキーでカーソルが移動できない（A〜Dの入力で代替される）。
-set nocompatibleと, imap ^[OA <Up>を試した結果、改善されないので諦めました。</li>
-</ul>
+<ol>
+<li>既存の仮想マシンに、bitnamiをインストールする</li>
+<li>bitnamiインストール済の仮想マシンを、新規にダウンロードする</li>
+</ol>
 
 
-<p>基本はGvimを立ち上げるが吉、で当面やってみようかと思います。
-むしろGvimのコマンドラインがzshになってくれたら文句ないんですが、
-Vimのコマンドでlessを使うたびに、『ターミナルの全機能が使えるなんて思うなよ』と言われてしまうので、
-半ば諦めています。おわり。</p>
+<p>今回は、2.を解説します。
+公式サイトから、bitnamiがインストールされた仮想マシンをダウンロードします。</p>
 
-<h3>エラーメッセージの画像</h3>
+<h2>sshの導入</h2>
 
-<div class="thumbnail"><a href="https://skitch.com/sat-rex/8aqq2/tmux-114x44"><img style="max-width:638px" src="https://img.skitch.com/20120502-ep9y7r2mj68ey3rcgdmy2u86kj.medium.jpg" alt="tmux-114×44" /></a></div>
+<p>コマンドラインから操作するため、仮想マシンでsshを有効にします。
+公開鍵の受け渡しが、最も苦労した部分です。</p>
+
+<h3>公開鍵の渡し方</h3>
+
+<p>仮想サーバーの公開鍵を、開発用マシンに渡すための方法は、
+次のような選択肢があります。</p>
+
+<ol>
+<li>仮想マシンがSmabaサーバーとなり、ホストOSのがクライアントとなってファイルを受け渡す</li>
+<li>逆に、ホストOSの共有フォルダに、仮想マシンからアクセスしてファイルを受け渡す</li>
+<li>GitHubなど、外部ストレージを経由してファイルを受け渡す</li>
+</ol>
 
 
-<div class="thumbnail"><a href="https://skitch.com/sat-rex/8axfu/tmux-114x44-1-3"><img style="max-width:638px" src="https://img.skitch.com/20120502-cb8ih2ksrnnfxk7bkgsujpk1ud.medium.jpg" alt="tmux-114×44-1-3" /></a></div>
+<p>ここでは、2.を解説します。</p>
 
+<h3>VMware-Toolsの導入</h3>
 
-<div class="thumbnail"><a href="https://skitch.com/sat-rex/8axrb/tmux-114x44-3"><img style="max-width:638px" src="https://img.skitch.com/20120502-tt6iku576gwk3sx96yeh32jspx.medium.jpg" alt="tmux-114×44-3" /></a></div>
+<p>ホストOSの共有フォルダにゲストOSからアクセスするには、<br/>
+VMware-Toolsをインストールします。</p>
 
+<p>別の記事にまとめていますので、参照してください。
+<a href="/2012-07-02-vmware-tools-installed.html">vmware-tools-install</a></p>
+
+<h3>ssh鍵の生成</h3>
+
+<p>ホストOSで、以下のコマンドを入力します。</p>
+
+<pre><code>sudo ssh-keygen
+</code></pre>
+
+<p>画面に従ってパスワードを入力すると、公開鍵と秘密鍵が生成されます。
+id_rsa.pubファイルが公開鍵、id_rsaファイルが秘密鍵です。</p>
+
+<h3>公開鍵を、共有フォルダに置く</h3>
+
+<p>これから、いまホストOSで作った公開鍵をサーバーに渡します。</p>
+
+<p>まず、id_rsa.pubファイルを、ホストOSの共有フォルダにコピーします。
+オイラの環境では、Macの~/shareフォルダです。</p>
+
+<p>マウスでポイっと入れればOKです。</p>
+
+<h3>ゲストubuntuに、ホストOSの公開鍵をインストール</h3>
+
+<p>共有フォルダに入れた公開鍵を、ゲストOSから見てみます。</p>
+
+<pre><code>$ ls /mnt/hgfs/share
+&gt; id_rsa.pub
+</code></pre>
+
+<p>ホストOSの公開鍵が見えています。
+これを、ゲストOSにインストールします。</p>
+
+<p>でも、いったいどこにインストールするのでしょうか？</p>
+
+<p>サーバーには『この鍵をくれたマシンのアクセスには応じるよ』というファイルがあります。<br/>
+authorized-keysというファイルです。
+今回受け取った公開鍵を、authorized_keysファイルに追記します。</p>
+
+<p>このファイルには、複数の鍵を書き込むことができます。
+上書きすると、今までアクセスできたマシンがアクセスできなくなる、
+という現象が起こりますよ。</p>
+
+<pre><code>cat /mnt/hgfs/share/id_rsa.pub &gt;&gt; /home/bitnami/.ssh/authorized_keys
+</code></pre>
+
+<p><strong>>>に注目。</strong></p>
+
+<p>これで、ゲストOSに、ホストOSの公開鍵がコピーされました。</p>
+
+<h2>sshデーモン、いでよ！</h2>
+
+<p>ゲストOSがアクセスを待ち構えるために、
+sshデーモンを召喚します。
+このデーモンが、サーバーの門番を務めてくれるわけです。</p>
+
+<p>召喚の呪文は、これです。</p>
+
+<pre><code>$ sudo start ssh
+</code></pre>
+
+<p>これで、ゲストOS上でsshが有効になりました。</p>
+
+<h2>ホストOSからアクセスしてみる</h2>
+
+<p>ホストOS上で、sshコマンドを入力します。</p>
+
+<pre><code>ssh 192.168.100.xxx（ゲストOSのIPアドレス）-l bitnami
+</code></pre>
+
+<p>ゲストOSのIPアドレスは、ゲストOSでifconfigコマンドを使用すると、<br/>
+表示されます。<br/>
+・・・大丈夫ですよね？？</p>
+
+<p>あと、-l bitnamiの部分がなんなのかというと、
+bitnamiユーザーでログインします、という意味です。
+サーバーにはbitnamiユーザーしかいないため、
+他のユーザーではログインできません。</p>
+
+<p>別のユーザーを作っている場合は、
+そのユーザー名を指定してください。</p>
+
+<p>これを指定しない場合は、ホストOSのユーザー名でログインします。</p>
+
+<pre><code>$ ssh 192.168.100.101 -l bitnami         
+&gt; The authenticity of host '192.168.100.101 (192.168.100.101)' can't be established.
+&gt; RSA key fingerprint is 86:74:fe:6b:8b:b1:c2:64:3f:d0:80:bc:92:f3:c0:75.
+&gt; Are you sure you want to continue connecting (yes/no)? yes
+</code></pre>
+
+<p>何か聞かれた場合は、yesと答えて下さい。</p>
+
+<pre><code>&gt; Warning: Permanently added '192.168.100.101' (RSA) to the list of known hosts.
+&gt; Last login: Tue Jul  3 13:10:37 2012
+</code></pre>
+
+<p>これで、sshログインできました。<br/>
+めでたし。</p>
 </div>
 
 
@@ -183,7 +289,7 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
   
 
 
-<time datetime="2012-05-01T22:43:00+09:00" pubdate data-updated="true">2012-05-01 22:43</time>
+<time datetime="2012-07-04T07:35:00+09:00" pubdate data-updated="true">2012-07-04 07:35</time>
       
 
 
@@ -191,12 +297,12 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/05/01/vim_setting/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/05/01/vim_setting/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/07/04/bitnami-setting/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/07/04/bitnami-setting/" >Tweet</a>
   
   
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
       data-hatena-bookmark-layout="standard"
-      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/05/01/vim_setting/">
+      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/07/04/bitnami-setting/">
     <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
         alt="このエントリーをはてなブックマークに追加" width="20" height="20"
         style="border: none">
@@ -209,10 +315,8 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/04/27/task_remain/" title="Previous Post: これからやりたいこと">&laquo; これからやりたいこと</a>
+        <a class="basic-alignment left" href="/blog/2012/07/02/vmware-tools-installed/" title="Previous Post: ゲストubuntuに、VMware-Toolsをインストールする">&laquo; ゲストubuntuに、VMware-Toolsをインストールする</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/05/05/design_changed/" title="Next Post: デザイン変えてみた">デザイン変えてみた &raquo;</a>
       
     </p>
   </footer>
@@ -341,8 +445,8 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2012/05/01/vim_setting/';
-        var disqus_url = 'http://satrex.github.com/blog/2012/05/01/vim_setting/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/07/04/bitnami-setting/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/07/04/bitnami-setting/';
         var disqus_script = 'embed.js';
       
     (function () {
