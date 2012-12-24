@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2012-07-04T23:04:34+09:00</updated>
+  <updated>2012-12-24T11:37:06+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -12,6 +12,117 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[SketchUpのWebDialogの使い方]]></title>
+    <link href="http://satrex.github.com/blog/2012/12/24/webdialog/"/>
+    <updated>2012-12-24T08:11:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2012/12/24/webdialog</id>
+    <content type="html"><![CDATA[<p>Trimble SketchUpには、rubyで自動化できる機能があります。
+今日は、rubyで画面を作る、WebDialogというコンポーネントについて
+お話ししたいと思います。</p>
+
+<p>SketchUpには、WebDialogというコンポーネントがあります。<br/>
+これを使うとrubyスクリプトから、フォームを作成でき,<br/>
+ユーザーと対話的にスクリプトを実行できるわけです。</p>
+
+<h2>WebDialogの特長</h2>
+
+<ul>
+<li>htmlとCSSで、フォームを作成できる</li>
+<li>rubyスクリプトから、htmlの要素にアクセスできる</li>
+<li>html内のjavascript関数から、rubyスクリプトを実行できる</li>
+<li>rubyスクリプトから、html内のjavascript関数を実行できる</li>
+</ul>
+
+
+<h2>WebDialogは、HTML+CSS+javascript</h2>
+
+<p>WebDialogコンポーネントは、フォームのレイアウトをHTMLで指定します。<br/>
+また、入力部品の動作はjavascriptで指定します。</p>
+
+<p>基本的な使い方は、公式ヘルプに載っています。<br/>
+http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</p>
+
+<h2>rubyスクリプトの実行方法</h2>
+
+<p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。
+指定されたコールバックメソッドには、仮想urlが割り当てられており、
+&#8220;skp:&#8221; + コールバックメソッド名のアドレスに遷移しようとすると、
+コールバックメソッドが実行されます。</p>
+
+<p>仮想urlへ遷移するには、以下のいずれかの方法で指定します。</p>
+
+<ul>
+<li>リンクのurlとして指定</li>
+<li>javascript関数内に、window.location=&#8221;skp:&#8221; + 関数名を指定し、ボタンに割り当て</li>
+</ul>
+
+
+<h2>macの場合はrubyコードが非同期実行</h2>
+
+<p><a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">Martin Rinehart</a>によると、
+windows ではjavascriptから呼び出されたrubyスクリプトは同期実行され、
+戻り値をjavasxriptで受け取る事ができるそうです。
+しかし、macではrubyスクリプトは必ず非同期実行のため、
+rubyの戻り値をjavascriptで利用することはできないようです。</p>
+
+<p>注意してください。</p>
+
+<h2>サンプルコード</h2>
+
+<p>ほぼ最小構成のWebDialogのサンプルです。
+ここでは、ボタンのクリックイベントにjavascriptのスクリプトを設定し、
+リンクのurlにrubyのコールバックイベントの仮想urlを指定しています。</p>
+
+<div><script src='https://gist.github.com/4367009.js?file='></script>
+<noscript><pre><code>require 'Sketchup'
+
+def show_dialog
+  dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
+   &quot;DialogTest&quot;, 200, 150, 150, 150, true);
+  html = &lt;&lt;-HTML
+    &lt;form&gt;
+      &lt;input id=&quot;start2&quot; onClick=&quot;window.alert('alert from javascript');&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
+      &lt;/br&gt;
+      &lt;a href=&quot;skp:ruby_messagebox@from link&quot;&gt;link&lt;/a&gt;
+    &lt;/form&gt;
+  HTML
+  
+  dlg.set_html html
+  dlg.add_action_callback(&quot;ruby_messagebox&quot;) {|dialog, params|
+    UI.messagebox(&quot;You called ruby_messagebox with: &quot; + params.to_s)
+  }
+  dlg.show
+end
+
+show_dialog
+
+</code></pre></noscript></div>
+
+
+<h2>サンプルコードの使い方</h2>
+
+<p>サンプルコードを実行すると、このような画面が表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/8f8b089a-0f79-4f18-8faf-fd3e39492230/8371ace36c63afd6fded1e6baa80773b/deep/0/WebDialog001.jpg" alt="WebDialogのサンプル" /></p>
+
+<p>ボタンを押すと、javascriptで作成されたメッセージが表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/801ac46e-8054-4e33-bb96-95187e0cab7c/531face5d8e312d13f234eba2baccd62/deep/0/WebDialog002.jpg" alt="ボタンを押すと、javascriptのアラートが表示される" /></p>
+
+<p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。
+コード内では、リンクのurlとして、&#8221;skp:&#8221;に続いてrubyのコールバックメソッド名が
+指定されているのがわかります。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/57a25f6d-39ec-4f93-9780-962e52a0318e/174dbd1151fadda7723fe1b7426c30f5/deep/0/WebDialog003.jpg" alt="リンクをクリックすると、rubyのメッセージが表示される" /></p>
+
+<h2>参考資料</h2>
+
+<p>SketchUp Ruby Interface to JavaScript<br/>
+<a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[bitnamiの仮想マシンを使うためのステップ]]></title>
@@ -690,7 +801,7 @@ SketchUp上で実行する事ができるはずです。</p>
 <p>まず<a href="https://github.com/mrdoob/three.js/">ソース</a>をCloneして、さてどう使うんだろうと考えちゃいました。
 そうだ<a href="https://github.com/mrdoob/three.js/#readme">ReadMe</a>を見よう、という事で見てみると、minimize版をHTMLヘッダーで参照すればいいとのこと。</p>
 
-<p><img src="https://img.skitch.com/20120522-xguus9rca1pn9eeps3ceygnrbn.gif" alt="３Dの立方体がぐりぐり動く" /></p>
+<p>![３Dの立方体がぐりぐり動く][sampleImage]</p>
 
 <p>なるほど。
 チュートリアルやwikiも充実してるようなので、しばらく入り浸ってみたいです。</p>
@@ -727,6 +838,12 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 <p>でもどうすればそれができるか分かりません。
 ざんねん。
 いつかは！</p>
+
+<p>(2012/12/24 追記)
+できました。
+次の記事を参照してください。</p>
+
+<p>http://blog.satrex.jp/blog/2012/06/04/vimsketchup/</p>
 ]]></content>
   </entry>
   

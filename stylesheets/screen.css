@@ -125,7 +125,7 @@ body > div > div {
 }
 
 .serif, body, #content .blog-index a[rel=full-article] {
-  font-family: "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴ Pro W3", "Meiryo", "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
+  font-family: "Baskerville", "Times New Roman", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", serif;
 }
 
 .mono, pre, code, tt, p code, li code {
@@ -143,14 +143,14 @@ body > header h1 {
 }
 
 body > header h2 {
-  font-family: "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴ Pro W3", "Meiryo", "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
+  font-family: "Baskerville", "Times New Roman", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", serif;
   font-size: 1em;
   padding-top: 0.2em;
   padding-bottom: 0.2em;
 }
 
 body {
-  font-size: 1.0em;
+  font-size: 1.1em;
   line-height: 1.43em;
   color: #3f2a18;
 }
@@ -159,7 +159,7 @@ body {
   font-size: 1.4em;
   line-height: 1.7em;
   font-weight: normal;
-  font-family: "ヒラギノ角ゴ Pro W3", "", serif;
+  font-family: "Baskerville", "Times New Roman", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", serif;
 }
 
 .entry-content p {
@@ -191,7 +191,6 @@ h3, section h2, section section h1 {
 h4, section h3, section section h2, section section section h1 {
   font-size: 1em;
 }
-
 
 h5, section h4, section section h3 {
   font-size: .9em;
@@ -270,7 +269,7 @@ em, dfn {
 }
 
 strong, dfn {
-  font-family: "Hiragino Kaku Gothic Pro W3", "ヒラギノ角ゴ Pro W3", "Meiryo", "メイリオ", "MS P Gothic", "MS Pゴシック", sans-serif;
+  font-family: "Baskerville", "Times New Roman", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", serif;
   font-weight: bold;
 }
 
@@ -934,6 +933,7 @@ article header h1 a:hover {
   text-decoration: underline;
 }
 article header p {
+  font-family: serif;
   color: #002b36;
   margin: 0;
 }
@@ -1191,8 +1191,8 @@ pre {
   -o-border-radius: 0.4em;
   border-radius: 0.4em;
   border: 1px solid #05232b;
-  line-height: 1.45em;
-  font-size: 13px;
+  # line-height: 1.45em;
+  # font-size: 13px;
   margin-bottom: 2.1em;
   padding: .8em 1em;
   color: #93a1a1;

@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="ブログのデザインが終わったので、これからやりたいことを整理します。まず、前回のTODOリストを確認します。ブログのデザインを変更するトップページの画像を作る → 完了スタイル（sass）を設定する → 完了はてブとか入れる → 未完Skitchの画像管理を楽にするSkitchで編集した画像が、 &hellip;">
+  <meta name="description" content="ブログのリポジトリを、githubからbitbucketへ移してみました。だんだんGitの使い方に習熟してきたので、楽になってきました。下書きモードoctopressの取り扱いに慣れるため、published=falseの下書きモードを使ってみています。記事のヘッダーのpublished: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,6 +98,65 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/08/moving_to_bitbucket/">Bitbucketへ引っ越してみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-08T20:59:00+09:00" pubdate data-updated="true">2012-05-08 20:59</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ブログのリポジトリを、githubからbitbucketへ移してみました。
+だんだんGitの使い方に習熟してきたので、楽になってきました。</p>
+
+<h2>下書きモード</h2>
+
+<p>octopressの取り扱いに慣れるため、published=falseの下書きモードを使ってみています。
+記事のヘッダーのpublished:をfalseに設定することで、その記事は下書きとなります。
+ローカルでプレビューすることができるのはpublish:trueの時と同じですが、リポジトリにpushしても非公開になっているところが違います。</p>
+
+<h2>使い道について考えてみた</h2>
+
+<p>ローカルのプレビューができれば、下書きモードのpushはあまり恩恵がないような気がしますが・・・
+どんな時に便利なんでしょうか。</p>
+
+<p>タイマーで予約投稿ができれば便利な気がします。</p>
+
+<h2>その後</h2>
+
+<p>結局、bitbucketは記事のソースだけを管理することにし、
+記事はgithub pagesを使う事にしました。</p>
+
+<p>理由は、bitbucketは<strong>CNAMEが有料オプション</strong>だからです。
+画像はSkitchに置くことにし、Skitchから効率よくMarkdownに書けるように
+工夫します。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -809,6 +868,10 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/12/24/webdialog/">SketchUpのWebDialogの使い方</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/07/04/bitnami-setting/">bitnamiの仮想マシンを使うためのステップ</a>
       </li>
     
@@ -822,10 +885,6 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
     
       <li class="post">
         <a href="/blog/2012/06/20/sakura-git-installed/">さくらのレンタルサーバーにgitをインストールした</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/20/sakura_start/">さくらのレンタルサーバーを借りた</a>
       </li>
     
   </ul>
