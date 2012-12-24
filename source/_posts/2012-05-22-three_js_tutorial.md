@@ -57,7 +57,12 @@ VimからSketchUpのRubyコンソールのウィンドウハンドルを取っ�
 ざんねん。
 いつかは！ 
 
-[sampleImage]: https://img.skitch.com/20120522-xguus9rca1pn9eeps3ceygnrbn.gif
+(2012/12/24 追記)
+できました。
+次の記事を参照してください。
+
+http://blog.satrex.jp/blog/2012/06/04/vimsketchup/
+
 [sampleArticle]: http://kray.jp/blog/three-js/
 [threeJsSource]: https://github.com/mrdoob/three.js/
 [threeJsReadme]: https://github.com/mrdoob/three.js/#readme
