@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>bitnamiの仮想マシンを使うためのステップ - 電気羊の執務室</title>
+  <title>SketchupのWebDialogで、rubyスクリプトが呼べない時 - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="WordPressを使ったWebサイト作りをしようとしています。ローカルの仮想サーバーでサイトのソースをGitに上げ、公開用のサーバーでGitからPullすることで、デプロイする構成です。そこで、ローカルの仮想サーバーには、WordPressとMySQLとPHPのスタックである、 &hellip;">
+  <meta name="description" content="前回の続きです。SketchUpには、WebDialogというコンポーネントがあります。  これを使うとrubyスクリプトから、フォームを作成でき,  ユーザーと対話的にスクリプトを実行できるわけです。すごくハマったところ今回、WebDialog経由でrubyスクリプトを実行する際に、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2012/07/04/bitnami-setting">
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/12/24/sketchupjs">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -101,7 +101,7 @@
   
   <header>
     
-      <h1 class="entry-title">Bitnamiの仮想マシンを使うためのステップ</h1>
+      <h1 class="entry-title">SketchupのWebDialogで、rubyスクリプトが呼べない時</h1>
     
     
       <p class="meta">
@@ -117,169 +117,139 @@
   
 
 
-<time datetime="2012-07-04T07:35:00+09:00" pubdate data-updated="true">2012-07-04 07:35</time>
+<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>WordPressを使ったWebサイト作りをしようとしています。
-ローカルの仮想サーバーでサイトのソースをGitに上げ、
-公開用のサーバーでGitからPullすることで、デプロイする構成です。</p>
+<div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/12/24/webdialog/">前回</a>の続きです。<br/>
+SketchUpには、WebDialogというコンポーネントがあります。  <br/>
+これを使うとrubyスクリプトから、フォームを作成でき,  <br/>
+ユーザーと対話的にスクリプトを実行できるわけです。</p>
 
-<p>そこで、ローカルの仮想サーバーには、
-WordPressとMySQLとPHPのスタックである、
-bitnamiを使ってみます。</p>
+<h2>すごくハマったところ</h2>
 
-<h2>bitnami仮想マシンのダウンロード</h2>
+<p>今回、WebDialog経由でrubyスクリプトを実行する際に、<br/>
+すごくハマったポイントをお教えします。</p>
 
-<p>bitnamiを使うためには、２つの方法があります。</p>
+<p>動作環境：<br/>
+mac OS X 10.8.2<br/>
+SketchUp 8.0.4810</p>
 
-<ol>
-<li>既存の仮想マシンに、bitnamiをインストールする</li>
-<li>bitnamiインストール済の仮想マシンを、新規にダウンロードする</li>
-</ol>
+<p>それは・・・入力部品の種類です。<br/>
+ボタンなどを押した際にjavascriptのコードが実行されるよう、<br/>
+動作を設定しているのですが、<br/>
+なんと、入力部品の違いによって、動作の一部が実行されません。</p>
+
+<h2>buttonとinput type=&#8221;button&#8221;</h2>
+
+<p>結論から言うと、リンクと、&lt;input type=&#8221;button&#8221;>で生成したボタンは、<br/>
+問題なく動作します。</p>
+
+<p>しかし、&lt;button>エレメントで生成したボタンは、<br/>
+window.location=でリダイレクトを行う事ができません。</p>
+
+<p>これができないと、javascriptからrubyコードが呼べないのです。<br/>
+rubyスクリプトは、javascriptからはurlとして指定する必要があるからです。</p>
+
+<h2>サンプルコード</h2>
+
+<div><script src='https://gist.github.com/4367294.js?file='></script>
+<noscript><pre><code>require 'Sketchup'
+
+def show_dialog
+  dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
+   &quot;DialogTest&quot;, 200, 150, 150, 150, true);
+  html = &lt;&lt;-HTML
+  &lt;html&gt;
+  &lt;head&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+  &lt;!--
+    function doubleAlert()
+    {
+        jsAlert();
+        rubyAlert();
+    }
+
+    function rubyAlert()
+    {
+       // ruby経由でメッセージボックスを呼ぶ
+       window.location.href=&quot;skp:ruby_messagebox@Hello World&quot;;
+    }
+
+    function jsAlert()
+    {
+        // javascript経由でメッセージボックスを呼ぶ
+        window.alert('alert from javascript');
+    }
+   --&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form&gt;
+      &lt;!--buttonエレメントからは、window.locationが指定できないので、rubyスクリプトは呼べない--&gt;
+      &lt;button id=&quot;start&quot; onclick=&quot;doubleAlert()&quot;&gt;button&lt;/button&gt;
+      &lt;/br&gt;
+      &lt;!--inputエレメントからは、window.locationが指定できるので、rubyスクリプトが呼べる--&gt;
+      &lt;input id=&quot;start2&quot; onClick=&quot;doubleAlert()&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
+      &lt;/br&gt;
+      &lt;!--リンクからは、urlが指定できるので、rubyスクリプトが呼べる--&gt;
+      &lt;a href=&quot;javascript:doubleAlert();&quot;&gt;link&lt;/a&gt;
+    &lt;/form&gt;
+    &lt;/html&gt;
+  HTML
+  
+  dlg.set_html html
+  dlg.add_action_callback(&quot;ruby_messagebox&quot;) {|dialog, params|
+    UI.messagebox(&quot;You called ruby_messagebox with: &quot; + params.to_s)
+  }
+  dlg.show
+end
+
+show_dialog</code></pre></noscript></div>
 
 
-<p>今回は、2.を解説します。
-公式サイトから、bitnamiがインストールされた仮想マシンをダウンロードします。</p>
+<h2>サンプルコードの使い方</h2>
 
-<h2>sshの導入</h2>
+<p>まずはSketchUp上で、コードを実行します。</p>
 
-<p>コマンドラインから操作するため、仮想マシンでsshを有効にします。
-公開鍵の受け渡しが、最も苦労した部分です。</p>
+<p>実行すると、こんな画面が表示されます。<br/>
+<img src="https://www.evernote.com/shard/s75/sh/b94c926c-0fac-48ad-81a5-4ef3054c6faa/e474f0b5080f91f74e17c112be5d0925/deep/0/WebDialog04.jpg" alt="ボタンが２つ、リンクが１つある画面" /></p>
 
-<h3>公開鍵の渡し方</h3>
+<p>１番上のボタンを押すと、ダイアログボックスが１回表示されます。</p>
 
-<p>仮想サーバーの公開鍵を、開発用マシンに渡すための方法は、
-次のような選択肢があります。</p>
+<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /></p>
 
-<ol>
-<li>仮想マシンがSmabaサーバーとなり、ホストOSのがクライアントとなってファイルを受け渡す</li>
-<li>逆に、ホストOSの共有フォルダに、仮想マシンからアクセスしてファイルを受け渡す</li>
-<li>GitHubなど、外部ストレージを経由してファイルを受け渡す</li>
-</ol>
+<p>２番めのボタンを押すと、ダイアログボックスが２回表示されます。</p>
 
+<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /><br/>
+<img src="https://www.evernote.com/shard/s75/sh/b6109fb2-28db-433a-a0e0-50c73f913727/76121cc80e493c91ecff350b2752d4e3/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%2012.36.05.jpg" alt="rubyのメッセージ" /></p>
 
-<p>ここでは、2.を解説します。</p>
+<p>リンクをクリックしても、同様に２回表示されます。</p>
 
-<h3>VMware-Toolsの導入</h3>
+<p>３つとも同じ関数を実行しているのに、buttonエレメントだけは、挙動が違います。<br/>
+window.locationを指定することができず、rubyのメソッドを呼べません。</p>
 
-<p>ホストOSの共有フォルダにゲストOSからアクセスするには、<br/>
-VMware-Toolsをインストールします。</p>
+<p>ボタンの動作がうまくいかない方は、<br/>
+参考にしてください。</p>
 
-<p>別の記事にまとめていますので、参照してください。
-<a href="/2012-07-02-vmware-tools-installed.html">vmware-tools-install</a></p>
+<p>次回は、ruby側からjavascriptの関数を呼び出す処理について書こうと思います。</p>
 
-<h3>ssh鍵の生成</h3>
+<h2>VimSketchUpのすすめ</h2>
 
-<p>ホストOSで、以下のコマンドを入力します。</p>
+<p>余談ですが、これを読んでいらっしゃる貴方は、どうやってサンプルコードを実行していますか？<br/>
+Vim上でショートカットを入力するだけで、サンプルコードが実行できたら楽ですよね。<br/>
+ちょっと心が動いた方には、<a href="http://blog.satrex.jp/blog/2012/06/04/vimsketchup/">VimSketchUp</a>をおすすめします。</p>
 
-<pre><code>sudo ssh-keygen
-</code></pre>
+<h2>参考資料</h2>
 
-<p>画面に従ってパスワードを入力すると、公開鍵と秘密鍵が生成されます。
-id_rsa.pubファイルが公開鍵、id_rsaファイルが秘密鍵です。</p>
+<p>Trimble SketchUp<br/>
+<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
 
-<h3>公開鍵を、共有フォルダに置く</h3>
-
-<p>これから、いまホストOSで作った公開鍵をサーバーに渡します。</p>
-
-<p>まず、id_rsa.pubファイルを、ホストOSの共有フォルダにコピーします。
-オイラの環境では、Macの~/shareフォルダです。</p>
-
-<p>マウスでポイっと入れればOKです。</p>
-
-<h3>ゲストubuntuに、ホストOSの公開鍵をインストール</h3>
-
-<p>共有フォルダに入れた公開鍵を、ゲストOSから見てみます。</p>
-
-<pre><code>$ ls /mnt/hgfs/share
-&gt; id_rsa.pub
-</code></pre>
-
-<p>ホストOSの公開鍵が見えています。
-これを、ゲストOSにインストールします。</p>
-
-<p>でも、いったいどこにインストールするのでしょうか？</p>
-
-<p>サーバーには『この鍵をくれたマシンのアクセスには応じるよ』というファイルがあります。<br/>
-authorized-keysというファイルです。
-今回受け取った公開鍵を、authorized_keysファイルに追記します。</p>
-
-<p>このファイルには、複数の鍵を書き込むことができます。
-上書きすると、今までアクセスできたマシンがアクセスできなくなる、
-という現象が起こりますよ。</p>
-
-<pre><code>cat /mnt/hgfs/share/id_rsa.pub &gt;&gt; /home/bitnami/.ssh/authorized_keys
-</code></pre>
-
-<p><strong>>>に注目。</strong></p>
-
-<p>これで、ゲストOSに、ホストOSの公開鍵がコピーされました。</p>
-
-<h2>sshの設定</h2>
-
-<p>ゲストOSで、以下のコマンドを実行します。</p>
-
-<pre><code>$ sudo vi /etc/ssh/sshd_config
-</code></pre>
-
-<p>以下の行を探して、下のように変更します。</p>
-
-<p>  ChallengeResponseAuthentication no
-  PasswordAuthentication no
-  UsePAM no</p>
-
-<h2>sshデーモン、いでよ！</h2>
-
-<p>ゲストOSがアクセスを待ち構えるために、
-sshデーモンを召喚します。
-このデーモンが、サーバーの門番を務めてくれるわけです。</p>
-
-<p>召喚の呪文は、これです。</p>
-
-<pre><code>$ sudo start ssh
-</code></pre>
-
-<p>これで、ゲストOS上でsshが有効になりました。</p>
-
-<h2>ホストOSからアクセスしてみる</h2>
-
-<p>ホストOS上で、sshコマンドを入力します。</p>
-
-<pre><code>ssh 192.168.100.xxx（ゲストOSのIPアドレス）-l bitnami
-</code></pre>
-
-<p>ゲストOSのIPアドレスは、ゲストOSでifconfigコマンドを使用すると、<br/>
-表示されます。<br/>
-・・・大丈夫ですよね？？</p>
-
-<p>あと、-l bitnamiの部分がなんなのかというと、
-bitnamiユーザーでログインします、という意味です。
-サーバーにはbitnamiユーザーしかいないため、
-他のユーザーではログインできません。</p>
-
-<p>別のユーザーを作っている場合は、
-そのユーザー名を指定してください。</p>
-
-<p>これを指定しない場合は、ホストOSのユーザー名でログインします。</p>
-
-<pre><code>$ ssh 192.168.100.101 -l bitnami         
-&gt; The authenticity of host '192.168.100.101 (192.168.100.101)' can't be established.
-&gt; RSA key fingerprint is 86:74:fe:6b:8b:b1:c2:64:3f:d0:80:bc:92:f3:c0:75.
-&gt; Are you sure you want to continue connecting (yes/no)? yes
-</code></pre>
-
-<p>何か聞かれた場合は、yesと答えて下さい。</p>
-
-<pre><code>&gt; Warning: Permanently added '192.168.100.101' (RSA) to the list of known hosts.
-&gt; Last login: Tue Jul  3 13:10:37 2012
-</code></pre>
-
-<p>これで、sshログインできました。<br/>
-めでたし。</p>
+<p>Engineering The World   <br/>
+<a href="http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/">http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/</a></p>
 </div>
 
 
@@ -302,7 +272,7 @@ bitnamiユーザーでログインします、という意味です。
   
 
 
-<time datetime="2012-07-04T07:35:00+09:00" pubdate data-updated="true">2012-07-04 07:35</time>
+<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
       
 
 
@@ -310,12 +280,12 @@ bitnamiユーザーでログインします、という意味です。
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/07/04/bitnami-setting/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/07/04/bitnami-setting/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/12/24/sketchupjs/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/12/24/sketchupjs/" >Tweet</a>
   
   
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
       data-hatena-bookmark-layout="standard"
-      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/07/04/bitnami-setting/">
+      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/12/24/sketchupjs/">
     <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
         alt="このエントリーをはてなブックマークに追加" width="20" height="20"
         style="border: none">
@@ -328,10 +298,8 @@ bitnamiユーザーでログインします、という意味です。
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/07/02/vmware-tools-installed/" title="Previous Post: ゲストubuntuに、VMware-Toolsをインストールする">&laquo; ゲストubuntuに、VMware-Toolsをインストールする</a>
+        <a class="basic-alignment left" href="/blog/2012/12/24/webdialog/" title="Previous Post: SketchUpのWebDialogの使い方">&laquo; SketchUpのWebDialogの使い方</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/12/24/webdialog/" title="Next Post: SketchUpのWebDialogの使い方">SketchUpのWebDialogの使い方 &raquo;</a>
       
     </p>
   </footer>
@@ -460,8 +428,8 @@ bitnamiユーザーでログインします、という意味です。
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2012/07/04/bitnami-setting/';
-        var disqus_url = 'http://satrex.github.com/blog/2012/07/04/bitnami-setting/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/12/24/sketchupjs/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/12/24/sketchupjs/';
         var disqus_script = 'embed.js';
       
     (function () {

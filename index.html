@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="Trimble SketchUpには、rubyで自動化できる機能があります。今日は、rubyで画面を作る、WebDialogというコンポーネントについてお話ししたいと思います。SketchUpには、WebDialogというコンポーネントがあります。これを使うとrubyスクリプトから、 &hellip;">
+  <meta name="description" content="前回の続きです。SketchUpには、WebDialogというコンポーネントがあります。  これを使うとrubyスクリプトから、フォームを作成でき,  ユーザーと対話的にスクリプトを実行できるわけです。すごくハマったところ今回、WebDialog経由でrubyスクリプトを実行する際に、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -104,6 +104,167 @@
       
   <header>
     
+      <h1 class="entry-title"><a href="/blog/2012/12/24/sketchupjs/">SketchupのWebDialogで、rubyスクリプトが呼べない時</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/12/24/webdialog/">前回</a>の続きです。<br/>
+SketchUpには、WebDialogというコンポーネントがあります。  <br/>
+これを使うとrubyスクリプトから、フォームを作成でき,  <br/>
+ユーザーと対話的にスクリプトを実行できるわけです。</p>
+
+<h2>すごくハマったところ</h2>
+
+<p>今回、WebDialog経由でrubyスクリプトを実行する際に、<br/>
+すごくハマったポイントをお教えします。</p>
+
+<p>動作環境：<br/>
+mac OS X 10.8.2<br/>
+SketchUp 8.0.4810</p>
+
+<p>それは・・・入力部品の種類です。<br/>
+ボタンなどを押した際にjavascriptのコードが実行されるよう、<br/>
+動作を設定しているのですが、<br/>
+なんと、入力部品の違いによって、動作の一部が実行されません。</p>
+
+<h2>buttonとinput type=&#8221;button&#8221;</h2>
+
+<p>結論から言うと、リンクと、&lt;input type=&#8221;button&#8221;>で生成したボタンは、<br/>
+問題なく動作します。</p>
+
+<p>しかし、&lt;button>エレメントで生成したボタンは、<br/>
+window.location=でリダイレクトを行う事ができません。</p>
+
+<p>これができないと、javascriptからrubyコードが呼べないのです。<br/>
+rubyスクリプトは、javascriptからはurlとして指定する必要があるからです。</p>
+
+<h2>サンプルコード</h2>
+
+<div><script src='https://gist.github.com/4367294.js?file='></script>
+<noscript><pre><code>require 'Sketchup'
+
+def show_dialog
+  dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
+   &quot;DialogTest&quot;, 200, 150, 150, 150, true);
+  html = &lt;&lt;-HTML
+  &lt;html&gt;
+  &lt;head&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+  &lt;!--
+    function doubleAlert()
+    {
+        jsAlert();
+        rubyAlert();
+    }
+
+    function rubyAlert()
+    {
+       // ruby経由でメッセージボックスを呼ぶ
+       window.location.href=&quot;skp:ruby_messagebox@Hello World&quot;;
+    }
+
+    function jsAlert()
+    {
+        // javascript経由でメッセージボックスを呼ぶ
+        window.alert('alert from javascript');
+    }
+   --&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form&gt;
+      &lt;!--buttonエレメントからは、window.locationが指定できないので、rubyスクリプトは呼べない--&gt;
+      &lt;button id=&quot;start&quot; onclick=&quot;doubleAlert()&quot;&gt;button&lt;/button&gt;
+      &lt;/br&gt;
+      &lt;!--inputエレメントからは、window.locationが指定できるので、rubyスクリプトが呼べる--&gt;
+      &lt;input id=&quot;start2&quot; onClick=&quot;doubleAlert()&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
+      &lt;/br&gt;
+      &lt;!--リンクからは、urlが指定できるので、rubyスクリプトが呼べる--&gt;
+      &lt;a href=&quot;javascript:doubleAlert();&quot;&gt;link&lt;/a&gt;
+    &lt;/form&gt;
+    &lt;/html&gt;
+  HTML
+  
+  dlg.set_html html
+  dlg.add_action_callback(&quot;ruby_messagebox&quot;) {|dialog, params|
+    UI.messagebox(&quot;You called ruby_messagebox with: &quot; + params.to_s)
+  }
+  dlg.show
+end
+
+show_dialog</code></pre></noscript></div>
+
+
+<h2>サンプルコードの使い方</h2>
+
+<p>まずはSketchUp上で、コードを実行します。</p>
+
+<p>実行すると、こんな画面が表示されます。<br/>
+<img src="https://www.evernote.com/shard/s75/sh/b94c926c-0fac-48ad-81a5-4ef3054c6faa/e474f0b5080f91f74e17c112be5d0925/deep/0/WebDialog04.jpg" alt="ボタンが２つ、リンクが１つある画面" /></p>
+
+<p>１番上のボタンを押すと、ダイアログボックスが１回表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /></p>
+
+<p>２番めのボタンを押すと、ダイアログボックスが２回表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /><br/>
+<img src="https://www.evernote.com/shard/s75/sh/b6109fb2-28db-433a-a0e0-50c73f913727/76121cc80e493c91ecff350b2752d4e3/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%2012.36.05.jpg" alt="rubyのメッセージ" /></p>
+
+<p>リンクをクリックしても、同様に２回表示されます。</p>
+
+<p>３つとも同じ関数を実行しているのに、buttonエレメントだけは、挙動が違います。<br/>
+window.locationを指定することができず、rubyのメソッドを呼べません。</p>
+
+<p>ボタンの動作がうまくいかない方は、<br/>
+参考にしてください。</p>
+
+<p>次回は、ruby側からjavascriptの関数を呼び出す処理について書こうと思います。</p>
+
+<h2>VimSketchUpのすすめ</h2>
+
+<p>余談ですが、これを読んでいらっしゃる貴方は、どうやってサンプルコードを実行していますか？<br/>
+Vim上でショートカットを入力するだけで、サンプルコードが実行できたら楽ですよね。<br/>
+ちょっと心が動いた方には、<a href="http://blog.satrex.jp/blog/2012/06/04/vimsketchup/">VimSketchUp</a>をおすすめします。</p>
+
+<h2>参考資料</h2>
+
+<p>Trimble SketchUp<br/>
+<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
+
+<p>Engineering The World   <br/>
+<a href="http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/">http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
       <h1 class="entry-title"><a href="/blog/2012/12/24/webdialog/">SketchUpのWebDialogの使い方</a></h1>
     
     
@@ -127,12 +288,12 @@
   </header>
 
 
-  <div class="entry-content"><p>Trimble SketchUpには、rubyで自動化できる機能があります。
-今日は、rubyで画面を作る、WebDialogというコンポーネントについて
+  <div class="entry-content"><p>Trimble SketchUpには、rubyで自動化できる機能があります。<br/>
+今日は、rubyで画面を作る、WebDialogというコンポーネントについて<br/>
 お話ししたいと思います。</p>
 
-<p>SketchUpには、WebDialogというコンポーネントがあります。<br/>
-これを使うとrubyスクリプトから、フォームを作成でき,<br/>
+<p>SketchUpには、WebDialogというコンポーネントがあります。  <br/>
+これを使うとrubyスクリプトから、フォームを作成でき,  <br/>
 ユーザーと対話的にスクリプトを実行できるわけです。</p>
 
 <h2>WebDialogの特長</h2>
@@ -147,17 +308,17 @@
 
 <h2>WebDialogは、HTML+CSS+javascript</h2>
 
-<p>WebDialogコンポーネントは、フォームのレイアウトをHTMLで指定します。<br/>
+<p>WebDialogコンポーネントは、フォームのレイアウトをHTMLで指定します。  <br/>
 また、入力部品の動作はjavascriptで指定します。</p>
 
-<p>基本的な使い方は、公式ヘルプに載っています。<br/>
+<p>基本的な使い方は、公式ヘルプに載っています。  <br/>
 http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</p>
 
 <h2>rubyスクリプトの実行方法</h2>
 
-<p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。
-指定されたコールバックメソッドには、仮想urlが割り当てられており、
-&#8220;skp:&#8221; + コールバックメソッド名のアドレスに遷移しようとすると、
+<p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。<br/>
+指定されたコールバックメソッドには、仮想urlが割り当てられており、<br/>
+&#8220;skp:&#8221; + コールバックメソッド名のアドレスに遷移しようとすると、<br/>
 コールバックメソッドが実行されます。</p>
 
 <p>仮想urlへ遷移するには、以下のいずれかの方法で指定します。</p>
@@ -170,18 +331,18 @@ http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callb
 
 <h2>macの場合はrubyコードが非同期実行</h2>
 
-<p><a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">Martin Rinehart</a>によると、
-windows ではjavascriptから呼び出されたrubyスクリプトは同期実行され、
-戻り値をjavasxriptで受け取る事ができるそうです。
-しかし、macではrubyスクリプトは必ず非同期実行のため、
+<p><a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">Martin Rinehart</a>によると、<br/>
+windows ではjavascriptから呼び出されたrubyスクリプトは同期実行され、<br/>
+戻り値をjavasxriptで受け取る事ができるそうです。<br/>
+しかし、macではrubyスクリプトは必ず非同期実行のため、<br/>
 rubyの戻り値をjavascriptで利用することはできないようです。</p>
 
 <p>注意してください。</p>
 
 <h2>サンプルコード</h2>
 
-<p>ほぼ最小構成のWebDialogのサンプルです。
-ここでは、ボタンのクリックイベントにjavascriptのスクリプトを設定し、
+<p>ほぼ最小構成のWebDialogのサンプルです。<br/>
+ここでは、ボタンのクリックイベントにjavascriptのスクリプトを設定し、<br/>
 リンクのurlにrubyのコールバックイベントの仮想urlを指定しています。</p>
 
 <div><script src='https://gist.github.com/4367009.js?file='></script>
@@ -220,15 +381,15 @@ show_dialog
 
 <p><img src="https://www.evernote.com/shard/s75/sh/801ac46e-8054-4e33-bb96-95187e0cab7c/531face5d8e312d13f234eba2baccd62/deep/0/WebDialog002.jpg" alt="ボタンを押すと、javascriptのアラートが表示される" /></p>
 
-<p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。
-コード内では、リンクのurlとして、&#8221;skp:&#8221;に続いてrubyのコールバックメソッド名が
+<p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。<br/>
+コード内では、リンクのurlとして、&#8221;skp:&#8221;に続いてrubyのコールバックメソッド名が<br/>
 指定されているのがわかります。</p>
 
 <p><img src="https://www.evernote.com/shard/s75/sh/57a25f6d-39ec-4f93-9780-962e52a0318e/174dbd1151fadda7723fe1b7426c30f5/deep/0/WebDialog003.jpg" alt="リンクをクリックすると、rubyのメッセージが表示される" /></p>
 
 <h2>参考資料</h2>
 
-<p>SketchUp Ruby Interface to JavaScript<br/>
+<p>SketchUp Ruby Interface to JavaScript  <br/>
 <a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html</a></p>
 </div>
   
@@ -1176,65 +1337,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/11/hatena_never_appears/">はてブが表示されないなぁ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-11T07:09:00+09:00" pubdate data-updated="true">2012-05-11 07:09</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">T.I.D</a>さんの記事を見ながら、<br/>
-このブログにはてブボタンを設置しようとしています。</p>
-
-<p>ブックマークされる事は書けないかも知れませんが、何事も勉強です。</p>
-
-<h2>どううまく行かないか</h2>
-
-<p>はてブボタンの領域は確保してありそうなのですが、表示がうまくいっていないようです。</p>
-
-<p><img src="https://img.skitch.com/20120511-mibj9s3y2ijm21iasjsjcs8i5k.gif" alt="はてブボタンがある？？" /></p>
-
-<h2>やったこと</h2>
-
-<p>記事をもとに、あれこれとテンプレートを変更しました。
-本当は一部始終を書かないといけないのですが、面倒で書けません。</p>
-
-<p><img src="https://img.skitch.com/20120512-x7w4ykj5if64f8sd1w1yx9pswg.gif" alt="Sharing.htmlの中身" /></p>
-
-<p>後でじっくりやります。
-いまは嫁にホットケーキを焼いてあげないと・・・</p>
-
-<h2>参考資料</h2>
-
-<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">Octopressにはてブボタンを設置する - T.I.D.</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1258,6 +1360,10 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/12/24/sketchupjs/">SketchupのWebDialogで、rubyスクリプトが呼べない時</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/24/webdialog/">SketchUpのWebDialogの使い方</a>
       </li>
     
@@ -1271,10 +1377,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
     
       <li class="post">
         <a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/20/sakura-git-installed/">さくらのレンタルサーバーにgitをインストールした</a>
       </li>
     
   </ul>

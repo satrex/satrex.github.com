@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="Trimble SketchUpには、rubyで自動化できる機能があります。今日は、rubyで画面を作る、WebDialogというコンポーネントについてお話ししたいと思います。SketchUpには、WebDialogというコンポーネントがあります。これを使うとrubyスクリプトから、 &hellip;">
+  <meta name="description" content="Trimble SketchUpには、rubyで自動化できる機能があります。今日は、rubyで画面を作る、WebDialogというコンポーネントについてお話ししたいと思います。SketchUpには、WebDialogというコンポーネントがあります。  これを使うとrubyスクリプトから、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -124,12 +124,12 @@
   </header>
 
 
-<div class="entry-content"><p>Trimble SketchUpには、rubyで自動化できる機能があります。
-今日は、rubyで画面を作る、WebDialogというコンポーネントについて
+<div class="entry-content"><p>Trimble SketchUpには、rubyで自動化できる機能があります。<br/>
+今日は、rubyで画面を作る、WebDialogというコンポーネントについて<br/>
 お話ししたいと思います。</p>
 
-<p>SketchUpには、WebDialogというコンポーネントがあります。<br/>
-これを使うとrubyスクリプトから、フォームを作成でき,<br/>
+<p>SketchUpには、WebDialogというコンポーネントがあります。  <br/>
+これを使うとrubyスクリプトから、フォームを作成でき,  <br/>
 ユーザーと対話的にスクリプトを実行できるわけです。</p>
 
 <h2>WebDialogの特長</h2>
@@ -144,17 +144,17 @@
 
 <h2>WebDialogは、HTML+CSS+javascript</h2>
 
-<p>WebDialogコンポーネントは、フォームのレイアウトをHTMLで指定します。<br/>
+<p>WebDialogコンポーネントは、フォームのレイアウトをHTMLで指定します。  <br/>
 また、入力部品の動作はjavascriptで指定します。</p>
 
-<p>基本的な使い方は、公式ヘルプに載っています。<br/>
+<p>基本的な使い方は、公式ヘルプに載っています。  <br/>
 http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</p>
 
 <h2>rubyスクリプトの実行方法</h2>
 
-<p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。
-指定されたコールバックメソッドには、仮想urlが割り当てられており、
-&#8220;skp:&#8221; + コールバックメソッド名のアドレスに遷移しようとすると、
+<p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。<br/>
+指定されたコールバックメソッドには、仮想urlが割り当てられており、<br/>
+&#8220;skp:&#8221; + コールバックメソッド名のアドレスに遷移しようとすると、<br/>
 コールバックメソッドが実行されます。</p>
 
 <p>仮想urlへ遷移するには、以下のいずれかの方法で指定します。</p>
@@ -167,18 +167,18 @@ http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callb
 
 <h2>macの場合はrubyコードが非同期実行</h2>
 
-<p><a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">Martin Rinehart</a>によると、
-windows ではjavascriptから呼び出されたrubyスクリプトは同期実行され、
-戻り値をjavasxriptで受け取る事ができるそうです。
-しかし、macではrubyスクリプトは必ず非同期実行のため、
+<p><a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">Martin Rinehart</a>によると、<br/>
+windows ではjavascriptから呼び出されたrubyスクリプトは同期実行され、<br/>
+戻り値をjavasxriptで受け取る事ができるそうです。<br/>
+しかし、macではrubyスクリプトは必ず非同期実行のため、<br/>
 rubyの戻り値をjavascriptで利用することはできないようです。</p>
 
 <p>注意してください。</p>
 
 <h2>サンプルコード</h2>
 
-<p>ほぼ最小構成のWebDialogのサンプルです。
-ここでは、ボタンのクリックイベントにjavascriptのスクリプトを設定し、
+<p>ほぼ最小構成のWebDialogのサンプルです。<br/>
+ここでは、ボタンのクリックイベントにjavascriptのスクリプトを設定し、<br/>
 リンクのurlにrubyのコールバックイベントの仮想urlを指定しています。</p>
 
 <div><script src='https://gist.github.com/4367009.js?file='></script>
@@ -217,15 +217,15 @@ show_dialog
 
 <p><img src="https://www.evernote.com/shard/s75/sh/801ac46e-8054-4e33-bb96-95187e0cab7c/531face5d8e312d13f234eba2baccd62/deep/0/WebDialog002.jpg" alt="ボタンを押すと、javascriptのアラートが表示される" /></p>
 
-<p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。
-コード内では、リンクのurlとして、&#8221;skp:&#8221;に続いてrubyのコールバックメソッド名が
+<p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。<br/>
+コード内では、リンクのurlとして、&#8221;skp:&#8221;に続いてrubyのコールバックメソッド名が<br/>
 指定されているのがわかります。</p>
 
 <p><img src="https://www.evernote.com/shard/s75/sh/57a25f6d-39ec-4f93-9780-962e52a0318e/174dbd1151fadda7723fe1b7426c30f5/deep/0/WebDialog003.jpg" alt="リンクをクリックすると、rubyのメッセージが表示される" /></p>
 
 <h2>参考資料</h2>
 
-<p>SketchUp Ruby Interface to JavaScript<br/>
+<p>SketchUp Ruby Interface to JavaScript  <br/>
 <a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html</a></p>
 </div>
 
@@ -278,6 +278,8 @@ show_dialog
         <a class="basic-alignment left" href="/blog/2012/07/04/bitnami-setting/" title="Previous Post: bitnamiの仮想マシンを使うためのステップ">&laquo; bitnamiの仮想マシンを使うためのステップ</a>
       
       
+        <a class="basic-alignment right" href="/blog/2012/12/24/sketchupjs/" title="Next Post: SketchupのWebDialogで、rubyスクリプトが呼べない時">SketchupのWebDialogで、rubyスクリプトが呼べない時 &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -305,6 +307,10 @@ show_dialog
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2012/12/24/sketchupjs/">SketchupのWebDialogで、rubyスクリプトが呼べない時</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/24/webdialog/">SketchUpのWebDialogの使い方</a>
       </li>
     
@@ -318,10 +324,6 @@ show_dialog
     
       <li class="post">
         <a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/20/sakura-git-installed/">さくらのレンタルサーバーにgitをインストールした</a>
       </li>
     
   </ul>
