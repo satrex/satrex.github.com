@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>さくらのレンタルサーバーにgitをインストールした - 電気羊の執務室</title>
+  <title>lazy_high_chartsを使ってみた - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="前回の記事では、さくらのレンタルサーバーにGitを入れようとして失敗しました。今回は、その解決法を書きます。解決法パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。gitのtarballからコンパイルしてインストールします。mkdir &hellip;">
+  <meta name="description" content="Lazy high chartsを使ってみたrailsでグラフを表示させたくて、Lazy high chartsを使ってみました。やった事を書いておきます。なんでLazy high chartsなの？Lazy high chartsを選んだ理由は、以下の通りです。『Web グラフ』で検索したら、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2012/06/20/sakura-git-installed">
+  <link rel="canonical" href="http://satrex.github.com/blog/2013/03/22/lazy_high_charts">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -101,7 +101,7 @@
   
   <header>
     
-      <h1 class="entry-title">さくらのレンタルサーバーにgitをインストールした</h1>
+      <h1 class="entry-title">Lazy_high_chartsを使ってみた</h1>
     
     
       <p class="meta">
@@ -117,61 +117,123 @@
   
 
 
-<time datetime="2012-06-20T19:29:00+09:00" pubdate data-updated="true">2012-06-20 19:29</time>
+<time datetime="2013-03-22T07:28:00+09:00" pubdate data-updated="true">2013-03-22 07:28</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/06/20/sakura_start/">前回の記事</a>では、さくらのレンタルサーバーにGitを入れようとして失敗しました。
-今回は、その解決法を書きます。</p>
+<div class="entry-content"><h3>Lazy high chartsを使ってみた</h3>
 
-<h2>解決法</h2>
+<p>railsでグラフを表示させたくて、
+Lazy high chartsを使ってみました。
+やった事を書いておきます。</p>
 
-<p>パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。</p>
+<h3>なんでLazy high chartsなの？</h3>
 
-<p>gitのtarballからコンパイルしてインストールします。</p>
+<p>Lazy high chartsを選んだ理由は、以下の通りです。</p>
 
-<pre><code>mkdir gitinstall  
-cd gitinstall  
-wget https://github.com/git/git/tarball/v1.7.11-rc3 --no-check-certificate
-tar xjvf git-1.7.3.5.tar.bz2
-.cd git-1.7.3.5
-./configure -prefix=$HOME/local
-gmake
-vi Makefile
-# prefix = $(HOME)/local  を記述
-gmake install
-</code></pre>
+<ol>
+<li>『Web グラフ』で検索したら、high chartsの評判がよかった<br/>
+ →<a href="http://d.hatena.ne.jp/end0tknr/20111218/1324206587">webアプリ(perlやjavascript)でグラフ表示なら、Highcharts で決まりかも</a></li>
+<li>『ruby high charts』で検索したら、Lazy high chartsの記事を見つけた<br/>
+ →<a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">Rails で Lazy high charts を使ってチャートを実装してみた</a></li>
+</ol>
 
-<p>これで、~/local/binにgitがインストールされます。
-Makefileを変更しないと、~/binに入ってしまい、具合が悪いようです。</p>
 
-<h4>2012/06/22追記：</h4>
+<p>というわけで、Lazy high chartsを使ってみます。</p>
 
-<p><em>~/binに入ってしまうと、組み込みのコマンドと混ざるので、<br/>
-環境が汚くなってしまうからかな・・・と思いました。</em></p>
+<h3>まずはインストール</h3>
 
-<h2>パスを通す</h2>
+<p><a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">上記のサイト</a>を参考に、Lazy high chartsのインストールを行います。</p>
 
-<p>最後に、パスを通します。</p>
+<p>まず、Gemfile に
+<code>gem 'lazy_high_charts'</code></p>
 
-<pre><code>vi ~/.cshrc
-</code></pre>
+<p>を追加しました。
+そして、
+<code>bundle</code> を実行します。インストールが始まりました。<br/>
+ここまでは問題ありません。</p>
 
-<p>set path=( で始まる行を見つけ、括弧の中に、以下を追加します。</p>
+<p>そして、</p>
 
-<pre><code>/$HOME/local/bin
-</code></pre>
+<p>bundle exec rails g lazy_high_charts:install</p>
 
-<p>直前の文字と、スペースを挟んで区切るのを忘れないでください。
-これで、gitにパスが通り、which gitが成功するはずです。
-光へ続く道が開かれました。</p>
+<p>を実行すると、highchart.js がダウンロードされて、assets/javascripts に配置される・・・<br/>
+はずでしたが、何やらエラーが表示されました。</p>
 
-<h3>参考文献</h3>
+<h3>インストールエラー</h3>
 
-<p><a href="http://noumenon-th.net/text-hymn/2011/01/git.php">さくらのレンタルサーバーにGitをインストールする方法</a></p>
+<p>エラーメッセージは、次のようなものでした。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>このエラーについて調べたところ、次の記事が見つかりました。</p>
+
+<p><a href="https://github.com/michelson/lazy_high_charts/issues/91">Problem with rails g lazy_high_charts:install</a><br/>
+どうやら、Railsのバージョンが3.1以上の場合は、<br/>
+app/assets/javascripts/application.jsに次の行を追加しないといけないようです。</p>
+
+<p><code>
+//= require highcharts <br/>
+//= require exporting
+</code></p>
+
+<p>これで、エラーは解決したでしょうか。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>じゃん。
+やっぱり出ますね。</p>
+
+<p>しかし、<a href="https://github.com/michelson/lazy_high_charts/issues/91">くだんの記事</a>によると、どうやらこれでも問題なく動作するらしいです。</p>
+
+<h3>では、動かしてみますか</h3>
+
+<p>それでは、警告を気にせず、動作させてみます。</p>
+
+<p><code>rails s</code></p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/dbf05acf-97e1-4240-bf3b-90ec9d767ce1/57f93850b06d68a14848495f769e4bc6/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202013-03-23%2022.52.57.jpg" alt="棒グラフ" /></p>
+
+<p>グラフが出ました。</p>
+
+<p>あとは、データの取得がうまくできれば、楽しく暮らせそうです。</p>
 </div>
 
 
@@ -194,7 +256,7 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
   
 
 
-<time datetime="2012-06-20T19:29:00+09:00" pubdate data-updated="true">2012-06-20 19:29</time>
+<time datetime="2013-03-22T07:28:00+09:00" pubdate data-updated="true">2013-03-22 07:28</time>
       
 
 
@@ -202,12 +264,12 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/06/20/sakura-git-installed/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/06/20/sakura-git-installed/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2013/03/22/lazy_high_charts/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2013/03/22/lazy_high_charts/" >Tweet</a>
   
   
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
       data-hatena-bookmark-layout="standard"
-      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/06/20/sakura-git-installed/">
+      data-hatena-bookmark-url="http://satrex.github.com/blog/2013/03/22/lazy_high_charts/">
     <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
         alt="このエントリーをはてなブックマークに追加" width="20" height="20"
         style="border: none">
@@ -220,10 +282,8 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/06/20/sakura_start/" title="Previous Post: さくらのレンタルサーバーを借りた">&laquo; さくらのレンタルサーバーを借りた</a>
+        <a class="basic-alignment left" href="/blog/2012/12/24/webdialog/" title="Previous Post: SketchUpのWebDialogの使い方">&laquo; SketchUpのWebDialogの使い方</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/06/25/xp_converted/" title="Next Post: ConverterでXPマシンを仮想化するために必要な4つのこと">ConverterでXPマシンを仮想化するために必要な4つのこと &raquo;</a>
       
     </p>
   </footer>
@@ -352,8 +412,8 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2012/06/20/sakura-git-installed/';
-        var disqus_url = 'http://satrex.github.com/blog/2012/06/20/sakura-git-installed/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2013/03/22/lazy_high_charts/';
+        var disqus_url = 'http://satrex.github.com/blog/2013/03/22/lazy_high_charts/';
         var disqus_script = 'embed.js';
       
     (function () {

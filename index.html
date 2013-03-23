@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="Trimble SketchUpには、rubyで自動化できる機能があります。今日は、rubyで画面を作る、WebDialogというコンポーネントについてお話ししたいと思います。SketchUpには、WebDialogというコンポーネントがあります。  これを使うとrubyスクリプトから、 &hellip;">
+  <meta name="description" content="Lazy high chartsを使ってみたrailsでグラフを表示させたくて、Lazy high chartsを使ってみました。やった事を書いておきます。なんでLazy high chartsなの？Lazy high chartsを選んだ理由は、以下の通りです。『Web グラフ』で検索したら、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,6 +98,151 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/22/lazy_high_charts/">Lazy_high_chartsを使ってみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T07:28:00+09:00" pubdate data-updated="true">2013-03-22 07:28</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Lazy high chartsを使ってみた</h3>
+
+<p>railsでグラフを表示させたくて、
+Lazy high chartsを使ってみました。
+やった事を書いておきます。</p>
+
+<h3>なんでLazy high chartsなの？</h3>
+
+<p>Lazy high chartsを選んだ理由は、以下の通りです。</p>
+
+<ol>
+<li>『Web グラフ』で検索したら、high chartsの評判がよかった<br/>
+ →<a href="http://d.hatena.ne.jp/end0tknr/20111218/1324206587">webアプリ(perlやjavascript)でグラフ表示なら、Highcharts で決まりかも</a></li>
+<li>『ruby high charts』で検索したら、Lazy high chartsの記事を見つけた<br/>
+ →<a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">Rails で Lazy high charts を使ってチャートを実装してみた</a></li>
+</ol>
+
+
+<p>というわけで、Lazy high chartsを使ってみます。</p>
+
+<h3>まずはインストール</h3>
+
+<p><a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">上記のサイト</a>を参考に、Lazy high chartsのインストールを行います。</p>
+
+<p>まず、Gemfile に
+<code>gem 'lazy_high_charts'</code></p>
+
+<p>を追加しました。
+そして、
+<code>bundle</code> を実行します。インストールが始まりました。<br/>
+ここまでは問題ありません。</p>
+
+<p>そして、</p>
+
+<p>bundle exec rails g lazy_high_charts:install</p>
+
+<p>を実行すると、highchart.js がダウンロードされて、assets/javascripts に配置される・・・<br/>
+はずでしたが、何やらエラーが表示されました。</p>
+
+<h3>インストールエラー</h3>
+
+<p>エラーメッセージは、次のようなものでした。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>このエラーについて調べたところ、次の記事が見つかりました。</p>
+
+<p><a href="https://github.com/michelson/lazy_high_charts/issues/91">Problem with rails g lazy_high_charts:install</a><br/>
+どうやら、Railsのバージョンが3.1以上の場合は、<br/>
+app/assets/javascripts/application.jsに次の行を追加しないといけないようです。</p>
+
+<p><code>
+//= require highcharts <br/>
+//= require exporting
+</code></p>
+
+<p>これで、エラーは解決したでしょうか。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>じゃん。
+やっぱり出ますね。</p>
+
+<p>しかし、<a href="https://github.com/michelson/lazy_high_charts/issues/91">くだんの記事</a>によると、どうやらこれでも問題なく動作するらしいです。</p>
+
+<h3>では、動かしてみますか</h3>
+
+<p>それでは、警告を気にせず、動作させてみます。</p>
+
+<p><code>rails s</code></p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/dbf05acf-97e1-4240-bf3b-90ec9d767ce1/57f93850b06d68a14848495f769e4bc6/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202013-03-23%2022.52.57.jpg" alt="棒グラフ" /></p>
+
+<p>グラフが出ました。</p>
+
+<p>あとは、データの取得がうまくできれば、楽しく暮らせそうです。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1176,65 +1321,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/11/hatena_never_appears/">はてブが表示されないなぁ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-11T07:09:00+09:00" pubdate data-updated="true">2012-05-11 07:09</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">T.I.D</a>さんの記事を見ながら、<br/>
-このブログにはてブボタンを設置しようとしています。</p>
-
-<p>ブックマークされる事は書けないかも知れませんが、何事も勉強です。</p>
-
-<h2>どううまく行かないか</h2>
-
-<p>はてブボタンの領域は確保してありそうなのですが、表示がうまくいっていないようです。</p>
-
-<p><img src="https://img.skitch.com/20120511-mibj9s3y2ijm21iasjsjcs8i5k.gif" alt="はてブボタンがある？？" /></p>
-
-<h2>やったこと</h2>
-
-<p>記事をもとに、あれこれとテンプレートを変更しました。
-本当は一部始終を書かないといけないのですが、面倒で書けません。</p>
-
-<p><img src="https://img.skitch.com/20120512-x7w4ykj5if64f8sd1w1yx9pswg.gif" alt="Sharing.htmlの中身" /></p>
-
-<p>後でじっくりやります。
-いまは嫁にホットケーキを焼いてあげないと・・・</p>
-
-<h2>参考資料</h2>
-
-<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">Octopressにはてブボタンを設置する - T.I.D.</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1258,6 +1344,10 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/03/22/lazy_high_charts/">lazy_high_chartsを使ってみた</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2012/12/24/webdialog/">SketchUpのWebDialogの使い方</a>
       </li>
     
@@ -1271,10 +1361,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
     
       <li class="post">
         <a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/20/sakura-git-installed/">さくらのレンタルサーバーにgitをインストールした</a>
       </li>
     
   </ul>
@@ -1345,7 +1431,7 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2012 - satrex -
+  Copyright &copy; 2013 - satrex -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
