@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Octopressのインストール（前編） - 電気羊の執務室</title>
+  <meta name="author" content="satrex">
+
+  
+  <meta name="description" content="OctopressとGitでブログを作ろう、と思い立ってから１週間。試行錯誤の末に、ようやくブログが上げられたので、ハマったポイントを紹介してみたいと思います。インストール環境は、mac OSX Lion + zsh。Xcodeは入ってるところからスタートしました。記事内で、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/04/23/installed-octopress-001">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="/stylesheets/e-sheep.css" media="screen, projection" rel="stylesheet" type="text/css">
+<!--Google Analitics Code-->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-31451390-1']);
+  _gaq.push(['_setDomainName', 'satrex.jp']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31451390-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+<div class="title_img">
+    <a href="/"><img src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+ <!--   <img src="/images/sheep3.png" alt="ひつじマーク" />
+--></div>
+<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
+  
+    <h2>魔法を作る仕事をしています。</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Octopressのインストール（前編）</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-23T12:47:00+09:00" pubdate data-updated="true">2012-04-23 12:47</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>OctopressとGitでブログを作ろう、と思い立ってから１週間。<br/>
+試行錯誤の末に、ようやくブログが上げられたので、ハマったポイントを紹介してみたいと思います。</p>
+
+<p>インストール環境は、mac OSX Lion + zsh。Xcodeは入ってるところからスタートしました。<br/>
+記事内で、ちらっとUbuntuでのインストールにも触れます。関係ない人はスルーで。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/1c5fcc0f-7c94-45ba-9f7d-c9c6909bdfb6/a28bb5b09a4b9d7cc11c78e691395ddd/res/0e3d3046-3527-4e16-bc47-53ff68a3a9df/mac_ball-20120423-205850.jpg.jpg" alt="Octocatに似たデザインのmac" /></p>
+
+<h2>Octopress導入まで</h2>
+
+<p>あまり何もないところから、Octopressを導入するところまでの
+手順を、ここにまとめてみます。<br/>
+大まかに、Octopressインストールまでには、以下のものが必要です。</p>
+
+<ol>
+<li>Ruby 1.9.2以上（1.9.2そのものがおすすめ）</li>
+<li>Git</li>
+</ol>
+
+
+<p>オイラのMacに入っていたRubyは1.8.7だったので、<br/>
+Ruby-1.9.2を別途入れる必要がありました。
+コマンドラインで<code>ruby --version</code>と入力して、&#8221;1.9.2&#8221;と表示されなかった方は、RVMを入れる必要があります。</p>
+
+<h2>Rubyのインストール準備</h2>
+
+<p> <a href="http://octopress.org/docs/setup/">Octopress公式サイト</a>では、RVMかrbenvで、Rubyをバージョン管理することを勧めています。<br/>
+ここでは、RVMを使って進めます。</p>
+
+<p>突然ですが、質問です。<br/>
+あなたのOSはMacですか？<br/>
+Yesの方は、RVMのインストールに進んで下さい。<br/>
+Noの方。Linuxをお使いで、Curlが入っていない方は、Curlをインストールしないといけません。</p>
+
+<h3>Curlのインストール</h3>
+
+<p>Ubuntuの場合は、以下のコマンドでcURLをインストールします。
+<code>sudo apt-get install libcurl-dev</code>
+以上。</p>
+
+<h3 id="rvm_install">RVMのインストール</h3>
+
+
+<p>次に、どなたさまもこのコマンドを、ターミナルで実行します。ディレクトリは、初期状態で構いません。
+<code>bash -s stable &lt; &lt;(curl -s https://raw.github.com/wayneeseguin/rvm/master/binscripts/rvm-installer)</code></p>
+
+<p>ここから、シェルに何を使っているかで、二手に分かれます。<br/>
+何のことかわからない方は、最初の道を選んでください。あなたはbash組です。</p>
+
+<hr />
+
+<h4>1. bashを使っている方、何のこと？の方</h4>
+
+<p>以下のコードを、ターミナルで実行します。</p>
+
+<pre><code>echo '[[ -s "$HOME/.rvm/scripts/rvm" ]] &amp;&amp; . "$HOME/.rvm/scripts/rvm" # Load RVM function' &gt;&gt; ~/.bash_profile
+source ~/.bash_profile
+</code></pre>
+
+<h4>2. zshを使っている方</h4>
+
+<p>オイラも、今回を機にzshデビューしました。このコードをどうぞ。</p>
+
+<pre><code>echo '[[ -s $HOME/.rvm/scripts/rvm ]] &amp;&amp; source $HOME/.rvm/scripts/rvm' &gt;&gt; ~/.zshrc
+source ~/.zshrc`
+</code></pre>
+
+<hr />
+
+<p>これで、Rubyを入れる準備ができました。まだ先は長いです。<br/>
+でもげっそりしないで下さいね。<br/>
+ひとつひとつは大した事じゃないです。うまくいけば・・・</p>
+
+<h3 id="gcc_install">GCCのインストール </h3>
+
+
+<p>オイラがインストールを試した中で、一番のポイントは、このGCCでした。<br/>
+公式サイトにも載ってない落とし穴なので、注意して読んで下さい。<br/>
+シチュエーション別に解説します。</p>
+
+<hr />
+
+<h4>1. Macの方</h4>
+
+<p>また質問ですが、あなたのOSはLionですか？ <br/>
+Noの方は、ここでは何もしなくていいです。RVMのインストールに進みます。</p>
+
+<p>Yesの方は、ここ（→<a href="https://github.com/downloads/kennethreitz/osx-gcc-installer/GCC-10.7-v2.pkg">GCC-10.7.pkg</a> ）からインストーラをダウンロードして実行します。</p>
+
+<p>そして環境変数CCをシェルのプロファイルに書き込みます。<br/>
+例によって、どちらのシェルを使っているかで、手順が分かれます。</p>
+
+<hr />
+
+<h4>bashの方＋なんだか分からない方</h4>
+
+<p><code>export CC=/usr/bin/gcc-4.2</code>を、~/.bash_profileに追記し（ファイルがなければ作る）、ターミナルを再起動します。<br/>
+こんなふうにコマンドで打つと、勝手にファイルを開くか作って書いてくれます。</p>
+
+<pre><code>echo "export CC=/usr/bin/gcc-4.2" &gt;&gt; ~/.bash_profile
+</code></pre>
+
+<h5>zshの方</h5>
+
+<p>zshの方は、ファイル名が違います。<br/>
+<code>export CC=/usr/bin/gcc-4.2</code>を、<code>~/.zprofile</code>に追記してください。</p>
+
+<h5>参考資料：</h5>
+
+<p><a href="http://d.hatena.ne.jp/holypp/20120212/1328992440">MacOSX LionでのRubyの扱い方、またはllvm-gccについて</a><br/>
+<a href="https://gist.github.com/1104557">FIX for Lion&#8217;s posix_spawn_ext.bundle: [BUG] Segmentation fault</a></p>
+
+<hr />
+
+<h4>Ubuntuの方</h4>
+
+<p>UbuntuではGCCが入ってないので、build-essentialというライブラリをapt-getして下さい。<br/>
+詳しくはリンク先：thincaさんのページを参照。</p>
+
+<h5>参考資料：</h5>
+
+<p><a href="http://thira.plavox.info/blog/2008/10/ubuntu_gcc_buildessential.html">Ubuntu のデフォルトでは gcc でコンパイルできないので build-essential を入れておく</a></p>
+
+<p>詳しくないので、その他のディストリビューションの事はわかりません。</p>
+
+<hr />
+
+<h2>Rubyのインストール</h2>
+
+<p>やっとここまで来ました。
+ここからは、手順としてはもう少しです。
+PCに頑張ってもらう感じになります。</p>
+
+<p>Rubyをインストールします。
+今回必要なライブラリは1.9.2です。
+新し過ぎても面倒がある感じなので、スバリ1.9.2そのものをおすすめします。</p>
+
+<pre><code>rvm install 1.9.2 &amp;&amp; rvm use 1.9.2
+rvm rubygems latest
+</code></pre>
+
+<p>このコマンドで、Rubyのソースコードをダウンロードしながら、<br/>
+自動的にコンパイルします。ここでさっきのGCCを使うんです。<br/>
+けっこう時間がかかります。</p>
+
+<h2>Gitのインストール</h2>
+
+<p>Gitのインストールは、<code>brew install git</code>とかやってください。
+Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
+
+<h5>参考資料：</h5>
+
+<p><a href="http://d.hatena.ne.jp/STAR_ZERO/20110815/1313416152">MacにHomebrewをインストールする（ついでにGitも</a>
+<a href="http://blog.champierre.com/670">せっかちな人のための git 入門 – githubt をインストールし、共同で開発できる環境を整えるまで : 僕は発展途上技術者</a>
+<a href="http://weble.org/2011/02/14/git-mac-install">最速で Git を Mac にインストールして基本的なコマンドを使う方法</a></p>
+
+<hr />
+
+<h2>次回</h2>
+
+<p><a href="http://satrex.github.com/blog/2012/04/23/installed-octopress-002/">次回</a>は、いよいよOctopressをインストールします。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-23T12:47:00+09:00" pubdate data-updated="true">2012-04-23 12:47</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/04/23/installed-octopress-001/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/04/23/installed-octopress-001/" >Tweet</a>
+  
+  
+  <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
+      data-hatena-bookmark-layout="standard"
+      data-hatena-bookmark-url="http://satrex.github.com/blog/2012/04/23/installed-octopress-001/">
+    <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
+        alt="このエントリーをはてなブックマークに追加" width="20" height="20"
+        style="border: none">
+  </a>
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/04/23/installed-octopress-002/" title="Next Post: Octopressのインストール（後編）">Octopressのインストール（後編） &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="/images/self-portrait_pop.png" height="250" width="200" />
+  <br />
+  satrex(Satoshi Suzuki)
+  <br />
+  <a href="http://twitter.com/satrex">@satrex</a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/03/22/lazy_high_charts/">lazy_high_chartsを使ってみた</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/12/24/webdialog/">SketchUpのWebDialogの使い方</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/04/bitnami-setting/">bitnamiの仮想マシンを使うためのステップ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/satrex">@satrex</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'satrex',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("satrex", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/sat1501@gmail.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - satrex -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'e-sheep';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/04/23/installed-octopress-001/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/04/23/installed-octopress-001/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+<script>
+(function(w,d){
+    var c,e=d.createDocumentFragment(),f=d.getElementsByTagName("script")[0],
+    a=function(a,b){if(!d.getElementById(b)){c=d.createElement("script");
+    c.src=a;c.id=b||null;c.async=true;e.appendChild(c);}};
+
+
+    a("//platform.twitter.com/widgets.js");
+
+
+    a("//connect.facebook.net/en_US/all.js#xfbml=1","facebook-jssdk");
+
+    a("//b.st-hatena.com/js/bookmark_button_wo_al.js");
+    f.parentNode.insertBefore(e,f);
+})(this,document);
+</script>
+
+
+</body>
+</html>
