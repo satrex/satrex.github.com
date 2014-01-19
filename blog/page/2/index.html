@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="T.I.Dさんの記事を見ながら、このブログにはてブボタンを設置しようとしています。ブックマークされる事は書けないかも知れませんが、何事も勉強です。どううまく行かないかはてブボタンの領域は確保してありそうなのですが、表示がうまくいっていないようです。やったこと記事をもとに、 &hellip;">
+  <meta name="description" content="krayさんのサイトを丸写しで、Three.jsを試してみました。うまくいったので、お礼かたがた書いてみます。うまくいったこといくつか、これは助かったなぁと思う事を書いてみます。Three.jsの扱いまずソースをCloneして、さてどう使うんだろうと考えちゃいました。そうだReadMeを見よう、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,6 +98,96 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/22/three_js_tutorial/">Three.jsを試してみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-22T19:50:00+09:00" pubdate data-updated="true">2012-05-22 19:50</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://kray.jp/blog/three-js/">krayさんのサイト</a>を丸写しで、Three.jsを試してみました。
+うまくいったので、お礼かたがた書いてみます。</p>
+
+<h3>うまくいったこと</h3>
+
+<p>いくつか、これは助かったなぁと思う事を書いてみます。</p>
+
+<h4>Three.jsの扱い</h4>
+
+<p>まず<a href="https://github.com/mrdoob/three.js/">ソース</a>をCloneして、さてどう使うんだろうと考えちゃいました。
+そうだ<a href="https://github.com/mrdoob/three.js/#readme">ReadMe</a>を見よう、という事で見てみると、minimize版をHTMLヘッダーで参照すればいいとのこと。</p>
+
+<p>![３Dの立方体がぐりぐり動く][sampleImage]</p>
+
+<p>なるほど。
+チュートリアルやwikiも充実してるようなので、しばらく入り浸ってみたいです。</p>
+
+<h3>FireFoxのいいところ</h3>
+
+<p>とくに他のブラウザと比較しての話ではないです。
+cmd-uでソースの表示。そこからリンクを辿ってスクリプトなど見れるので、追いかけやすいなぁと。
+強いて言えば、ソースにシンタックスハイライトしてくれれば最高です。</p>
+
+<p>あと、３DでDOMツリーが見れるのが面白いです。</p>
+
+<h2>うまくいかなかったこと</h2>
+
+<p>逆に、これはまだよくわかってないぞ、という部分について。</p>
+
+<h3>javascriptの補完</h3>
+
+<p>neocomplcacheがないVimは使いません。というくらい、オイラは補完が好きです。
+補完がないとコードが書きたくないです。
+で、javascriptのシンタックスや、Three.js内のメソッド名など、持ってきてほしいものがいくつかありました。</p>
+
+<p>あとでneocomplcacheのヘルプをよく読んでみます。</p>
+
+<h3>SketchUpとThree.jsの連携</h3>
+
+<p>SketchUpでモデリングして、Webサイトに載せてぐりぐり動かす、とかできると最高です。</p>
+
+<p>SketchUpはWindows版だとBridgeというライブラリでEclipseからスクリプトが実行できるのですが、いかんせんmacではBridgeが通用せず。
+まだレベルが足りなくて、Bridgeを移植しようにも、どう手をつけていいのかわかりません。</p>
+
+<p>VimからSketchUpのRubyコンソールのウィンドウハンドルを取って、文字を入力してExecuteScriptコマンドを流せばいいはずです。</p>
+
+<p>でもどうすればそれができるか分かりません。
+ざんねん。
+いつかは！</p>
+
+<p>(2012/12/24 追記)
+できました。
+次の記事を参照してください。</p>
+
+<p>http://blog.satrex.jp/blog/2012/06/04/vimsketchup/</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -927,6 +1017,10 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/22/lazy_high_charts/">lazy_high_chartsを使ってみた</a>
       </li>
     
@@ -940,10 +1034,6 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
     
       <li class="post">
         <a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a>
       </li>
     
   </ul>

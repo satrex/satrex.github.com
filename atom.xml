@@ -4,7 +4,7 @@
   <title><![CDATA[電気羊の執務室]]></title>
   <link href="http://satrex.github.com/atom.xml" rel="self"/>
   <link href="http://satrex.github.com/"/>
-  <updated>2013-03-23T23:37:47+09:00</updated>
+  <updated>2013-09-10T15:13:50+09:00</updated>
   <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -12,6 +12,51 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[TimeMachineのバックアップが遅い時は、Spotlightを確認せよ]]></title>
+    <link href="http://satrex.github.com/blog/2013/07/14/timemachine-spotlight/"/>
+    <updated>2013-07-14T07:39:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2013/07/14/timemachine-spotlight</id>
+    <content type="html"><![CDATA[<p>今回は、タイトルで内容を言い尽くした感があります。</p>
+
+<h3>今回起こったこと</h3>
+
+<p>約２週間前から、TimeMachineのバックアップが成功しなくなりました。</p>
+
+<p>夜寝ようとすると、『バックアップ230MB/6GB』とか表示されてるわけです。
+で、InsomniaTを仕掛けてスリープしないようにし、翌朝バックアップが終わったか確認すると・・・　
+『バックアップ2.4GB/6GB』
+とか出ているわけです。</p>
+
+<p>丸一日かかる計算です。
+もう仕事に持っていくし、終わんねーじゃん。
+こんな事が数日続いたでしょうか・・・</p>
+
+<h3>Spotlightの異変</h3>
+
+<p>仕事中に、ふと気がついた事がありました。
+Spotlightで検索できない。</p>
+
+<p>ぐぐる。
+<a href="http://osxdaily.com/2011/12/10/disable-or-enable-spotlight-in-mac-os-x-lion/">OSX Daily</a>
+<a href="https://discussionsjapan.apple.com/thread/10119501?start=0&amp;tstart=0">appleのフォーラム</a></p>
+
+<p>今回は、下のコマンドで解決できました。</p>
+
+<p><code>
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code>
+　</p>
+
+<h3>TimeMachineも解決したよ</h3>
+
+<p>Spotlightが解決したら、TimeMachineのバックアップもうまくいきました。
+たまった差分バックアップが9時間で終わった感じですが。</p>
+
+<p>めでたし。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[lazy_high_chartsを使ってみた]]></title>
@@ -293,7 +338,7 @@ bitnamiを使ってみます。</p>
 VMware-Toolsをインストールします。</p>
 
 <p>別の記事にまとめていますので、参照してください。
-<a href="http://satrex.github.com/2012-07-02-vmware-tools-installed.html">vmware-tools-install</a></p>
+<a href="http://blog.satrex.jp/blog2012/07/02/vmware-tools-installed">vmware-tools-install</a></p>
 
 <h3>ssh鍵の生成</h3>
 
