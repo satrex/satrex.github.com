@@ -1,0 +1,32 @@
+.woodline{
+    // needs latest Compass, add '@import "compass"' to your scss
+    background-color: rgb(198,180,163); // Old browsers
+    @include filter-gradient(#c6b4a3, #bfa691, horizontal); // IE6-8
+    // IE9 SVG, needs conditional override of 'filter' to 'none'
+    $experimental-support-for-svg: true;
+    @include background-image(linear-gradient(left,  rgb(198,180,163) 0%,rgb(89,61,34) 46%,rgb(89,61,34) 54%,rgb(191,166,145) 100%));
+}
+
+.entry-title{
+    background-color: rgb(89,61,34); // Old browsers
+    @include filter-gradient(#593d22, #edddcf, horizontal); // IE6-8
+    // IE9 SVG, needs conditional override of 'filter' to 'none'
+    $experimental-support-for-svg: true;
+    @include background-image(linear-gradient(left,  rgb(89,61,34) 45%,rgb(89,61,34) 60%,rgb(237,221,207) 100%));
+
+    color:$article-title-color;
+}
+
+.entry-content{
+  margin-left: 40px;
+  margin-right: 40px;
+  h2 {
+    padding-left:34px;
+    padding-bottom: 0.1em;
+    background-image: url("/images/sheep2.png");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+  }
+}
+
+

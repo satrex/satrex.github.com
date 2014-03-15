@@ -1,0 +1,27 @@
+body > header {
+  background-color: rgb(86,54,24); // Old browsers
+  @include filter-gradient(#563618, #bfa691, horizontal); // IE6-8 fallback on horizontal gradient
+    // IE9 SVG, needs conditional override of 'filter' to 'none'
+  $experimental-support-for-svg: true;
+  @include background-image(linear-gradient(left top,  rgb(86,54,24) 40%,$sidebar-bg 95%));
+  h1 {
+    display: inline-block;
+    margin: 0;
+    a, a:visited, a:hover {
+      color: $title_color;
+      text-decoration: none;
+    }
+  }
+  h2 {
+    margin: .2em 8px 0;
+    color: $subtitle-color;
+    font-weight: normal;
+  }
+
+  .title_img{
+    // 画像を入れたがいまいちだったのでやめた
+//  background-image: url("/images/sheep3.png");
+//  background-position:right;
+//  background-repeat: no-repeat;
+  }
+}

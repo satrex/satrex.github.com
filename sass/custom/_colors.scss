@@ -1,0 +1,71 @@
+// Here you can easily change your sites's color scheme.
+// To give it a try, uncomment some of the lines below rebuild your blog, and see how it works.
+// If you need a handy color picker try http://hslpicker.com
+
+// Header Colors
+$header-bg: #593D22;
+$header-border: lighten($header-bg, 15) ;
+$title-color: #e2e2e2 ;
+$subtitle-color: lighten($header-bg, 58);
+
+// Navigation Colors
+// $nav-bg: desaturate(lighten(#593D22, 18), 5);
+$nav-bg: darken(desaturate(#DFC3AA, 18), 18);
+$nav-bg-front: image-url('noise.png');
+$nav-bg-back: linear-gradient(lighten($nav-bg, 8), $nav-bg, darken($nav-bg, 11));
+
+// Main Link Colors
+$link-color: lighten(#165b94, 3) ;
+$link-color-hover: adjust-color($link-color, $lightness: 10, $saturation: 25) ;
+$link-color-visited: adjust-color($link-color, $hue: 80, $lightness: -4) ;
+$link-color-active: adjust-color($link-color-hover, $lightness: -15) ;
+
+// Main Section Colors
+$main-bg: #EDDDCF;
+$page-bg: darken($header-bg, 10);
+$article-border: #eeeeee ;
+$article-title-color: $main-bg;
+
+$text-color: darken($main-bg, 70);
+// $text-color-light: lighten($main-bg, 30) ;
+$text-color-light: #002b36; //darkest blue 
+
+$type-border: #ddd ;
+
+// Sidebar Colors
+$sidebar-bg: darken(desaturate($main-bg, 18), 18);
+$sidebar-link-color: saturate(#526f9a, 10);
+$sidebar-link-color-hover: darken(#7ab662, 9);
+
+// Footer Colors
+$footer-bg: $nav-bg ;
+$footer-bg-front: image-url('noise.png');
+$footer-bg-back: linear-gradient(lighten($footer-bg, 8), $footer-bg, darken($footer-bg, 11));
+$footer-color: $text-color-light;
+
+/* To use the light Solarized highlighting theme uncomment the following line */
+$solarized: light;
+
+/* If you want to tweak the Solarized colors you can do that here */
+$base03:          #002b36; //darkest blue
+$base02:          #073642; //dark blue
+$base01:          #586e75; //darkest gray
+//$base00:          #657b83; //dark gray
+//$base0:           #839496; //medium gray
+$base1:           #93a1a1; //medium light gray
+//$base2:           #eee8d5; //cream
+//$base3:           #fdf6e3; //white
+//$solar-yellow:    #b58900;
+//$solar-orange:    #cb4b16;
+//$solar-red:       #dc322f;
+//$solar-magenta:   #d33682;
+//$solar-violet:    #6c71c4;
+//$solar-blue:      #268bd2;
+//$solar-cyan:      #2aa198;
+//$solar-green:     #859900;
+
+
+/* Non highlighted code colors */
+$pre-bg: $base03;
+$pre-border: darken($base02, 5);
+$pre-color: $base1;
