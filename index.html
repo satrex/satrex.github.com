@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="Lazy high chartsを使ってみたrailsでグラフを表示させたくて、Lazy high chartsを使ってみました。やった事を書いておきます。なんでLazy high chartsなの？Lazy high chartsを選んだ理由は、以下の通りです。『Web グラフ』で検索したら、 &hellip;">
+  <meta name="description" content="今回は、タイトルで内容を言い尽くした感があります。今回起こったこと約２週間前から、TimeMachineのバックアップが成功しなくなりました。夜寝ようとすると、『バックアップ230MB/6GB』とか表示されてるわけです。で、InsomniaTを仕掛けてスリープしないようにし、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -98,6 +98,78 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T07:39:00+09:00" pubdate data-updated="true">2013-07-14 07:39</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今回は、タイトルで内容を言い尽くした感があります。</p>
+
+<h3>今回起こったこと</h3>
+
+<p>約２週間前から、TimeMachineのバックアップが成功しなくなりました。</p>
+
+<p>夜寝ようとすると、『バックアップ230MB/6GB』とか表示されてるわけです。
+で、InsomniaTを仕掛けてスリープしないようにし、翌朝バックアップが終わったか確認すると・・・　
+『バックアップ2.4GB/6GB』
+とか出ているわけです。</p>
+
+<p>丸一日かかる計算です。
+もう仕事に持っていくし、終わんねーじゃん。
+こんな事が数日続いたでしょうか・・・</p>
+
+<h3>Spotlightの異変</h3>
+
+<p>仕事中に、ふと気がついた事がありました。
+Spotlightで検索できない。</p>
+
+<p>ぐぐる。
+<a href="http://osxdaily.com/2011/12/10/disable-or-enable-spotlight-in-mac-os-x-lion/">OSX Daily</a>
+<a href="https://discussionsjapan.apple.com/thread/10119501?start=0&amp;tstart=0">appleのフォーラム</a></p>
+
+<p>今回は、下のコマンドで解決できました。</p>
+
+<p><code>
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code>
+　</p>
+
+<h3>TimeMachineも解決したよ</h3>
+
+<p>Spotlightが解決したら、TimeMachineのバックアップもうまくいきました。
+たまった差分バックアップが9時間で終わった感じですが。</p>
+
+<p>めでたし。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -456,7 +528,7 @@ bitnamiを使ってみます。</p>
 VMware-Toolsをインストールします。</p>
 
 <p>別の記事にまとめていますので、参照してください。
-<a href="/2012-07-02-vmware-tools-installed.html">vmware-tools-install</a></p>
+<a href="http://blog.satrex.jp/blog2012/07/02/vmware-tools-installed">vmware-tools-install</a></p>
 
 <h3>ssh鍵の生成</h3>
 
@@ -1231,96 +1303,6 @@ SketchUp上で実行する事ができるはずです。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/22/three_js_tutorial/">Three.jsを試してみた</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-22T19:50:00+09:00" pubdate data-updated="true">2012-05-22 19:50</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://kray.jp/blog/three-js/">krayさんのサイト</a>を丸写しで、Three.jsを試してみました。
-うまくいったので、お礼かたがた書いてみます。</p>
-
-<h3>うまくいったこと</h3>
-
-<p>いくつか、これは助かったなぁと思う事を書いてみます。</p>
-
-<h4>Three.jsの扱い</h4>
-
-<p>まず<a href="https://github.com/mrdoob/three.js/">ソース</a>をCloneして、さてどう使うんだろうと考えちゃいました。
-そうだ<a href="https://github.com/mrdoob/three.js/#readme">ReadMe</a>を見よう、という事で見てみると、minimize版をHTMLヘッダーで参照すればいいとのこと。</p>
-
-<p>![３Dの立方体がぐりぐり動く][sampleImage]</p>
-
-<p>なるほど。
-チュートリアルやwikiも充実してるようなので、しばらく入り浸ってみたいです。</p>
-
-<h3>FireFoxのいいところ</h3>
-
-<p>とくに他のブラウザと比較しての話ではないです。
-cmd-uでソースの表示。そこからリンクを辿ってスクリプトなど見れるので、追いかけやすいなぁと。
-強いて言えば、ソースにシンタックスハイライトしてくれれば最高です。</p>
-
-<p>あと、３DでDOMツリーが見れるのが面白いです。</p>
-
-<h2>うまくいかなかったこと</h2>
-
-<p>逆に、これはまだよくわかってないぞ、という部分について。</p>
-
-<h3>javascriptの補完</h3>
-
-<p>neocomplcacheがないVimは使いません。というくらい、オイラは補完が好きです。
-補完がないとコードが書きたくないです。
-で、javascriptのシンタックスや、Three.js内のメソッド名など、持ってきてほしいものがいくつかありました。</p>
-
-<p>あとでneocomplcacheのヘルプをよく読んでみます。</p>
-
-<h3>SketchUpとThree.jsの連携</h3>
-
-<p>SketchUpでモデリングして、Webサイトに載せてぐりぐり動かす、とかできると最高です。</p>
-
-<p>SketchUpはWindows版だとBridgeというライブラリでEclipseからスクリプトが実行できるのですが、いかんせんmacではBridgeが通用せず。
-まだレベルが足りなくて、Bridgeを移植しようにも、どう手をつけていいのかわかりません。</p>
-
-<p>VimからSketchUpのRubyコンソールのウィンドウハンドルを取って、文字を入力してExecuteScriptコマンドを流せばいいはずです。</p>
-
-<p>でもどうすればそれができるか分かりません。
-ざんねん。
-いつかは！</p>
-
-<p>(2012/12/24 追記)
-できました。
-次の記事を参照してください。</p>
-
-<p>http://blog.satrex.jp/blog/2012/06/04/vimsketchup/</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1344,6 +1326,10 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/03/22/lazy_high_charts/">lazy_high_chartsを使ってみた</a>
       </li>
     
@@ -1357,10 +1343,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
     
       <li class="post">
         <a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/06/25/xp_converted/">ConverterでXPマシンを仮想化するために必要な4つのこと</a>
       </li>
     
   </ul>
