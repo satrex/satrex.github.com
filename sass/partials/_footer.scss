@@ -10,9 +10,9 @@ body > footer {
   padding-top: 1em;
   padding-bottom: 1em;
   margin-bottom: 3em;
-  height: 100px;
+  vertical-align: bottom; 
   @include border-bottom-radius(.4em);
-  z-index: 1;
+  z-index: 5;
   a {
     @include link-colors($footer-link-color, $footer-link-color-hover, $visited: $footer-link-color);
   }
