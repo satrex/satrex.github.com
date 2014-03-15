@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "rvmからrbenvへ移行"
-published: true
+published: false 
 date: 2013-07-14 16:49
 comments: true
 tags: 
@@ -17,6 +17,9 @@ rake generateできず。
 
 しまいにはOctopressのGenerateもできなくなってしまったので、
 もう環境をなんとかするしかない感じがしてきました。
+
+というわけで、rubyのパッケージをrvmで管理するのをやめ、
+rbenvに移行しました。
 
 
 

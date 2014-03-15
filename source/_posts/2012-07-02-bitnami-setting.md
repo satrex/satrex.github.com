@@ -152,6 +152,7 @@ bitnamiユーザーでログインします、という意味です。
 めでたし。
 
 
-[faq]: http://bitnami.org/faq/virtual_machines
-[vmware-tools-install]: /2012-07-02-vmware-tools-installed.html
+[faq]: http://bitnami.org/faq/virtual_machinehttp://blog.satrex.jp/blog/2012/07/02/vmware-tools-installed/s
+[vmware-tools-install]: http://blog.satrex.jp/blog2012/07/02/vmware-tools-installed
+
 
