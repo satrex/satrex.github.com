@@ -11,6 +11,7 @@ body > footer {
   padding-bottom: 1em;
   margin-bottom: 3em;
   vertical-align: bottom; 
+  visibility: hidden;
   @include border-bottom-radius(.4em);
   z-index: 5;
   a {

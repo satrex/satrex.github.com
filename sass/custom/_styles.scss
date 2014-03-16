@@ -7,6 +7,9 @@
     @include background-image(linear-gradient(left,  rgb(198,180,163) 0%,rgb(89,61,34) 46%,rgb(89,61,34) 54%,rgb(191,166,145) 100%));
 }
 
+.blog-index{
+    background-color: #EDDDCF;
+}
 .entry-title{
     background-color: rgb(89,61,34); // Old browsers
     @include filter-gradient(#593d22, #edddcf, horizontal); // IE6-8
