@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="今回は、タイトルで内容を言い尽くした感があります。今回起こったこと約２週間前から、TimeMachineのバックアップが成功しなくなりました。夜寝ようとすると、『バックアップ230MB/6GB』とか表示されてるわけです。で、InsomniaTを仕掛けてスリープしないようにし、 &hellip;">
+  <meta name="description" content="ActiveScaffoldとはRailsアプリでは、CRUD操作（登録・修正・表示・削除）を一気に作ってくれる、Scaffoldという機能があります。が、あまり実用的ではない、という定評で、便利な機能にもかかわらず、それほど使われていません。そこでActiveScaffoldです。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com">
+  <link rel="canonical" href="http://blog.satrex.jp">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -83,7 +83,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input type="hidden" name="q" value="site:blog.satrex.jp" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -98,6 +98,133 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/15/active_scaffold/">Active_scaffoldが調子いい</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-15T10:33:00+09:00" pubdate data-updated="true">2014-03-15 10:33</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>ActiveScaffoldとは</h3>
+
+<p>Railsアプリでは、CRUD操作（登録・修正・表示・削除）を
+一気に作ってくれる、Scaffoldという機能があります。
+が、あまり実用的ではない、という定評で、
+便利な機能にもかかわらず、それほど使われていません。</p>
+
+<p>そこでActiveScaffoldです。
+ActiveScaffoldでは、ごく少ない操作で、
+かなりそれっぽい画面を自動生成してしまいます。</p>
+
+<h3>使い方</h3>
+
+<ol>
+<li>gemで導入</li>
+<li>javascriptテンプレートにrequireを書く</li>
+<li>stylesheetテンプレートにrequireを書く</li>
+<li>生成したいエンティティを記述する</li>
+<li>routesファイルにひとこと書く</li>
+</ol>
+
+
+<h4>1.gemで導入</h4>
+
+<p>Gemfileに、以下の通り記述します。
+<code>
+gem install active_scaffold
+</code></p>
+
+<p>関係ないですが、僕は最近、もっぱらskip_bundleオプション付きでプロジェクトを作り、<br/>
+後からプロジェクト内のvendor/bundle配下にgemをインストールするのが、<br/>
+全体の環境を壊さなくていいなぁとお気に入りです。</p>
+
+<h4>2. javascriptテンプレートにrequireを書く</h4>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/1de3951c-0238-4ec6-95a0-06065d091c4b/fc3a7db781b87e66da4db12924eea67a/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-13.31.28.png" alt="ファイルイメージ" /></p>
+
+<p>app/assets/javascripts/application.js を開きます。
+ファイルの末尾に、requireを記述したブロックがあるので、
+以下の通り追記します。</p>
+
+<p><code>//= require active_scaffold </code></p>
+
+<p>コメントアウトした感じの見た目で構いません。
+<img src="https://www.evernote.com/shard/s75/sh/76734574-ca91-4172-a070-0b1ee230f80f/83ae886c65eec413d1ad1cf73e124516/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.06.png" alt="追加したイメージ" /></p>
+
+<h4>3. stylesheetテンプレートにrequireを書く</h4>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/46af7df5-867a-488d-b83e-77f8b458d6c9/be9a33261184f6fb0dfb4c305ecf01bc/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.27.png" alt="stylesheetテンプレートはこれ" /></p>
+
+<p>app/assets/stylesheets/application.css を開きます。
+ファイルの末尾に、requireを記述したブロックがあるので、
+以下の通り追記します。</p>
+
+<p><code>*= require active_scaffold</code></p>
+
+<p>これも、コメントアウトした感じの見た目で構いません。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/a31327e5-085a-4b7a-bb07-cee7235106f4/6177a9aa3b2ef11108b1ffee2e6f2446/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.43.png" alt="追加したイメージ" /></p>
+
+<h4>4.生成したいエンティティを記述する</h4>
+
+<p>エンティティを、ActiveScaffoldを使って、
+モデルとコントローラとビューを一気に生成します。
+例えば、以下のように記述します。</p>
+
+<p><code>rails g active_scaffold work_kind name:string</code></p>
+
+<h4>5.routesファイルにひとこと書く</h4>
+
+<p>最後に、config/routesファイルに、以下のように書きます。
+<code>resources :work_kinds do as_routes end</code></p>
+
+<p>これで、Railsアプリ上では、このように表示されるはずです。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/0db69a4f-26fc-4aa2-9769-53192d74c4f3/755e53bf58e241a358feaf8d737dc9c1/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-16.17.59.png" alt="画面表示" /></p>
+
+<h4>間違えるとどうなるか？</h4>
+
+<p>ちなみに、requireの記述を間違えると、<br/>
+それぞれ特有の動作をします。</p>
+
+<p>stylesheetの記述をミスると、白い背景に文字だけの、
+シンプルな画面になります。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/9a5860ae-9940-4e47-94d5-b8b70520399d/6d6d562e7cfcc5027ee5e3c6094380e5/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-16.44.05.png" alt="stylesheetの記述をミスった感じ" /></p>
+
+<p>javascriptの記述をミスると、リンクをクリックしても動作しなくなります。<br/>
+ajaxの非同期処理が帰ってこれなくなるのでしょうか。<br/>
+『新しいウィンドウで開く』などすると、別窓では表示されるようです。</p>
+
+<p>これは？と思った時は、記述を見なおしてくださいね。当たり前か。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -368,20 +495,20 @@ Could not find generator lazy_high_charts:install.
 また、入力部品の動作はjavascriptで指定します。</p>
 
 <p>基本的な使い方は、公式ヘルプに載っています。  <br/>
-http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</p>
+<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
 
 <h2>rubyスクリプトの実行方法</h2>
 
 <p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。<br/>
 指定されたコールバックメソッドには、仮想urlが割り当てられており、<br/>
-&#8220;skp:&#8221; + コールバックメソッド名のアドレスに遷移しようとすると、<br/>
+&ldquo;skp:&rdquo; + コールバックメソッド名のアドレスに遷移しようとすると、<br/>
 コールバックメソッドが実行されます。</p>
 
 <p>仮想urlへ遷移するには、以下のいずれかの方法で指定します。</p>
 
 <ul>
 <li>リンクのurlとして指定</li>
-<li>javascript関数内に、window.location=&#8221;skp:&#8221; + 関数名を指定し、ボタンに割り当て</li>
+<li>javascript関数内に、window.location=&ldquo;skp:&rdquo; + 関数名を指定し、ボタンに割り当て</li>
 </ul>
 
 
@@ -401,7 +528,7 @@ rubyの戻り値をjavascriptで利用することはできないようです。
 ここでは、ボタンのクリックイベントにjavascriptのスクリプトを設定し、<br/>
 リンクのurlにrubyのコールバックイベントの仮想urlを指定しています。</p>
 
-<div><script src='https://gist.github.com/4367009.js?file='></script>
+<div><script src='https://gist.github.com/4367009.js'></script>
 <noscript><pre><code>require 'Sketchup'
 
 def show_dialog
@@ -438,7 +565,7 @@ show_dialog
 <p><img src="https://www.evernote.com/shard/s75/sh/801ac46e-8054-4e33-bb96-95187e0cab7c/531face5d8e312d13f234eba2baccd62/deep/0/WebDialog002.jpg" alt="ボタンを押すと、javascriptのアラートが表示される" /></p>
 
 <p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。<br/>
-コード内では、リンクのurlとして、&#8221;skp:&#8221;に続いてrubyのコールバックメソッド名が<br/>
+コード内では、リンクのurlとして、&#8221;skp:&ldquo;に続いてrubyのコールバックメソッド名が<br/>
 指定されているのがわかります。</p>
 
 <p><img src="https://www.evernote.com/shard/s75/sh/57a25f6d-39ec-4f93-9780-962e52a0318e/174dbd1151fadda7723fe1b7426c30f5/deep/0/WebDialog003.jpg" alt="リンクをクリックすると、rubyのメッセージが表示される" /></p>
@@ -875,8 +1002,8 @@ Windows XPのマシンを、macのVMWareで使うために仮想化しました�
 一覧からVolume Shadow Copy Serviceを捜し、<br/>
 『スタートアップの種類』を『自動』に設定します。</p>
 
-<p>![コンパネ→管理ツール] (https://img.skitch.com/20120625-ghgec3kruxiirgkmkd6k1wftjm.gif)
-![サービス] (https://img.skitch.com/20120625-q1f2a5d35a8bjj7kqhpbixbxj5.gif)</p>
+<p>![コンパネ→管理ツール] (<a href="https://img.skitch.com/20120625-ghgec3kruxiirgkmkd6k1wftjm.gif">https://img.skitch.com/20120625-ghgec3kruxiirgkmkd6k1wftjm.gif</a>)
+![サービス] (<a href="https://img.skitch.com/20120625-q1f2a5d35a8bjj7kqhpbixbxj5.gif">https://img.skitch.com/20120625-q1f2a5d35a8bjj7kqhpbixbxj5.gif</a>)</p>
 
 <p>これが足りていないと、次のエラーが発生します。</p>
 
@@ -1227,82 +1354,6 @@ SketchUpの画面に変化が起きます。</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/29/sketchup_activation/">MacでSketchUpのRubyスクリプトを自動実行</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-29T21:39:00+09:00" pubdate data-updated="true">2012-05-29 21:39</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>以前に書いていた、GoogleSketchUpのコードをVimから書けるプラグインを書いています。</p>
-
-<p>Windowsでは、Bridgeという神アプリで、Eclipse上から
-SketchUpを操作する事ができますが、macには対応しません。</p>
-
-<h2>AppleScriptでなんとかしてみた</h2>
-
-<p>そこで、macで実行中のSketchUpでRubyコードを実行できる
-AppleScriptを書きました。</p>
-
-<p>これをVimから実行することで、Vimで書いているRubyスクリプトを、
-SketchUp上で実行する事ができるはずです。</p>
-
-<p>Bridgeと比べると格段にしょぼい作りですが、
-今までの面倒に比べれば天と地の差です。</p>
-
-<h2>現状</h2>
-
-<p>とりあえず、SketchUpが最前面に出て、Rubyコンソールが開き、
-クリップボードの文字列をペーストするだけです。</p>
-
-<p>Vim側はまだありません。</p>
-
-<h2>次のアクション</h2>
-
-<p>Vim側で、バッファの全文字列を取得する処理＋
-このAppleScriptを呼び出す処理を書けば、
-うまくいくかも知れません。</p>
-
-<p>SketchUpスクリプトファイルのフォルダは込み入ったパスにあるので、
-新規作成機能も欲しいです。</p>
-
-<p>glidenoteさんのOctoEditorをForkして作ってみようかな・・・
-と考えています。</p>
-
-<h2>ソース</h2>
-
-<script src="https://gist.github.com/2829474.js"> </script>
-
-
-
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1326,6 +1377,10 @@ SketchUp上で実行する事ができるはずです。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/15/active_scaffold/">active_scaffoldが調子いい</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
       </li>
     
@@ -1339,10 +1394,6 @@ SketchUp上で実行する事ができるはずです。</p>
     
       <li class="post">
         <a href="/blog/2012/07/04/bitnami-setting/">bitnamiの仮想マシンを使うためのステップ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a>
       </li>
     
   </ul>
@@ -1413,7 +1464,7 @@ SketchUp上で実行する事ができるはずです。</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - satrex -
+  Copyright &copy; 2014 - satrex -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -9,7 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="krayさんのサイトを丸写しで、Three.jsを試してみました。うまくいったので、お礼かたがた書いてみます。うまくいったこといくつか、これは助かったなぁと思う事を書いてみます。Three.jsの扱いまずソースをCloneして、さてどう使うんだろうと考えちゃいました。そうだReadMeを見よう、 &hellip;">
+  <meta name="description" content="以前に書いていた、GoogleSketchUpのコードをVimから書けるプラグインを書いています。Windowsでは、Bridgeという神アプリで、Eclipse上からSketchUpを操作する事ができますが、macには対応しません。AppleScriptでなんとかしてみたそこで、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/page/2">
+  <link rel="canonical" href="http://blog.satrex.jp/blog/page/2">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -83,7 +83,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input type="hidden" name="q" value="site:blog.satrex.jp" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -98,6 +98,82 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/29/sketchup_activation/">MacでSketchUpのRubyスクリプトを自動実行</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-29T21:39:00+09:00" pubdate data-updated="true">2012-05-29 21:39</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>以前に書いていた、GoogleSketchUpのコードをVimから書けるプラグインを書いています。</p>
+
+<p>Windowsでは、Bridgeという神アプリで、Eclipse上から
+SketchUpを操作する事ができますが、macには対応しません。</p>
+
+<h2>AppleScriptでなんとかしてみた</h2>
+
+<p>そこで、macで実行中のSketchUpでRubyコードを実行できる
+AppleScriptを書きました。</p>
+
+<p>これをVimから実行することで、Vimで書いているRubyスクリプトを、
+SketchUp上で実行する事ができるはずです。</p>
+
+<p>Bridgeと比べると格段にしょぼい作りですが、
+今までの面倒に比べれば天と地の差です。</p>
+
+<h2>現状</h2>
+
+<p>とりあえず、SketchUpが最前面に出て、Rubyコンソールが開き、
+クリップボードの文字列をペーストするだけです。</p>
+
+<p>Vim側はまだありません。</p>
+
+<h2>次のアクション</h2>
+
+<p>Vim側で、バッファの全文字列を取得する処理＋
+このAppleScriptを呼び出す処理を書けば、
+うまくいくかも知れません。</p>
+
+<p>SketchUpスクリプトファイルのフォルダは込み入ったパスにあるので、
+新規作成機能も欲しいです。</p>
+
+<p>glidenoteさんのOctoEditorをForkして作ってみようかな・・・
+と考えています。</p>
+
+<h2>ソース</h2>
+
+<script src="https://gist.github.com/2829474.js"> </script>
+
+
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -181,7 +257,7 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 できました。
 次の記事を参照してください。</p>
 
-<p>http://blog.satrex.jp/blog/2012/06/04/vimsketchup/</p>
+<p><a href="http://blog.satrex.jp/blog/2012/06/04/vimsketchup/">http://blog.satrex.jp/blog/2012/06/04/vimsketchup/</a></p>
 </div>
   
   
@@ -240,7 +316,7 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 
 <h2>参考資料</h2>
 
-<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">Octopressにはてブボタンを設置する - T.I.D.</a></p>
+<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">Octopressにはてブボタンを設置する &ndash; T.I.D.</a></p>
 </div>
   
   
@@ -658,8 +734,8 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
 公式サイトやGlideNoteさんの記事、またjedipunkzさんの記事が参考になります。</p>
 
 <ul>
-<li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/">GithubとOctopressでモダンな技術系ブログを作ってみる - GlideNote</a></li>
-<li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">github.com で Octopress 構築 - jedipunkz</a></li>
+<li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/">GithubとOctopressでモダンな技術系ブログを作ってみる &ndash; GlideNote</a></li>
+<li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">github.com で Octopress 構築 &ndash; jedipunkz</a></li>
 </ul>
 
 
@@ -731,7 +807,7 @@ rake generate
 rake deploy
 </code></pre>
 
-<p>しばらくすると http://satrex.github.com/ にアクセス出来るようになります。</p>
+<p>しばらくすると <a href="http://satrex.github.com/">http://satrex.github.com/</a> にアクセス出来るようになります。</p>
 
 <h3>_config.ymlの設定</h3>
 
@@ -783,11 +859,11 @@ GCCの問題で起こるようです。
 <h3>参考資料</h3>
 
 <ul>
-<li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/">GithubとOctopressでモダンな技術系ブログを作ってみる - GlideNote</a><br/>
+<li><a href="http://blog.glidenote.com/blog/2011/11/07/install-octopress-on-github/">GithubとOctopressでモダンな技術系ブログを作ってみる &ndash; GlideNote</a><br/>
 Octopressインストール記事の草分けではないかと思います。</li>
-<li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">github.com で Octopress 構築 - jedipunkz</a><br/>
+<li><a href="http://jedipunkz.github.com/blog/2012/03/20/github-dot-com-de-octopress-gou-zhu/">github.com で Octopress 構築 &ndash; jedipunkz</a><br/>
 Linuxを使ったインストールについてまとまっています。</li>
-<li><a href="http://www.homux2.net/blog/blog/2012/03/30/blog-build/">Octopressでブログ構築 - あるふぁ世界線</a><br/>
+<li><a href="http://www.homux2.net/blog/blog/2012/03/30/blog-build/">Octopressでブログ構築 &ndash; あるふぁ世界線</a><br/>
 どうしてOctopressを使うか、とかも書いてあって、参考になります。一読をお薦めします。</li>
 </ul>
 
@@ -936,7 +1012,7 @@ Noの方は、ここでは何もしなくていいです。RVMのインストー
 <h5>参考資料：</h5>
 
 <p><a href="http://d.hatena.ne.jp/holypp/20120212/1328992440">MacOSX LionでのRubyの扱い方、またはllvm-gccについて</a><br/>
-<a href="https://gist.github.com/1104557">FIX for Lion&#8217;s posix_spawn_ext.bundle: [BUG] Segmentation fault</a></p>
+<a href="https://gist.github.com/1104557">FIX for Lion&rsquo;s posix_spawn_ext.bundle: [BUG] Segmentation fault</a></p>
 
 <hr />
 
@@ -1017,6 +1093,10 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/15/active_scaffold/">active_scaffoldが調子いい</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
       </li>
     
@@ -1030,10 +1110,6 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
     
       <li class="post">
         <a href="/blog/2012/07/04/bitnami-setting/">bitnamiの仮想マシンを使うためのステップ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a>
       </li>
     
   </ul>
@@ -1104,7 +1180,7 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - satrex -
+  Copyright &copy; 2014 - satrex -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

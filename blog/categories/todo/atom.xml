@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: todo | 電気羊の執務室]]></title>
-  <link href="http://satrex.github.com/blog/categories/todo/atom.xml" rel="self"/>
-  <link href="http://satrex.github.com/"/>
-  <updated>2013-09-10T15:13:50+09:00</updated>
-  <id>http://satrex.github.com/</id>
+  <link href="http://blog.satrex.jp/blog/categories/todo/atom.xml" rel="self"/>
+  <link href="http://blog.satrex.jp/"/>
+  <updated>2014-03-15T23:21:30+09:00</updated>
+  <id>http://blog.satrex.jp/</id>
   <author>
     <name><![CDATA[satrex]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[これからやりたいこと]]></title>
-    <link href="http://satrex.github.com/blog/2012/05/06/todo/"/>
+    <link href="http://blog.satrex.jp/blog/2012/05/06/todo/"/>
     <updated>2012-05-06T06:41:00+09:00</updated>
-    <id>http://satrex.github.com/blog/2012/05/06/todo</id>
+    <id>http://blog.satrex.jp/blog/2012/05/06/todo</id>
     <content type="html"><![CDATA[<p>ブログのデザインが終わったので、これからやりたいことを整理します。
 まず、<a href="/blog/2012/04/27/task_remain/">前回のTODOリスト</a>を確認します。</p>
 
@@ -122,9 +122,9 @@ GitHubの無料アカウント容量が300MBしかないので、画像の管理
   
   <entry>
     <title type="html"><![CDATA[これからやりたいこと]]></title>
-    <link href="http://satrex.github.com/blog/2012/04/27/task_remain/"/>
+    <link href="http://blog.satrex.jp/blog/2012/04/27/task_remain/"/>
     <updated>2012-04-27T07:51:00+09:00</updated>
-    <id>http://satrex.github.com/blog/2012/04/27/task_remain</id>
+    <id>http://blog.satrex.jp/blog/2012/04/27/task_remain</id>
     <content type="html"><![CDATA[<p>ひととおりブログの形はできたので、<br/>
 これからやりたいことをまとめて、優先順位を付けてみたいと思います。</p>
 

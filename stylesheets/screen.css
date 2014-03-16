@@ -358,10 +358,10 @@ blockquote cite:before {
   word-wrap: break-word;
 }
 
-.group, body > header, body > nav, body > footer, body #content > article, body #content > div > article, body #content > div > section, body div.pagination, aside.sidebar {
+.group, body > header, body > nav, body > footer, body #content > article, body #content > div > article, body #content > div > section, body div.pagination, aside.sidebar, #main, #content, .sidebar {
   *zoom: 1;
 }
-.group:after, body > header:after, body > nav:after, body > footer:after, body #content > article:after, body #content > div > section:after, body div.pagination:after, aside.sidebar:after {
+.group:after, body > header:after, body > nav:after, body > footer:after, body #content > article:after, body #content > div > section:after, body div.pagination:after, #main:after, #content:after, .sidebar:after {
   content: "";
   display: table;
   clear: both;
@@ -559,6 +559,7 @@ body.sidebar-footer .toggle-sidebar {
     margin-right: 20px;
   }
   #content > div, #content > article {
+    padding-top: 17.5px;
     padding-bottom: 17.5px;
     float: left;
   }
@@ -618,6 +619,7 @@ body.sidebar-footer .toggle-sidebar {
   }
 
   #content > div, #content > article {
+    padding-top: 27.5px;
     padding-bottom: 27.5px;
   }
 
@@ -1016,6 +1018,7 @@ article > footer p.meta {
 }
 
 #content .blog-index {
+  background: #e6d0bc;
   padding-top: 0;
   padding-bottom: 0;
 }
@@ -1909,13 +1912,15 @@ body > footer {
   padding-top: 1em;
   padding-bottom: 1em;
   margin-bottom: 3em;
+  vertical-align: bottom;
+  visibility: hidden;
   -moz-border-radius-bottomleft: 0.4em;
   -webkit-border-bottom-left-radius: 0.4em;
   border-bottom-left-radius: 0.4em;
   -moz-border-radius-bottomright: 0.4em;
   -webkit-border-bottom-right-radius: 0.4em;
   border-bottom-right-radius: 0.4em;
-  z-index: 1;
+  z-index: 5;
 }
 body > footer a {
   color: #443527;
@@ -1941,6 +1946,10 @@ body > footer p:last-child {
   background-image: -moz-linear-gradient(left, #c6b4a3 0%, #593d22 46%, #593d22 54%, #bfa691 100%);
   background-image: -o-linear-gradient(left, #c6b4a3 0%, #593d22 46%, #593d22 54%, #bfa691 100%);
   background-image: linear-gradient(left, #c6b4a3 0%, #593d22 46%, #593d22 54%, #bfa691 100%);
+}
+
+.blog-index {
+  background-color: #EDDDCF;
 }
 
 .entry-title {

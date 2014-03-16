@@ -5,11 +5,11 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>VimSketchUpをリリースしました - 電気羊の執務室</title>
+  <title>active_scaffoldが調子いい - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="VimでSketchUpのRubyスクリプトを書きたい方に朗報です。VimでSketchUpRubyを実行できるプラグインをリリースしました。動作のイメージ例えば、スクリプトで三角形を描いてみます。初めに、SketchUpを起動します。これが初期画面。ちなみに、女の子の名前はサンちゃんです。 &hellip;">
+  <meta name="description" content="ActiveScaffoldとはRailsアプリでは、CRUD操作（登録・修正・表示・削除）を一気に作ってくれる、Scaffoldという機能があります。が、あまり実用的ではない、という定評で、便利な機能にもかかわらず、それほど使われていません。そこでActiveScaffoldです。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -18,7 +18,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.satrex.jp/blog/2012/06/04/vimsketchup">
+  <link rel="canonical" href="http://blog.satrex.jp/blog/2014/03/15/active_scaffold">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -101,7 +101,7 @@
   
   <header>
     
-      <h1 class="entry-title">VimSketchUpをリリースしました</h1>
+      <h1 class="entry-title">Active_scaffoldが調子いい</h1>
     
     
       <p class="meta">
@@ -117,61 +117,105 @@
   
 
 
-<time datetime="2012-06-04T00:38:00+09:00" pubdate data-updated="true">2012-06-04 00:38</time>
+<time datetime="2014-03-15T10:33:00+09:00" pubdate data-updated="true">2014-03-15 10:33</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>VimでSketchUpのRubyスクリプトを書きたい方に朗報です。
-VimでSketchUpRubyを実行できるプラグインをリリースしました。</p>
+<div class="entry-content"><h3>ActiveScaffoldとは</h3>
 
-<h2>動作のイメージ</h2>
+<p>Railsアプリでは、CRUD操作（登録・修正・表示・削除）を
+一気に作ってくれる、Scaffoldという機能があります。
+が、あまり実用的ではない、という定評で、
+便利な機能にもかかわらず、それほど使われていません。</p>
 
-<p>例えば、スクリプトで三角形を描いてみます。
-初めに、SketchUpを起動します。
-これが初期画面。ちなみに、女の子の名前はサンちゃんです。</p>
+<p>そこでActiveScaffoldです。
+ActiveScaffoldでは、ごく少ない操作で、
+かなりそれっぽい画面を自動生成してしまいます。</p>
 
-<p><img src="https://img.skitch.com/20120603-bi3hcwd594ubauj132rkhkwk92.gif" alt="SketchUpの初期画面" /></p>
+<h3>使い方</h3>
 
-<p>何もないところに、Rubyスクリプトで三角形を描きます。
-まず、VimでSketchUp用のスクリプトを書きます。</p>
+<ol>
+<li>gemで導入</li>
+<li>javascriptテンプレートにrequireを書く</li>
+<li>stylesheetテンプレートにrequireを書く</li>
+<li>生成したいエンティティを記述する</li>
+<li>routesファイルにひとこと書く</li>
+</ol>
 
-<p><img src="https://img.skitch.com/20120603-e29j4n2sq9hk15mmfrqj461sib.gif" alt="VimでRubyスクリプトを書いたところ" /></p>
 
-<p>そして、”￥sur”とキーボードで入力すると、
-SketchUpの画面に変化が起きます。</p>
+<h4>1.gemで導入</h4>
 
-<p><img src="https://img.skitch.com/20120603-jmbeicj5qw2xp1rmujb42cqub.gif" alt="三角形が出たところ" /></p>
+<p>Gemfileに、以下の通り記述します。
+<code>
+gem install active_scaffold
+</code></p>
 
-<p>三角形が描けました。</p>
+<p>関係ないですが、僕は最近、もっぱらskip_bundleオプション付きでプロジェクトを作り、<br/>
+後からプロジェクト内のvendor/bundle配下にgemをインストールするのが、<br/>
+全体の環境を壊さなくていいなぁとお気に入りです。</p>
 
-<h2>GitHubに登録しました</h2>
+<h4>2. javascriptテンプレートにrequireを書く</h4>
 
-<p>このスクリプトを、GitHubに登録しました。
-リポジトリは<a href="https://github.com/satrex/VimSketchUpRuby">ここです</a>。</p>
+<p><img src="https://www.evernote.com/shard/s75/sh/1de3951c-0238-4ec6-95a0-06065d091c4b/fc3a7db781b87e66da4db12924eea67a/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-13.31.28.png" alt="ファイルイメージ" /></p>
 
-<h2>これから</h2>
+<p>app/assets/javascripts/application.js を開きます。
+ファイルの末尾に、requireを記述したブロックがあるので、
+以下の通り追記します。</p>
 
-<p>インストールの仕方、初期設定など、
-使い方に関する記事を書きます。</p>
+<p><code>//= require active_scaffold </code></p>
 
-<p>VimでSketchUpRubyが書けるようになったからには、
-補完の支援を受けたり、SketchUpAPIのヘルプをローカルで
-見たりできるようになりたいです。</p>
+<p>コメントアウトした感じの見た目で構いません。
+<img src="https://www.evernote.com/shard/s75/sh/76734574-ca91-4172-a070-0b1ee230f80f/83ae886c65eec413d1ad1cf73e124516/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.06.png" alt="追加したイメージ" /></p>
 
-<p>Rubyの補完は弱いので限界はあるのですが、
-現在はdictファイルを使って、補完に挑戦しています。</p>
+<h4>3. stylesheetテンプレートにrequireを書く</h4>
 
-<h2>感想</h2>
+<p><img src="https://www.evernote.com/shard/s75/sh/46af7df5-867a-488d-b83e-77f8b458d6c9/be9a33261184f6fb0dfb4c305ecf01bc/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.27.png" alt="stylesheetテンプレートはこれ" /></p>
 
-<p>前々から作りたいと言っていたプラグインです。
-やっと完成を見ることができました。
-長かったです。</p>
+<p>app/assets/stylesheets/application.css を開きます。
+ファイルの末尾に、requireを記述したブロックがあるので、
+以下の通り追記します。</p>
 
-<p>相変わらず、VimScriptもSketchUpAPIも手探りですが、
-困るのに慣れてきました。</p>
+<p><code>*= require active_scaffold</code></p>
+
+<p>これも、コメントアウトした感じの見た目で構いません。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/a31327e5-085a-4b7a-bb07-cee7235106f4/6177a9aa3b2ef11108b1ffee2e6f2446/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.43.png" alt="追加したイメージ" /></p>
+
+<h4>4.生成したいエンティティを記述する</h4>
+
+<p>エンティティを、ActiveScaffoldを使って、
+モデルとコントローラとビューを一気に生成します。
+例えば、以下のように記述します。</p>
+
+<p><code>rails g active_scaffold work_kind name:string</code></p>
+
+<h4>5.routesファイルにひとこと書く</h4>
+
+<p>最後に、config/routesファイルに、以下のように書きます。
+<code>resources :work_kinds do as_routes end</code></p>
+
+<p>これで、Railsアプリ上では、このように表示されるはずです。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/0db69a4f-26fc-4aa2-9769-53192d74c4f3/755e53bf58e241a358feaf8d737dc9c1/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-16.17.59.png" alt="画面表示" /></p>
+
+<h4>間違えるとどうなるか？</h4>
+
+<p>ちなみに、requireの記述を間違えると、<br/>
+それぞれ特有の動作をします。</p>
+
+<p>stylesheetの記述をミスると、白い背景に文字だけの、
+シンプルな画面になります。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/9a5860ae-9940-4e47-94d5-b8b70520399d/6d6d562e7cfcc5027ee5e3c6094380e5/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-16.44.05.png" alt="stylesheetの記述をミスった感じ" /></p>
+
+<p>javascriptの記述をミスると、リンクをクリックしても動作しなくなります。<br/>
+ajaxの非同期処理が帰ってこれなくなるのでしょうか。<br/>
+『新しいウィンドウで開く』などすると、別窓では表示されるようです。</p>
+
+<p>これは？と思った時は、記述を見なおしてくださいね。当たり前か。</p>
 </div>
 
 
@@ -194,7 +238,7 @@ SketchUpの画面に変化が起きます。</p>
   
 
 
-<time datetime="2012-06-04T00:38:00+09:00" pubdate data-updated="true">2012-06-04 00:38</time>
+<time datetime="2014-03-15T10:33:00+09:00" pubdate data-updated="true">2014-03-15 10:33</time>
       
 
 
@@ -205,7 +249,7 @@ SketchUpの画面に変化が起きます。</p>
   
   <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button"
       data-hatena-bookmark-layout="standard"
-      data-hatena-bookmark-url="http://blog.satrex.jp/blog/2012/06/04/vimsketchup/">
+      data-hatena-bookmark-url="http://blog.satrex.jp/blog/2014/03/15/active_scaffold/">
     <img src="http://b.st-hatena.com/images/entry-button/button-only.gif"
         alt="このエントリーをはてなブックマークに追加" width="20" height="20"
         style="border: none">
@@ -218,10 +262,8 @@ SketchUpの画面に変化が起きます。</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/05/29/sketchup_activation/" title="Previous Post: MacでSketchUpのRubyスクリプトを自動実行">&laquo; MacでSketchUpのRubyスクリプトを自動実行</a>
+        <a class="basic-alignment left" href="/blog/2013/07/14/timemachine-spotlight/" title="Previous Post: TimeMachineのバックアップが遅い時は、Spotlightを確認せよ">&laquo; TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/06/20/sakura_start/" title="Next Post: さくらのレンタルサーバーを借りた">さくらのレンタルサーバーを借りた &raquo;</a>
       
     </p>
   </footer>
@@ -350,8 +392,8 @@ SketchUpの画面に変化が起きます。</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.satrex.jp/blog/2012/06/04/vimsketchup/';
-        var disqus_url = 'http://blog.satrex.jp/blog/2012/06/04/vimsketchup/';
+        var disqus_identifier = 'http://blog.satrex.jp/blog/2014/03/15/active_scaffold/';
+        var disqus_url = 'http://blog.satrex.jp/blog/2014/03/15/active_scaffold/';
         var disqus_script = 'embed.js';
       
     (function () {
