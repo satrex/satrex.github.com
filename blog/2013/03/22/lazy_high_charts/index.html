@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>lazy_high_chartsを使ってみた - 電気羊の執務室</title>
+  <meta name="author" content="satrex">
+
+  
+  <meta name="description" content="Lazy high chartsを使ってみた railsでグラフを表示させたくて、
+Lazy high chartsを使ってみました。
+やった事を書いておきます。 なんでLazy high chartsなの？ Lazy high chartsを選んだ理由は、以下の通りです。 『Web グラフ』 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.satrex.jp/blog/2013/03/22/lazy_high_charts">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31451390-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">電気羊の執務室</a></h1>
+  
+    <h2>魔法を作る仕事をしています。</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.satrex.jp" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Lazy_high_chartsを使ってみた</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T07:28:00+09:00" pubdate data-updated="true">2013-03-22 07:28</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h3>Lazy high chartsを使ってみた</h3>
+
+<p>railsでグラフを表示させたくて、
+Lazy high chartsを使ってみました。
+やった事を書いておきます。</p>
+
+<h3>なんでLazy high chartsなの？</h3>
+
+<p>Lazy high chartsを選んだ理由は、以下の通りです。</p>
+
+<ol>
+<li>『Web グラフ』で検索したら、high chartsの評判がよかった<br/>
+ →<a href="http://d.hatena.ne.jp/end0tknr/20111218/1324206587">webアプリ(perlやjavascript)でグラフ表示なら、Highcharts で決まりかも</a></li>
+<li>『ruby high charts』で検索したら、Lazy high chartsの記事を見つけた<br/>
+ →<a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">Rails で Lazy high charts を使ってチャートを実装してみた</a></li>
+</ol>
+
+
+<p>というわけで、Lazy high chartsを使ってみます。</p>
+
+<h3>まずはインストール</h3>
+
+<p><a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">上記のサイト</a>を参考に、Lazy high chartsのインストールを行います。</p>
+
+<p>まず、Gemfile に
+<code>gem 'lazy_high_charts'</code></p>
+
+<p>を追加しました。
+そして、
+<code>bundle</code> を実行します。インストールが始まりました。<br/>
+ここまでは問題ありません。</p>
+
+<p>そして、</p>
+
+<p>bundle exec rails g lazy_high_charts:install</p>
+
+<p>を実行すると、highchart.js がダウンロードされて、assets/javascripts に配置される・・・<br/>
+はずでしたが、何やらエラーが表示されました。</p>
+
+<h3>インストールエラー</h3>
+
+<p>エラーメッセージは、次のようなものでした。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>このエラーについて調べたところ、次の記事が見つかりました。</p>
+
+<p><a href="https://github.com/michelson/lazy_high_charts/issues/91">Problem with rails g lazy_high_charts:install</a><br/>
+どうやら、Railsのバージョンが3.1以上の場合は、<br/>
+app/assets/javascripts/application.jsに次の行を追加しないといけないようです。</p>
+
+<p><code>
+//= require highcharts <br/>
+//= require exporting
+</code></p>
+
+<p>これで、エラーは解決したでしょうか。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>じゃん。
+やっぱり出ますね。</p>
+
+<p>しかし、<a href="https://github.com/michelson/lazy_high_charts/issues/91">くだんの記事</a>によると、どうやらこれでも問題なく動作するらしいです。</p>
+
+<h3>では、動かしてみますか</h3>
+
+<p>それでは、警告を気にせず、動作させてみます。</p>
+
+<p><code>rails s</code></p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/dbf05acf-97e1-4240-bf3b-90ec9d767ce1/57f93850b06d68a14848495f769e4bc6/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202013-03-23%2022.52.57.jpg" alt="棒グラフ" /></p>
+
+<p>グラフが出ました。</p>
+
+<p>あとは、データの取得がうまくできれば、楽しく暮らせそうです。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T07:28:00+09:00" pubdate data-updated="true">2013-03-22 07:28</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/12/24/sketchupjs/" title="Previous Post: SketchupのWebDialogで、rubyスクリプトが呼べない時">&laquo; SketchupのWebDialogで、rubyスクリプトが呼べない時</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/" title="Next Post: herokuを使ってみよう">herokuを使ってみよう &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="http://blog.satrex.com/images/self-portrait_pop.png" height="250" width="200" />
+  <br />
+  satrex(Satoshi Suzuki)
+  <br />
+  <a href="http://twitter.com/satrex">@satrex</a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/15/active_scaffold/">active_scaffoldが調子いい</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/rvm_to_rbenv/">rvmからrbenvへ移行</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">herokuを使ってみよう</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/22/lazy_high_charts/">lazy_high_chartsを使ってみた</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/satrex">@satrex</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'satrex',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("satrex", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/sat1501@gmail.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - satrex -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'e-sheep';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.satrex.jp/blog/2013/03/22/lazy_high_charts/';
+        var disqus_url = 'http://blog.satrex.jp/blog/2013/03/22/lazy_high_charts/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

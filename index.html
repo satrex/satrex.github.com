@@ -1,1 +1,1378 @@
-My Octopress Page is coming soon &hellip;
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>電気羊の執務室</title>
+  <meta name="author" content="satrex">
+
+  
+  <meta name="description" content="ActiveScaffoldとは Railsアプリでは、CRUD操作（登録・修正・表示・削除）を
+一気に作ってくれる、Scaffoldという機能があります。
+が、あまり実用的ではない、という定評で、
+便利な機能にもかかわらず、それほど使われていません。 そこでActiveScaffoldです。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.satrex.jp">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31451390-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">電気羊の執務室</a></h1>
+  
+    <h2>魔法を作る仕事をしています。</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.satrex.jp" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/03/15/active_scaffold/">Active_scaffoldが調子いい</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-15T10:33:00+09:00" pubdate data-updated="true">2014-03-15 10:33</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>ActiveScaffoldとは</h3>
+
+<p>Railsアプリでは、CRUD操作（登録・修正・表示・削除）を
+一気に作ってくれる、Scaffoldという機能があります。
+が、あまり実用的ではない、という定評で、
+便利な機能にもかかわらず、それほど使われていません。</p>
+
+<p>そこでActiveScaffoldです。
+ActiveScaffoldでは、ごく少ない操作で、
+かなりそれっぽい画面を自動生成してしまいます。</p>
+
+<h3>使い方</h3>
+
+<ol>
+<li>gemで導入</li>
+<li>javascriptテンプレートにrequireを書く</li>
+<li>stylesheetテンプレートにrequireを書く</li>
+<li>生成したいエンティティを記述する</li>
+<li>routesファイルにひとこと書く</li>
+</ol>
+
+
+<h4>1.gemで導入</h4>
+
+<p>Gemfileに、以下の通り記述します。
+<code>
+gem install active_scaffold
+</code></p>
+
+<p>関係ないですが、僕は最近、もっぱらskip_bundleオプション付きでプロジェクトを作り、<br/>
+後からプロジェクト内のvendor/bundle配下にgemをインストールするのが、<br/>
+全体の環境を壊さなくていいなぁとお気に入りです。</p>
+
+<h4>2. javascriptテンプレートにrequireを書く</h4>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/1de3951c-0238-4ec6-95a0-06065d091c4b/fc3a7db781b87e66da4db12924eea67a/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-13.31.28.png" alt="ファイルイメージ" /></p>
+
+<p>app/assets/javascripts/application.js を開きます。
+ファイルの末尾に、requireを記述したブロックがあるので、
+以下の通り追記します。</p>
+
+<p><code>//= require active_scaffold </code></p>
+
+<p>コメントアウトした感じの見た目で構いません。
+<img src="https://www.evernote.com/shard/s75/sh/76734574-ca91-4172-a070-0b1ee230f80f/83ae886c65eec413d1ad1cf73e124516/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.06.png" alt="追加したイメージ" /></p>
+
+<h4>3. stylesheetテンプレートにrequireを書く</h4>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/46af7df5-867a-488d-b83e-77f8b458d6c9/be9a33261184f6fb0dfb4c305ecf01bc/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.27.png" alt="stylesheetテンプレートはこれ" /></p>
+
+<p>app/assets/stylesheets/application.css を開きます。
+ファイルの末尾に、requireを記述したブロックがあるので、
+以下の通り追記します。</p>
+
+<p><code>*= require active_scaffold</code></p>
+
+<p>これも、コメントアウトした感じの見た目で構いません。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/a31327e5-085a-4b7a-bb07-cee7235106f4/6177a9aa3b2ef11108b1ffee2e6f2446/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-14.03.43.png" alt="追加したイメージ" /></p>
+
+<h4>4.生成したいエンティティを記述する</h4>
+
+<p>エンティティを、ActiveScaffoldを使って、
+モデルとコントローラとビューを一気に生成します。
+例えば、以下のように記述します。</p>
+
+<p><code>rails g active_scaffold work_kind name:string</code></p>
+
+<h4>5.routesファイルにひとこと書く</h4>
+
+<p>最後に、config/routesファイルに、以下のように書きます。
+<code>resources :work_kinds do as_routes end</code></p>
+
+<p>これで、Railsアプリ上では、このように表示されるはずです。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/0db69a4f-26fc-4aa2-9769-53192d74c4f3/755e53bf58e241a358feaf8d737dc9c1/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-16.17.59.png" alt="画面表示" /></p>
+
+<h4>間違えるとどうなるか？</h4>
+
+<p>ちなみに、requireの記述を間違えると、<br/>
+それぞれ特有の動作をします。</p>
+
+<p>stylesheetの記述をミスると、白い背景に文字だけの、
+シンプルな画面になります。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/9a5860ae-9940-4e47-94d5-b8b70520399d/6d6d562e7cfcc5027ee5e3c6094380e5/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88-2014-03-15-16.44.05.png" alt="stylesheetの記述をミスった感じ" /></p>
+
+<p>javascriptの記述をミスると、リンクをクリックしても動作しなくなります。
+ajaxの非同期処理が帰ってこれなくなるのでしょうか。
+『新しいウィンドウで開く』などすると、別窓では表示されるようです。</p>
+
+<p>これは？と思った時は、記述を見なおしてくださいね。当たり前か。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/14/rvm_to_rbenv/">Rvmからrbenvへ移行</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T16:49:00+09:00" pubdate data-updated="true">2013-07-14 16:49</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>rvmからrbenvへ</h3>
+
+<p>最近、メインのmac上でRubyの調子が悪いです。
+herokuを使えばRails new できず、
+やっとRailsの環境ができたと思ったら
+rake generateできず。</p>
+
+<p>しまいにはOctopressのGenerateもできなくなってしまったので、
+もう環境をなんとかするしかない感じがしてきました。</p>
+
+<p>というわけで、rubyのパッケージをrvmで管理するのをやめ、
+rbenvに移行しました。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T07:39:00+09:00" pubdate data-updated="true">2013-07-14 07:39</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>今回は、タイトルで内容を言い尽くした感があります。</p>
+
+<h3>今回起こったこと</h3>
+
+<p>約２週間前から、TimeMachineのバックアップが成功しなくなりました。</p>
+
+<p>夜寝ようとすると、『バックアップ230MB/6GB』とか表示されてるわけです。
+で、InsomniaTを仕掛けてスリープしないようにし、翌朝バックアップが終わったか確認すると・・・　
+『バックアップ2.4GB/6GB』
+とか出ているわけです。</p>
+
+<p>丸一日かかる計算です。
+もう仕事に持っていくし、終わんねーじゃん。
+こんな事が数日続いたでしょうか・・・</p>
+
+<h3>Spotlightの異変</h3>
+
+<p>仕事中に、ふと気がついた事がありました。
+Spotlightで検索できない。</p>
+
+<p>ぐぐる。
+<a href="http://osxdaily.com/2011/12/10/disable-or-enable-spotlight-in-mac-os-x-lion/">OSX Daily</a>
+<a href="https://discussionsjapan.apple.com/thread/10119501?start=0&amp;tstart=0">appleのフォーラム</a></p>
+
+<p>今回は、下のコマンドで解決できました。</p>
+
+<p><code>
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+</code>
+　</p>
+
+<h3>TimeMachineも解決したよ</h3>
+
+<p>Spotlightが解決したら、TimeMachineのバックアップもうまくいきました。
+たまった差分バックアップが9時間で終わった感じですが。</p>
+
+<p>めでたし。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">Herokuを使ってみよう</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-04T22:22:00+09:00" pubdate data-updated="true">2013-07-04 22:22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ruby on railsのアプリを作るのに、herokuを使ってみます。
+railsは前にも練習しましたが、ほとんど忘れてしまったので、
+改めてやります。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/22/lazy_high_charts/">Lazy_high_chartsを使ってみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T07:28:00+09:00" pubdate data-updated="true">2013-03-22 07:28</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Lazy high chartsを使ってみた</h3>
+
+<p>railsでグラフを表示させたくて、
+Lazy high chartsを使ってみました。
+やった事を書いておきます。</p>
+
+<h3>なんでLazy high chartsなの？</h3>
+
+<p>Lazy high chartsを選んだ理由は、以下の通りです。</p>
+
+<ol>
+<li>『Web グラフ』で検索したら、high chartsの評判がよかった<br/>
+ →<a href="http://d.hatena.ne.jp/end0tknr/20111218/1324206587">webアプリ(perlやjavascript)でグラフ表示なら、Highcharts で決まりかも</a></li>
+<li>『ruby high charts』で検索したら、Lazy high chartsの記事を見つけた<br/>
+ →<a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">Rails で Lazy high charts を使ってチャートを実装してみた</a></li>
+</ol>
+
+
+<p>というわけで、Lazy high chartsを使ってみます。</p>
+
+<h3>まずはインストール</h3>
+
+<p><a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">上記のサイト</a>を参考に、Lazy high chartsのインストールを行います。</p>
+
+<p>まず、Gemfile に
+<code>gem 'lazy_high_charts'</code></p>
+
+<p>を追加しました。
+そして、
+<code>bundle</code> を実行します。インストールが始まりました。<br/>
+ここまでは問題ありません。</p>
+
+<p>そして、</p>
+
+<p>bundle exec rails g lazy_high_charts:install</p>
+
+<p>を実行すると、highchart.js がダウンロードされて、assets/javascripts に配置される・・・<br/>
+はずでしたが、何やらエラーが表示されました。</p>
+
+<h3>インストールエラー</h3>
+
+<p>エラーメッセージは、次のようなものでした。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>このエラーについて調べたところ、次の記事が見つかりました。</p>
+
+<p><a href="https://github.com/michelson/lazy_high_charts/issues/91">Problem with rails g lazy_high_charts:install</a><br/>
+どうやら、Railsのバージョンが3.1以上の場合は、<br/>
+app/assets/javascripts/application.jsに次の行を追加しないといけないようです。</p>
+
+<p><code>
+//= require highcharts <br/>
+//= require exporting
+</code></p>
+
+<p>これで、エラーは解決したでしょうか。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>じゃん。
+やっぱり出ますね。</p>
+
+<p>しかし、<a href="https://github.com/michelson/lazy_high_charts/issues/91">くだんの記事</a>によると、どうやらこれでも問題なく動作するらしいです。</p>
+
+<h3>では、動かしてみますか</h3>
+
+<p>それでは、警告を気にせず、動作させてみます。</p>
+
+<p><code>rails s</code></p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/dbf05acf-97e1-4240-bf3b-90ec9d767ce1/57f93850b06d68a14848495f769e4bc6/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202013-03-23%2022.52.57.jpg" alt="棒グラフ" /></p>
+
+<p>グラフが出ました。</p>
+
+<p>あとは、データの取得がうまくできれば、楽しく暮らせそうです。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/24/sketchupjs/">SketchupのWebDialogで、rubyスクリプトが呼べない時</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/12/24/webdialog/">前回</a>の続きです。<br/>
+SketchUpには、WebDialogというコンポーネントがあります。  <br/>
+これを使うとrubyスクリプトから、フォームを作成でき,  <br/>
+ユーザーと対話的にスクリプトを実行できるわけです。</p>
+
+<h2>すごくハマったところ</h2>
+
+<p>今回、WebDialog経由でrubyスクリプトを実行する際に、<br/>
+すごくハマったポイントをお教えします。</p>
+
+<p>動作環境：<br/>
+mac OS X 10.8.2<br/>
+SketchUp 8.0.4810</p>
+
+<p>それは・・・入力部品の種類です。<br/>
+ボタンなどを押した際にjavascriptのコードが実行されるよう、<br/>
+動作を設定しているのですが、<br/>
+なんと、入力部品の違いによって、動作の一部が実行されません。</p>
+
+<h2>buttonとinput type=&ldquo;button&rdquo;</h2>
+
+<p>結論から言うと、リンクと、&lt;input type=&ldquo;button&rdquo;>で生成したボタンは、<br/>
+問題なく動作します。</p>
+
+<p>しかし、&lt;button>エレメントで生成したボタンは、<br/>
+window.location=でリダイレクトを行う事ができません。</p>
+
+<p>これができないと、javascriptからrubyコードが呼べないのです。<br/>
+rubyスクリプトは、javascriptからはurlとして指定する必要があるからです。</p>
+
+<h2>サンプルコード</h2>
+
+<div><script src='https://gist.github.com/4367294.js'></script>
+<noscript><pre><code>require 'Sketchup'
+
+def show_dialog
+  dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
+   &quot;DialogTest&quot;, 200, 150, 150, 150, true);
+  html = &lt;&lt;-HTML
+  &lt;html&gt;
+  &lt;head&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+  &lt;!--
+    function doubleAlert()
+    {
+        jsAlert();
+        rubyAlert();
+    }
+
+    function rubyAlert()
+    {
+       // ruby経由でメッセージボックスを呼ぶ
+       window.location.href=&quot;skp:ruby_messagebox@Hello World&quot;;
+    }
+
+    function jsAlert()
+    {
+        // javascript経由でメッセージボックスを呼ぶ
+        window.alert('alert from javascript');
+    }
+   --&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form&gt;
+      &lt;!--buttonエレメントからは、window.locationが指定できないので、rubyスクリプトは呼べない--&gt;
+      &lt;button id=&quot;start&quot; onclick=&quot;doubleAlert()&quot;&gt;button&lt;/button&gt;
+      &lt;/br&gt;
+      &lt;!--inputエレメントからは、window.locationが指定できるので、rubyスクリプトが呼べる--&gt;
+      &lt;input id=&quot;start2&quot; onClick=&quot;doubleAlert()&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
+      &lt;/br&gt;
+      &lt;!--リンクからは、urlが指定できるので、rubyスクリプトが呼べる--&gt;
+      &lt;a href=&quot;javascript:doubleAlert();&quot;&gt;link&lt;/a&gt;
+    &lt;/form&gt;
+    &lt;/html&gt;
+  HTML
+  
+  dlg.set_html html
+  dlg.add_action_callback(&quot;ruby_messagebox&quot;) {|dialog, params|
+    UI.messagebox(&quot;You called ruby_messagebox with: &quot; + params.to_s)
+  }
+  dlg.show
+end
+
+show_dialog</code></pre></noscript></div>
+
+
+<h2>サンプルコードの使い方</h2>
+
+<p>まずはSketchUp上で、コードを実行します。</p>
+
+<p>実行すると、こんな画面が表示されます。<br/>
+<img src="https://www.evernote.com/shard/s75/sh/b94c926c-0fac-48ad-81a5-4ef3054c6faa/e474f0b5080f91f74e17c112be5d0925/deep/0/WebDialog04.jpg" alt="ボタンが２つ、リンクが１つある画面" /></p>
+
+<p>１番上のボタンを押すと、ダイアログボックスが１回表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /></p>
+
+<p>２番めのボタンを押すと、ダイアログボックスが２回表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /><br/>
+<img src="https://www.evernote.com/shard/s75/sh/b6109fb2-28db-433a-a0e0-50c73f913727/76121cc80e493c91ecff350b2752d4e3/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%2012.36.05.jpg" alt="rubyのメッセージ" /></p>
+
+<p>リンクをクリックしても、同様に２回表示されます。</p>
+
+<p>３つとも同じ関数を実行しているのに、buttonエレメントだけは、挙動が違います。<br/>
+window.locationを指定することができず、rubyのメソッドを呼べません。</p>
+
+<p>ボタンの動作がうまくいかない方は、<br/>
+参考にしてください。</p>
+
+<p>次回は、ruby側からjavascriptの関数を呼び出す処理について書こうと思います。</p>
+
+<h2>VimSketchUpのすすめ</h2>
+
+<p>余談ですが、これを読んでいらっしゃる貴方は、どうやってサンプルコードを実行していますか？<br/>
+Vim上でショートカットを入力するだけで、サンプルコードが実行できたら楽ですよね。<br/>
+ちょっと心が動いた方には、<a href="http://blog.satrex.jp/blog/2012/06/04/vimsketchup/">VimSketchUp</a>をおすすめします。</p>
+
+<h2>参考資料</h2>
+
+<p>Trimble SketchUp<br/>
+<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
+
+<p>Engineering The World   <br/>
+<a href="http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/">http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/12/24/webdialog/">SketchUpのWebDialogの使い方</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-24T08:11:00+09:00" pubdate data-updated="true">2012-12-24 08:11</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Trimble SketchUpには、rubyで自動化できる機能があります。
+今日は、rubyで画面を作る、WebDialogというコンポーネントについて
+お話ししたいと思います。</p>
+
+<p>SketchUpには、WebDialogというコンポーネントがあります。<br/>
+これを使うとrubyスクリプトから、フォームを作成でき,<br/>
+ユーザーと対話的にスクリプトを実行できるわけです。</p>
+
+<h2>WebDialogの特長</h2>
+
+<ul>
+<li>htmlとCSSで、フォームを作成できる</li>
+<li>rubyスクリプトから、htmlの要素にアクセスできる</li>
+<li>html内のjavascript関数から、rubyスクリプトを実行できる</li>
+<li>rubyスクリプトから、html内のjavascript関数を実行できる</li>
+</ul>
+
+
+<h2>WebDialogは、HTML+CSS+javascript</h2>
+
+<p>WebDialogコンポーネントは、フォームのレイアウトをHTMLで指定します。<br/>
+また、入力部品の動作はjavascriptで指定します。</p>
+
+<p>基本的な使い方は、公式ヘルプに載っています。<br/>
+<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
+
+<h2>rubyスクリプトの実行方法</h2>
+
+<p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。
+指定されたコールバックメソッドには、仮想urlが割り当てられており、
+&ldquo;skp:&rdquo; + コールバックメソッド名のアドレスに遷移しようとすると、
+コールバックメソッドが実行されます。</p>
+
+<p>仮想urlへ遷移するには、以下のいずれかの方法で指定します。</p>
+
+<ul>
+<li>リンクのurlとして指定</li>
+<li>javascript関数内に、window.location=&ldquo;skp:&rdquo; + 関数名を指定し、ボタンに割り当て</li>
+</ul>
+
+
+<h2>macの場合はrubyコードが非同期実行</h2>
+
+<p><a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">Martin Rinehart</a>によると、
+windows ではjavascriptから呼び出されたrubyスクリプトは同期実行され、
+戻り値をjavasxriptで受け取る事ができるそうです。
+しかし、macではrubyスクリプトは必ず非同期実行のため、
+rubyの戻り値をjavascriptで利用することはできないようです。</p>
+
+<p>注意してください。</p>
+
+<h2>サンプルコード</h2>
+
+<p>ほぼ最小構成のWebDialogのサンプルです。
+ここでは、ボタンのクリックイベントにjavascriptのスクリプトを設定し、
+リンクのurlにrubyのコールバックイベントの仮想urlを指定しています。</p>
+
+<div><script src='https://gist.github.com/4367009.js'></script>
+<noscript><pre><code>require 'Sketchup'
+
+def show_dialog
+  dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
+   &quot;DialogTest&quot;, 200, 150, 150, 150, true);
+  html = &lt;&lt;-HTML
+    &lt;form&gt;
+      &lt;input id=&quot;start2&quot; onClick=&quot;window.alert('alert from javascript');&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
+      &lt;/br&gt;
+      &lt;a href=&quot;skp:ruby_messagebox@from link&quot;&gt;link&lt;/a&gt;
+    &lt;/form&gt;
+  HTML
+  
+  dlg.set_html html
+  dlg.add_action_callback(&quot;ruby_messagebox&quot;) {|dialog, params|
+    UI.messagebox(&quot;You called ruby_messagebox with: &quot; + params.to_s)
+  }
+  dlg.show
+end
+
+show_dialog
+
+</code></pre></noscript></div>
+
+
+<h2>サンプルコードの使い方</h2>
+
+<p>サンプルコードを実行すると、このような画面が表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/8f8b089a-0f79-4f18-8faf-fd3e39492230/8371ace36c63afd6fded1e6baa80773b/deep/0/WebDialog001.jpg" alt="WebDialogのサンプル" /></p>
+
+<p>ボタンを押すと、javascriptで作成されたメッセージが表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/801ac46e-8054-4e33-bb96-95187e0cab7c/531face5d8e312d13f234eba2baccd62/deep/0/WebDialog002.jpg" alt="ボタンを押すと、javascriptのアラートが表示される" /></p>
+
+<p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。
+コード内では、リンクのurlとして、&#8221;skp:&ldquo;に続いてrubyのコールバックメソッド名が
+指定されているのがわかります。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/57a25f6d-39ec-4f93-9780-962e52a0318e/174dbd1151fadda7723fe1b7426c30f5/deep/0/WebDialog003.jpg" alt="リンクをクリックすると、rubyのメッセージが表示される" /></p>
+
+<h2>参考資料</h2>
+
+<p>SketchUp Ruby Interface to JavaScript<br/>
+<a href="http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html">http://www.martinrinehart.com/models/rubies/ruby2javascript_javascript2ruby.html</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/04/bitnami-setting/">Bitnamiの仮想マシンを使うためのステップ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-04T07:35:00+09:00" pubdate data-updated="true">2012-07-04 07:35</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>WordPressを使ったWebサイト作りをしようとしています。
+ローカルの仮想サーバーでサイトのソースをGitに上げ、
+公開用のサーバーでGitからPullすることで、デプロイする構成です。</p>
+
+<p>そこで、ローカルの仮想サーバーには、
+WordPressとMySQLとPHPのスタックである、
+bitnamiを使ってみます。</p>
+
+<h2>bitnami仮想マシンのダウンロード</h2>
+
+<p>bitnamiを使うためには、２つの方法があります。</p>
+
+<ol>
+<li>既存の仮想マシンに、bitnamiをインストールする</li>
+<li>bitnamiインストール済の仮想マシンを、新規にダウンロードする</li>
+</ol>
+
+
+<p>今回は、2.を解説します。
+公式サイトから、bitnamiがインストールされた仮想マシンをダウンロードします。</p>
+
+<h2>sshの導入</h2>
+
+<p>コマンドラインから操作するため、仮想マシンでsshを有効にします。
+公開鍵の受け渡しが、最も苦労した部分です。</p>
+
+<h3>公開鍵の渡し方</h3>
+
+<p>仮想サーバーの公開鍵を、開発用マシンに渡すための方法は、
+次のような選択肢があります。</p>
+
+<ol>
+<li>仮想マシンがSmabaサーバーとなり、ホストOSのがクライアントとなってファイルを受け渡す</li>
+<li>逆に、ホストOSの共有フォルダに、仮想マシンからアクセスしてファイルを受け渡す</li>
+<li>GitHubなど、外部ストレージを経由してファイルを受け渡す</li>
+</ol>
+
+
+<p>ここでは、2.を解説します。</p>
+
+<h3>VMware-Toolsの導入</h3>
+
+<p>ホストOSの共有フォルダにゲストOSからアクセスするには、<br/>
+VMware-Toolsをインストールします。</p>
+
+<p>別の記事にまとめていますので、参照してください。
+<a href="http://blog.satrex.jp/blog2012/07/02/vmware-tools-installed">vmware-tools-install</a></p>
+
+<h3>ssh鍵の生成</h3>
+
+<p>ホストOSで、以下のコマンドを入力します。</p>
+
+<pre><code>sudo ssh-keygen
+</code></pre>
+
+<p>画面に従ってパスワードを入力すると、公開鍵と秘密鍵が生成されます。
+id_rsa.pubファイルが公開鍵、id_rsaファイルが秘密鍵です。</p>
+
+<h3>公開鍵を、共有フォルダに置く</h3>
+
+<p>これから、いまホストOSで作った公開鍵をサーバーに渡します。</p>
+
+<p>まず、id_rsa.pubファイルを、ホストOSの共有フォルダにコピーします。
+オイラの環境では、Macの~/shareフォルダです。</p>
+
+<p>マウスでポイっと入れればOKです。</p>
+
+<h3>ゲストubuntuに、ホストOSの公開鍵をインストール</h3>
+
+<p>共有フォルダに入れた公開鍵を、ゲストOSから見てみます。</p>
+
+<pre><code>$ ls /mnt/hgfs/share
+&gt; id_rsa.pub
+</code></pre>
+
+<p>ホストOSの公開鍵が見えています。
+これを、ゲストOSにインストールします。</p>
+
+<p>でも、いったいどこにインストールするのでしょうか？</p>
+
+<p>サーバーには『この鍵をくれたマシンのアクセスには応じるよ』というファイルがあります。<br/>
+authorized-keysというファイルです。
+今回受け取った公開鍵を、authorized_keysファイルに追記します。</p>
+
+<p>このファイルには、複数の鍵を書き込むことができます。
+上書きすると、今までアクセスできたマシンがアクセスできなくなる、
+という現象が起こりますよ。</p>
+
+<pre><code>cat /mnt/hgfs/share/id_rsa.pub &gt;&gt; /home/bitnami/.ssh/authorized_keys
+</code></pre>
+
+<p><strong>>>に注目。</strong></p>
+
+<p>これで、ゲストOSに、ホストOSの公開鍵がコピーされました。</p>
+
+<h2>sshの設定</h2>
+
+<p>ゲストOSで、以下のコマンドを実行します。</p>
+
+<pre><code>$ sudo vi /etc/ssh/sshd_config
+</code></pre>
+
+<p>以下の行を探して、下のように変更します。</p>
+
+<p>  ChallengeResponseAuthentication no
+  PasswordAuthentication no
+  UsePAM no</p>
+
+<h2>sshデーモン、いでよ！</h2>
+
+<p>ゲストOSがアクセスを待ち構えるために、
+sshデーモンを召喚します。
+このデーモンが、サーバーの門番を務めてくれるわけです。</p>
+
+<p>召喚の呪文は、これです。</p>
+
+<pre><code>$ sudo start ssh
+</code></pre>
+
+<p>これで、ゲストOS上でsshが有効になりました。</p>
+
+<h2>ホストOSからアクセスしてみる</h2>
+
+<p>ホストOS上で、sshコマンドを入力します。</p>
+
+<pre><code>ssh 192.168.100.xxx（ゲストOSのIPアドレス）-l bitnami
+</code></pre>
+
+<p>ゲストOSのIPアドレスは、ゲストOSでifconfigコマンドを使用すると、<br/>
+表示されます。<br/>
+・・・大丈夫ですよね？？</p>
+
+<p>あと、-l bitnamiの部分がなんなのかというと、
+bitnamiユーザーでログインします、という意味です。
+サーバーにはbitnamiユーザーしかいないため、
+他のユーザーではログインできません。</p>
+
+<p>別のユーザーを作っている場合は、
+そのユーザー名を指定してください。</p>
+
+<p>これを指定しない場合は、ホストOSのユーザー名でログインします。</p>
+
+<pre><code>$ ssh 192.168.100.101 -l bitnami         
+&gt; The authenticity of host '192.168.100.101 (192.168.100.101)' can't be established.
+&gt; RSA key fingerprint is 86:74:fe:6b:8b:b1:c2:64:3f:d0:80:bc:92:f3:c0:75.
+&gt; Are you sure you want to continue connecting (yes/no)? yes
+</code></pre>
+
+<p>何か聞かれた場合は、yesと答えて下さい。</p>
+
+<pre><code>&gt; Warning: Permanently added '192.168.100.101' (RSA) to the list of known hosts.
+&gt; Last login: Tue Jul  3 13:10:37 2012
+</code></pre>
+
+<p>これで、sshログインできました。<br/>
+めでたし。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/03/vmware-enable-sharing/">ゲストubuntuから、ホスト上の共有フォルダにアクセスする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-03T21:12:00+09:00" pubdate data-updated="true">2012-07-03 21:12</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ゲストOSから、ホストOSの共有フォルダにアクセスします。</p>
+
+<p>VMware 上 の Ubuntu で共有フォルダ<br/>
+<a href="http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html">http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html</a></p>
+
+<p>この記事を参考にやってみたところ、だいたいこの通りにできました。感謝！
+今回は、上の記事とはバージョンなど細かいところが違います。</p>
+
+<h2>環境</h2>
+
+<ul>
+<li>ホストOS： Mac OSX 10.7.4 (Lion)</li>
+<li>ゲストOS： ubuntu 12.04</li>
+<li>VMware: Fusion 4.1.3（730298）</li>
+<li>VMware-Tools: インストール済</li>
+</ul>
+
+
+<h2>hgfsが見つからない</h2>
+
+<pre><code>$vmware-hgfsclient
+&gt; share
+</code></pre>
+
+<p>hgfsclientを実行すると、共有フォルダが見えていることがわかります。</p>
+
+<pre><code>$ sudo mount -t vmhgfs .host:/ /mnt/hgfs
+&gt; Error: cannot mount filesystem: No such device
+</code></pre>
+
+<p>手動でマウントできません。
+記事と同じです。</p>
+
+<pre><code>lsmod | grep vm
+</code></pre>
+
+<p>としても、hgfsの文字は</p>
+
+<pre><code>sudo gedit /var/log/syslog
+</code></pre>
+
+<h2>参考資料</h2>
+
+<p>VMware 上 の Ubuntu で共有フォルダ<br/>
+<a href="http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html">http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html</a></p>
+
+<p>VMWare Plyaer 3.0　ホストとの共有<br/>
+<a href="http://d.hatena.ne.jp/rock_n_santa/20100430/1272584798">http://d.hatena.ne.jp/rock_n_santa/20100430/1272584798</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/02/vmware-tools-installed/">ゲストubuntuに、VMware-Toolsをインストールする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-02T19:42:00+09:00" pubdate data-updated="true">2012-07-02 19:42</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ゲストOSの仮想サーバーへ、ホストOSからssh接続するために、<br/>
+公開鍵を渡します。<br/>
+今回は、ホストの共有フォルダ経由でファイルを渡します。</p>
+
+<p>ホストOSの共有フォルダを使うには、VMware-Toolsが必要です。<br/>
+VMwareToolsをインストールする方法を解説します。</p>
+
+<h2>VMWare Toolsの導入</h2>
+
+<ol>
+<li>VMware-Toolsの仮想CDを挿入</li>
+<li>カーネルの番号を確認する</li>
+<li>カーネルヘッダーをインストールする</li>
+<li>VMware-Toolsをインストールする</li>
+</ol>
+
+
+<h3>VMwareToolsの仮想CDを挿入</h3>
+
+<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を選択します。<br/>
+その後、以下のように仮想CDをマウントします。</p>
+
+<pre><code>$ sudo mkdir -p /mnt/cdrom
+$ sudo mount /dev/cdrom /mnt/cdrom
+&gt; mount: block device /dev/sr0 is write-protected, mounting read-only
+</code></pre>
+
+<p>ここでインストールを行うと、失敗します。</p>
+
+<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz 
+cd ./vmware-tools-distrib/
+sudo ./vmware-install.pl 
+
+...
+
+Searching for a valid kernel header path...
+The path "" is not valid.
+Would you like to change it? [yes] 
+</code></pre>
+
+<p>カーネルヘッダーがないとだめだそうです。</p>
+
+<h3>カーネルのバージョンを確認する</h3>
+
+<p>メニューから、『仮想マシン->設定->ネットワークアダプタ』を選択し、<br/>
+ネットワークにブリッジ接続を指定します。</p>
+
+<p>カーネルのバージョンを確認し、適切なヘッダーを取得します。</p>
+
+<pre><code>uname -a
+
+`linux 3.2.0-24-virtual #39-ubuntu SMP Mon May 21 18:44:18 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux`  
+</code></pre>
+
+<p>このカーネルバージョンは、3.2.0-24-virtual だということがわかりました。</p>
+
+<h3>ヘッダーファイルをインストールする</h3>
+
+<p>ヘッダーファイルをインストールします。</p>
+
+<pre><code>sudo apt-get install linux-headers-3.2.0-24-virtual
+</code></pre>
+
+<p>バージョンのないヘッダーファイル（linux-headers-virtual）も存在しますが、<br/>
+自分の環境では、サーバー接続エラー（404）が発生して、<br/>
+インストールが成功しませんでした。</p>
+
+<h3>VMware-Toolsをインストールする</h3>
+
+<p>もう一度、VMware-Toolsをインストールします。</p>
+
+<pre><code>sudo ./vmware-install.pl -d
+
+Searching for a valid kernel header path...
+Detected the kernel headers at "/lib/modules/3.2.0-24-virtual/build/include".
+The path "/lib/modules/3.2.0-24-virtual/build/include" appears 
+to be a valid path to the 3.2.0-virtual kernel headers.
+Would you like to change it? [no]
+</code></pre>
+
+<p>今度は、カーネルヘッダーを認識しているようです。
+正しくVMware-Toolsがインストールされました。</p>
+
+<h2>おわりに</h2>
+
+<p>これをちゃんと読む人はとても少ないはずですが、
+いるとすれば、とても困っている方でしょう。</p>
+
+<p>この記事が少しでもお役に立てれば嬉しいものですね。</p>
+
+<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば<br/>
+ホストOSの共有フォルダにアクセスできると思うのですが、<br/>
+設定がうまくいかず、今回はあきらめました。</p>
+
+<h2>参考資料</h2>
+
+<p>CentOS 5.5 x86 に VMware Tools をインストールする<br/>
+<a href="http://d.hatena.ne.jp/yohei-a/20101222/1293051179">http://d.hatena.ne.jp/yohei-a/20101222/1293051179</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="http://blog.satrex.com/images/self-portrait_pop.png" height="250" width="200" />
+  <br />
+  satrex(Satoshi Suzuki)
+  <br />
+  <a href="http://twitter.com/satrex">@satrex</a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/15/active_scaffold/">active_scaffoldが調子いい</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/rvm_to_rbenv/">rvmからrbenvへ移行</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">herokuを使ってみよう</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/22/lazy_high_charts/">lazy_high_chartsを使ってみた</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/satrex">@satrex</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'satrex',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("satrex", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/sat1501@gmail.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - satrex -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'e-sheep';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
