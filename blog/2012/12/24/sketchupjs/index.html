@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SketchupのWebDialogで、rubyスクリプトが呼べない時 - 電気羊の執務室</title>
+  <meta name="author" content="satrex">
+
+  
+  <meta name="description" content="前回の続きです。
+SketchUpには、WebDialogというコンポーネントがあります。 これを使うとrubyスクリプトから、フォームを作成でき, ユーザーと対話的にスクリプトを実行できるわけです。 すごくハマったところ 今回、WebDialog経由でrubyスクリプトを実行する際に、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.satrex.jp/blog/2012/12/24/sketchupjs">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31451390-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">電気羊の執務室</a></h1>
+  
+    <h2>魔法を作る仕事をしています。</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.satrex.jp" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SketchupのWebDialogで、rubyスクリプトが呼べない時</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/12/24/webdialog/">前回</a>の続きです。<br/>
+SketchUpには、WebDialogというコンポーネントがあります。  <br/>
+これを使うとrubyスクリプトから、フォームを作成でき,  <br/>
+ユーザーと対話的にスクリプトを実行できるわけです。</p>
+
+<h2>すごくハマったところ</h2>
+
+<p>今回、WebDialog経由でrubyスクリプトを実行する際に、<br/>
+すごくハマったポイントをお教えします。</p>
+
+<p>動作環境：<br/>
+mac OS X 10.8.2<br/>
+SketchUp 8.0.4810</p>
+
+<p>それは・・・入力部品の種類です。<br/>
+ボタンなどを押した際にjavascriptのコードが実行されるよう、<br/>
+動作を設定しているのですが、<br/>
+なんと、入力部品の違いによって、動作の一部が実行されません。</p>
+
+<h2>buttonとinput type=&ldquo;button&rdquo;</h2>
+
+<p>結論から言うと、リンクと、&lt;input type=&ldquo;button&rdquo;>で生成したボタンは、<br/>
+問題なく動作します。</p>
+
+<p>しかし、&lt;button>エレメントで生成したボタンは、<br/>
+window.location=でリダイレクトを行う事ができません。</p>
+
+<p>これができないと、javascriptからrubyコードが呼べないのです。<br/>
+rubyスクリプトは、javascriptからはurlとして指定する必要があるからです。</p>
+
+<h2>サンプルコード</h2>
+
+<div><script src='https://gist.github.com/4367294.js'></script>
+<noscript><pre><code>require 'Sketchup'
+
+def show_dialog
+  dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
+   &quot;DialogTest&quot;, 200, 150, 150, 150, true);
+  html = &lt;&lt;-HTML
+  &lt;html&gt;
+  &lt;head&gt;
+  &lt;script type=&quot;text/javascript&quot;&gt;
+  &lt;!--
+    function doubleAlert()
+    {
+        jsAlert();
+        rubyAlert();
+    }
+
+    function rubyAlert()
+    {
+       // ruby経由でメッセージボックスを呼ぶ
+       window.location.href=&quot;skp:ruby_messagebox@Hello World&quot;;
+    }
+
+    function jsAlert()
+    {
+        // javascript経由でメッセージボックスを呼ぶ
+        window.alert('alert from javascript');
+    }
+   --&gt;
+    &lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;form&gt;
+      &lt;!--buttonエレメントからは、window.locationが指定できないので、rubyスクリプトは呼べない--&gt;
+      &lt;button id=&quot;start&quot; onclick=&quot;doubleAlert()&quot;&gt;button&lt;/button&gt;
+      &lt;/br&gt;
+      &lt;!--inputエレメントからは、window.locationが指定できるので、rubyスクリプトが呼べる--&gt;
+      &lt;input id=&quot;start2&quot; onClick=&quot;doubleAlert()&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
+      &lt;/br&gt;
+      &lt;!--リンクからは、urlが指定できるので、rubyスクリプトが呼べる--&gt;
+      &lt;a href=&quot;javascript:doubleAlert();&quot;&gt;link&lt;/a&gt;
+    &lt;/form&gt;
+    &lt;/html&gt;
+  HTML
+  
+  dlg.set_html html
+  dlg.add_action_callback(&quot;ruby_messagebox&quot;) {|dialog, params|
+    UI.messagebox(&quot;You called ruby_messagebox with: &quot; + params.to_s)
+  }
+  dlg.show
+end
+
+show_dialog</code></pre></noscript></div>
+
+
+<h2>サンプルコードの使い方</h2>
+
+<p>まずはSketchUp上で、コードを実行します。</p>
+
+<p>実行すると、こんな画面が表示されます。<br/>
+<img src="https://www.evernote.com/shard/s75/sh/b94c926c-0fac-48ad-81a5-4ef3054c6faa/e474f0b5080f91f74e17c112be5d0925/deep/0/WebDialog04.jpg" alt="ボタンが２つ、リンクが１つある画面" /></p>
+
+<p>１番上のボタンを押すと、ダイアログボックスが１回表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /></p>
+
+<p>２番めのボタンを押すと、ダイアログボックスが２回表示されます。</p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /><br/>
+<img src="https://www.evernote.com/shard/s75/sh/b6109fb2-28db-433a-a0e0-50c73f913727/76121cc80e493c91ecff350b2752d4e3/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%2012.36.05.jpg" alt="rubyのメッセージ" /></p>
+
+<p>リンクをクリックしても、同様に２回表示されます。</p>
+
+<p>３つとも同じ関数を実行しているのに、buttonエレメントだけは、挙動が違います。<br/>
+window.locationを指定することができず、rubyのメソッドを呼べません。</p>
+
+<p>ボタンの動作がうまくいかない方は、<br/>
+参考にしてください。</p>
+
+<p>次回は、ruby側からjavascriptの関数を呼び出す処理について書こうと思います。</p>
+
+<h2>VimSketchUpのすすめ</h2>
+
+<p>余談ですが、これを読んでいらっしゃる貴方は、どうやってサンプルコードを実行していますか？<br/>
+Vim上でショートカットを入力するだけで、サンプルコードが実行できたら楽ですよね。<br/>
+ちょっと心が動いた方には、<a href="http://blog.satrex.jp/blog/2012/06/04/vimsketchup/">VimSketchUp</a>をおすすめします。</p>
+
+<h2>参考資料</h2>
+
+<p>Trimble SketchUp<br/>
+<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
+
+<p>Engineering The World   <br/>
+<a href="http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/">http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/12/24/webdialog/" title="Previous Post: SketchUpのWebDialogの使い方">&laquo; SketchUpのWebDialogの使い方</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/22/lazy_high_charts/" title="Next Post: lazy_high_chartsを使ってみた">lazy_high_chartsを使ってみた &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="http://blog.satrex.com/images/self-portrait_pop.png" height="250" width="200" />
+  <br />
+  satrex(Satoshi Suzuki)
+  <br />
+  <a href="http://twitter.com/satrex">@satrex</a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/15/active_scaffold/">active_scaffoldが調子いい</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/rvm_to_rbenv/">rvmからrbenvへ移行</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">herokuを使ってみよう</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/03/22/lazy_high_charts/">lazy_high_chartsを使ってみた</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/satrex">@satrex</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'satrex',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("satrex", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
+  
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/sat1501@gmail.com?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - satrex -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'e-sheep';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.satrex.jp/blog/2012/12/24/sketchupjs/';
+        var disqus_url = 'http://blog.satrex.jp/blog/2012/12/24/sketchupjs/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
