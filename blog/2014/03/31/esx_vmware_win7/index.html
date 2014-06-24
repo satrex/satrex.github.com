@@ -5,12 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>TimeMachineのバックアップが遅い時は、Spotlightを確認せよ - 電気羊の執務室</title>
+  <title>VMWare ESXiホストへ、Windows7マシンをPackerで作る - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="今回は、タイトルで内容を言い尽くした感があります。 今回起こったこと 約２週間前から、TimeMachineのバックアップが成功しなくなりました。 夜寝ようとすると、『バックアップ230MB/6GB』とか表示されてるわけです。
-で、InsomniaTを仕掛けてスリープしないようにし、 &hellip;">
+  <meta name="description" content="今回は、VMWare ESXiのホストマシンに、
+Packerを使用してWindows7のゲストマシンを導入する方法を紹介します。 今回の構成 構成図 Packerを使う理由 ゲストマシンの立ち上げは、
+ESXiから直接やるよりも、
+ツール経由でやるほうが後々便利です。 Packerは、『 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.satrex.jp/blog/2013/07/14/timemachine-spotlight">
+  <link rel="canonical" href="http://blog.satrex.jp/blog/2014/03/31/esx_vmware_win7">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -80,7 +82,7 @@
   
   <header>
     
-      <h1 class="entry-title">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</h1>
+      <h1 class="entry-title">VMWare ESXiホストへ、Windows7マシンをPackerで作る</h1>
     
     
       <p class="meta">
@@ -96,50 +98,94 @@
   
 
 
-<time datetime="2013-07-14T07:39:00+09:00" pubdate data-updated="true">2013-07-14 07:39</time>
+<time datetime="2014-03-31T13:57:00+09:00" pubdate data-updated="true">2014-03-31 13:57</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>今回は、タイトルで内容を言い尽くした感があります。</p>
+<div class="entry-content"><p>今回は、VMWare ESXiのホストマシンに、
+Packerを使用してWindows7のゲストマシンを導入する方法を紹介します。</p>
 
-<h3>今回起こったこと</h3>
+<h4>今回の構成</h4>
 
-<p>約２週間前から、TimeMachineのバックアップが成功しなくなりました。</p>
+<p><a href="https://www.evernote.com/shard/s75/sh/c1eea577-aa4f-47de-8ef3-e5bf407e87ad/7d65bb6c490c7dfc99def18e887c97e5/deep/0/esx.png">構成図</a></p>
 
-<p>夜寝ようとすると、『バックアップ230MB/6GB』とか表示されてるわけです。
-で、InsomniaTを仕掛けてスリープしないようにし、翌朝バックアップが終わったか確認すると・・・　
-『バックアップ2.4GB/6GB』
-とか出ているわけです。</p>
+<h4>Packerを使う理由</h4>
 
-<p>丸一日かかる計算です。
-もう仕事に持っていくし、終わんねーじゃん。
-こんな事が数日続いたでしょうか・・・</p>
+<p>ゲストマシンの立ち上げは、
+ESXiから直接やるよりも、
+ツール経由でやるほうが後々便利です。</p>
 
-<h3>Spotlightの異変</h3>
+<p>Packerは、『Vagrantで扱えるVMのひな形(boxファイル)を作るツール』です。
+最終的には、Vagrantなどでサーバーインスタンスを次々と
+作る予定ですが、そのためには最初のひな形をどうにか作る必要があります。</p>
 
-<p>仕事中に、ふと気がついた事がありました。
-Spotlightで検索できない。</p>
+<p>Linuxなどは、boxファイルが多数公開されていて、
+ダウンロードして使う事ができますが、Windowsはライセンスの関係で、
+公開されているものがありません。自分で作るしかないわけです。</p>
 
-<p>ぐぐる。
-<a href="http://osxdaily.com/2011/12/10/disable-or-enable-spotlight-in-mac-os-x-lion/">OSX Daily</a>
-<a href="https://discussionsjapan.apple.com/thread/10119501?start=0&amp;tstart=0">appleのフォーラム</a></p>
+<p>VirtualBox使いには、<code>vagrant package</code>というコマンドで、
+動いているインスタンスからひな形を作ってしまう手がありますが、
+VMWare使いは、手で作らなくてはなりません。</p>
 
-<p>今回は、下のコマンドで解決できました。</p>
+<h4>ESXiホストに、ユーザーを追加する</h4>
+
+<p>作業用のmacで動くPackerで、ネットワーク上のVMWare ESXiにリモート接続します。
+デフォルトでは、rootでSSHログインできません。
+ここは真っ当に、別ユーザーを追加することにします。</p>
+
+<p>以下の２点を確認します。
+* 作業用WindowsのvSphereクライアントからESXiホストを参照し、『ローカルユーザーおよびグループ』タブから、ユーザーを追加します。
+* 『権限』タブから、新規ユーザーに権限を付与します。ここでは、管理者権限を付与しました。</p>
+
+<h4>ESXiホストのSSHを有効化する</h4>
+
+<p>まず、VMWare ESXホストでSSH通信を有効化します。
+ホストにログインし、コンソールから、以下のふたつの項目を選びます。</p>
+
+<p>Troubleshooting Options &ndash;>
+&ndash; Enable ESXi Shell
+&ndash; Enabe SSH</p>
+
+<h4>ホストにSSHログインし、GuestIPHackを有効化する</h4>
+
+<p>SSHが有効になったら、作業用macから以下のコマンドでESXホストにログインします。
+<code>ssh (新規ユーザー)@ESXホストのアドレス</code></p>
+
+<p>パスワードを入力し、ログインできたら、以下のコマンドを入力します。</p>
+
+<p><code>esxcli system settings advanced set -o /Net/GuestIPHack -i 1</code></p>
+
+<p>エラーなく完了したら、exitコマンドでSSHを抜けます。</p>
+
+<h4>Packer用のビルドファイルを作成</h4>
+
+<p>Packerを実行するためのファイルを作成します。
+ここでは、先人の記述してくれたjsonファイルを、
+ありがたく使わせていただく事にします。</p>
 
 <p><code>
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plist
+git clone https://github.com/misheska/basebox-packer
 </code>
-　</p>
+template/windows7ディレクトリから、
+ここではwin7x86-pro.jsonを選択します。
+インストーラのパスなどを実際のものに置き換えた後、以下のコマンドで内容を確認します。</p>
 
-<h3>TimeMachineも解決したよ</h3>
+<p><code>
+packer validate vmware_win7.json
+</code></p>
 
-<p>Spotlightが解決したら、TimeMachineのバックアップもうまくいきました。
-たまった差分バックアップが9時間で終わった感じですが。</p>
+<p>エラーが出なければ、以下のコマンドでビルドを行います。</p>
 
-<p>めでたし。</p>
+<p><code>
+packer build vmware_win7.json
+</code></p>
+
+<p>１回失敗するごとに、OSインストール分の時間がかかるので、
+小さな修正が一番つらい。
+がんばりましょう。</p>
 </div>
 
 
@@ -162,7 +208,7 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
   
 
 
-<time datetime="2013-07-14T07:39:00+09:00" pubdate data-updated="true">2013-07-14 07:39</time>
+<time datetime="2014-03-31T13:57:00+09:00" pubdate data-updated="true">2014-03-31 13:57</time>
       
 
 
@@ -179,10 +225,8 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/" title="Previous Post: herokuを使ってみよう">&laquo; herokuを使ってみよう</a>
+        <a class="basic-alignment left" href="/blog/2014/03/15/active_scaffold/" title="Previous Post: active_scaffoldが調子いい">&laquo; active_scaffoldが調子いい</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/07/14/rvm_to_rbenv/" title="Next Post: rvmからrbenvへ移行">rvmからrbenvへ移行 &raquo;</a>
       
     </p>
   </footer>
@@ -311,8 +355,8 @@ sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.metadata.mds.plis
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.satrex.jp/blog/2013/07/14/timemachine-spotlight/';
-        var disqus_url = 'http://blog.satrex.jp/blog/2013/07/14/timemachine-spotlight/';
+        var disqus_identifier = 'http://blog.satrex.jp/blog/2014/03/31/esx_vmware_win7/';
+        var disqus_url = 'http://blog.satrex.jp/blog/2014/03/31/esx_vmware_win7/';
         var disqus_script = 'embed.js';
       
     (function () {

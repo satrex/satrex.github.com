@@ -9,12 +9,9 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="layout: post
-title: &ldquo;ちょっと変更&rdquo;
-published: false
-date: 2012-05-07 21:29
-comments: true
-tags: categories: 試しに非公開設定でPushしてみる 昨日から、Github から &hellip;">
+  <meta name="description" content="ブログのリポジトリを、githubからbitbucketへ移してみました。
+だんだんGitの使い方に習熟してきたので、楽になってきました。 下書きモード octopressの取り扱いに慣れるため、published=falseの下書きモードを使ってみています。
+記事のヘッダーのpublished: &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +78,65 @@ tags: categories: 試しに非公開設定でPushしてみる 昨日から、Git
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/08/moving_to_bitbucket/">Bitbucketへ引っ越してみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-08T20:59:00+09:00" pubdate data-updated="true">2012-05-08 20:59</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ブログのリポジトリを、githubからbitbucketへ移してみました。
+だんだんGitの使い方に習熟してきたので、楽になってきました。</p>
+
+<h2>下書きモード</h2>
+
+<p>octopressの取り扱いに慣れるため、published=falseの下書きモードを使ってみています。
+記事のヘッダーのpublished:をfalseに設定することで、その記事は下書きとなります。
+ローカルでプレビューすることができるのはpublish:trueの時と同じですが、リポジトリにpushしても非公開になっているところが違います。</p>
+
+<h2>使い道について考えてみた</h2>
+
+<p>ローカルのプレビューができれば、下書きモードのpushはあまり恩恵がないような気がしますが・・・
+どんな時に便利なんでしょうか。</p>
+
+<p>タイマーで予約投稿ができれば便利な気がします。</p>
+
+<h2>その後</h2>
+
+<p>結局、bitbucketは記事のソースだけを管理することにし、
+記事はgithub pagesを使う事にしました。</p>
+
+<p>理由は、bitbucketは<strong>CNAMEが有料オプション</strong>だからです。
+画像はSkitchに置くことにし、Skitchから効率よくMarkdownに書けるように
+工夫します。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -840,6 +896,10 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/03/31/esx_vmware_win7/">VMWare ESXiホストへ、Windows7マシンをPackerで作る</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/15/active_scaffold/">active_scaffoldが調子いい</a>
       </li>
     
@@ -853,10 +913,6 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
     
       <li class="post">
         <a href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">herokuを使ってみよう</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/03/22/lazy_high_charts/">lazy_high_chartsを使ってみた</a>
       </li>
     
   </ul>
