@@ -4,7 +4,7 @@
   <title><![CDATA[Category: DevOps | 電気羊の執務室]]></title>
   <link href="http://blog.satrex.jp/blog/categories/devops/atom.xml" rel="self"/>
   <link href="http://blog.satrex.jp/"/>
-  <updated>2014-06-25T19:18:40+09:00</updated>
+  <updated>2014-06-25T19:28:08+09:00</updated>
   <id>http://blog.satrex.jp/</id>
   <author>
     <name><![CDATA[satrex]]></name>
@@ -55,11 +55,18 @@ Vagrant+Chef+BerkshelfでVirtualBoxノードを作ろう！
 <p>Packerは、OSイメージや既存の仮想マシンの『ファイル』から、
 boxや仮想マシンノードの『ファイル』を作るアプリ。</p>
 
-<p>設定ファイル：
-&ndash; 入力ファイル(OSのISOファイル、仮想マシンのファイル)
-&ndash; 設定用jsonファイル(OS,バージョンごとに用意)
-実行対象：ローカルマシン、クラウドサービス
-出力：ファイル(vagrant用boxファイル、仮想マシンのファイル)</p>
+<ul>
+<li>設定ファイル：
+
+<ul>
+<li>入力ファイル(OSのISOファイル、仮想マシンのファイル)</li>
+<li>設定用jsonファイル(OS,バージョンごとに用意)</li>
+</ul>
+</li>
+<li>実行対象：ローカルマシン、クラウドサービス</li>
+<li>出力：ファイル(vagrant用boxファイル、仮想マシンのファイル)</li>
+</ul>
+
 
 <h2>Vagrant:仮想マシンを実行・廃棄する</h2>
 
@@ -67,13 +74,24 @@ boxや仮想マシンノードの『ファイル』を作るアプリ。</p>
 実際に動く仮想マシン（ノードと呼ばれる）を作るアプリ。
 実行した際に、マシンが動作を開始するのが特徴。</p>
 
-<p>設定ファイル：
- &ndash; boxファイル
- &ndash; Vagrantfile(各ノードの設定内容を記述)
-実行対象：ローカルマシン、クラウドサービス
-出力：
-&ndash; 実行中の仮想マシン
-&ndash; ファイル(packageコマンドを使用したとき)</p>
+<ul>
+<li>設定ファイル：
+
+<ul>
+<li>boxファイル</li>
+<li>Vagrantfile(各ノードの設定内容を記述)</li>
+</ul>
+</li>
+<li>実行対象：ローカルマシン、クラウドサービス</li>
+<li>出力：
+
+<ul>
+<li>実行中の仮想マシン</li>
+<li>boxファイル(packageコマンドを使用したとき)</li>
+</ul>
+</li>
+</ul>
+
 
 <p>PackerとVagrantの最大の違い。
 Packerは仮想マシンのファイルセットを作るが、
@@ -93,13 +111,17 @@ OSの差異をChefが吸収し、OSに適したコマンドで
 <p>設定対象のマシンは、仮想マシンでも物理マシンでもOKだし、
 ローカルでもリモートでもOK。</p>
 
-<p>設定ファイル:
-Chefリポジトリ(kitchenとも呼ばれるファイルセット)
-&ndash; kitchen(ここでは一部のみ)
-  &ndash; cookbooks(各設定内容をアプリごと、ジャンルごとにまとめておく)
-  &ndash; nodes(設定対象のノードと、そのノードにどんな設定を行うかを記述)
-実行対象：実行中のマシン
-出力：実行中のマシンに設定が完了した状態</p>
+<ul>
+<li>設定ファイル:
+  *Chefリポジトリ(kitchenとも呼ばれるファイルセット)
+<pre>
+kitchen(ここでは一部のみ)
+  |&ndash; cookbooks(各設定内容をアプリごと、ジャンルごとにまとめておく)
+  |&ndash; nodes(設定対象のノードと、そのノードにどんな設定を行うかを記述) </pre></li>
+<li>実行対象：実行中のマシン</li>
+<li>出力：実行中のマシンに設定が完了した状態</li>
+</ul>
+
 
 <h3>chef-soloとknife-solo</h3>
 
@@ -111,9 +133,12 @@ Chefリポジトリ(kitchenとも呼ばれるファイルセット)
 <p>Chefを使う際、Berkshelfを併用することで、
 Cookbookの管理が便利になる（RubyのGemのようなもの）</p>
 
-<p>設定ファイル：Berksfile
-実行対象：Chefリポジトリ(=kitchen)
-出力：整理済のChefリポジトリ</p>
+<ul>
+<li>設定ファイル：Berksfile</li>
+<li>実行対象：Chefリポジトリ(=kitchen)</li>
+<li>出力：整理済のChefリポジトリ</li>
+</ul>
+
 ]]></content>
   </entry>
   
