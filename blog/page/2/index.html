@@ -9,10 +9,8 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="ゲストOSの仮想サーバーへ、ホストOSからssh接続するために、
-公開鍵を渡します。
-今回は、ホストの共有フォルダ経由でファイルを渡します。 ホストOSの共有フォルダを使うには、VMware-Toolsが必要です。
-VMwareToolsをインストールする方法を解説します。 VMWare &hellip;">
+  <meta name="description" content="ゲストOSから、ホストOSの共有フォルダにアクセスします。 VMware 上 の Ubuntu で共有フォルダ
+http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html この記事を参考にやってみたところ、だいたいこの通りにできました。感謝 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -79,6 +77,89 @@ VMwareToolsをインストールする方法を解説します。 VMWare &hellip
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/03/vmware-enable-sharing/">ゲストubuntuから、ホスト上の共有フォルダにアクセスする</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-03T21:12:00+09:00" pubdate data-updated="true">2012-07-03 21:12</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ゲストOSから、ホストOSの共有フォルダにアクセスします。</p>
+
+<p>VMware 上 の Ubuntu で共有フォルダ<br/>
+<a href="http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html">http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html</a></p>
+
+<p>この記事を参考にやってみたところ、だいたいこの通りにできました。感謝！
+今回は、上の記事とはバージョンなど細かいところが違います。</p>
+
+<h2>環境</h2>
+
+<ul>
+<li>ホストOS： Mac OSX 10.7.4 (Lion)</li>
+<li>ゲストOS： ubuntu 12.04</li>
+<li>VMware: Fusion 4.1.3（730298）</li>
+<li>VMware-Tools: インストール済</li>
+</ul>
+
+
+<h2>hgfsが見つからない</h2>
+
+<pre><code>$vmware-hgfsclient
+&gt; share
+</code></pre>
+
+<p>hgfsclientを実行すると、共有フォルダが見えていることがわかります。</p>
+
+<pre><code>$ sudo mount -t vmhgfs .host:/ /mnt/hgfs
+&gt; Error: cannot mount filesystem: No such device
+</code></pre>
+
+<p>手動でマウントできません。
+記事と同じです。</p>
+
+<pre><code>lsmod | grep vm
+</code></pre>
+
+<p>としても、hgfsの文字は</p>
+
+<pre><code>sudo gedit /var/log/syslog
+</code></pre>
+
+<h2>参考資料</h2>
+
+<p>VMware 上 の Ubuntu で共有フォルダ<br/>
+<a href="http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html">http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html</a></p>
+
+<p>VMWare Plyaer 3.0　ホストとの共有<br/>
+<a href="http://d.hatena.ne.jp/rock_n_santa/20100430/1272584798">http://d.hatena.ne.jp/rock_n_santa/20100430/1272584798</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -975,42 +1056,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/11/test/">Test</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-11T05:12:00+09:00" pubdate data-updated="true">2012-05-11 05:12</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><img src="[/images/2012/05/11/sheep2.png]" alt="she aaaaaep2" /></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1036,6 +1081,10 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/25/dev_ops_tools/">dev_ops_tools</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/03/31/esx_vmware_win7/">VMWare ESXiホストへ、Windows7マシンをPackerで作る</a>
       </li>
     
@@ -1049,10 +1098,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
     
       <li class="post">
         <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">herokuを使ってみよう</a>
       </li>
     
   </ul>
