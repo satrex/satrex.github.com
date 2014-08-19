@@ -9,11 +9,10 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="はじめに ３月から、仮想マシン構築を自動化しようとして、
-色々もがいてみました。
-早いもので、もう３ヶ月も経つんですね。 当初、いろいろ疑問が多かった中で、
-『情報が少ないので、とにかく触って掴もう』
-というアプローチでやってきました。 ある程度わかってきたので、まとめていこうと思います。 &hellip;">
+  <meta name="description" content="raspberry piで遊びたい raspberry piが好きです。
+計測器を付けて遊ぶほか、AirPlayのサーバーにするなど、
+いろいろと遊びたい事があります。 遊ぶにあたって、chefで設定できるようにしておくと、
+安心して壊すことができますね。 それでは、raspberry &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +79,190 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2014/08/19/raspberry_chef_intro/">Raspberry Piをchefでcookするまでのあれこれ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-19T10:50:00+09:00" pubdate data-updated="true">2014-08-19 10:50</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>raspberry piで遊びたい</h2>
+
+<p>raspberry piが好きです。
+計測器を付けて遊ぶほか、AirPlayのサーバーにするなど、
+いろいろと遊びたい事があります。</p>
+
+<p>遊ぶにあたって、chefで設定できるようにしておくと、
+安心して壊すことができますね。</p>
+
+<p>それでは、raspberry piにchefを導入するまでの
+ワークフローを紹介しましょう。</p>
+
+<h2>まずはこのページを参照</h2>
+
+<p>今回参考にしたページを紹介します。
+<a href="http://naoty.hatenablog.com/entry/2013/10/20/171658">ChefでRaspberry Piをセットアップする</a></p>
+
+<p>やりたい事は違えど、大まかな流れは、上記のページの通りです。</p>
+
+<ol>
+<li>Vagrantで仮想環境を用意</li>
+<li>chefのセットアップ</li>
+<li>Cookbookの作成とテスト(ServerSpecを使用)</li>
+<li>本物のRaspberryPiを環境構築</li>
+</ol>
+
+
+<p>ワークフロー通りにやっていく中で、
+いろいろと調べ事をしたので、その足あとを追ってゆきましょう。</p>
+
+<h2>1.Vagrantで仮想環境を用意</h2>
+
+<p>まず、Vagrantの環境構築について。<br/>
+この記事執筆時点ではすでに終わっていますので、<br/>
+まだの方は、<a href="http://knowledge.sakura.ad.jp/tech/1552/">仮想環境構築ツール「Vagrant」で開発環境を仮想マシン上に自動作成する</a>などを参考にしてください。</p>
+
+<h3>余談</h3>
+
+<p>Vagrantについて思うところ。<br/>
+仮想環境は長いことVMWareでやってきたので、<br/>
+仮想マシンを本番環境として使う場合は、<br/>
+VMWareが慣れてて楽だなぁと思っています。</p>
+
+<p>しかし、実機の本番環境の練習台としての仮想マシンは、<br/>
+VirtualBoxでやるのがよさそうです。</p>
+
+<p>メリットは、いくつもあります。</p>
+
+<ul>
+<li>VirtualBoxなら無償</li>
+<li>Saharaプラグインが使える</li>
+<li>仮想マシンからのBox構築が可能</li>
+</ul>
+
+
+<p>最後はともかく、無償でしかもやり直しができるのは、<br/>
+練習台としてはメリットが大きいと思います。</p>
+
+<h3>閑話休題</h3>
+
+<p>今回は、仮想環境の用意には、参照記事のおすすめに従い、
+<a href="https://github.com/nickhutchinson/raspberry-devbox">これ</a>を使いました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone https://github.com/nickhutchinson/raspberry-devbox raspberry_pi
+</span><span class='line'>$ cd rasbperry_pi
+</span><span class='line'>$ vagrant up</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>2.chefのセットアップ</h2>
+
+<p>お約束通りにやりました。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vagrant ssh-config --host vm-raspberry_pi &gt;&gt; ~/.ssh/config
+</span><span class='line'>$ knife solo init chef-repo
+</span><span class='line'>$ knife solo prepare vm-raspberry_pi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ローカルマシン側のsshの設定を、ここでvagrantがやってくれるのって、
+非常にありがたい事ですね。<br/>
+実機の環境構築では、1行目にあたる部分を自分でごにょごにょします。</p>
+
+<h2>3.Cookbookの作成とテスト(ServerSpecを使用)</h2>
+
+<p>ここの基本の考えかたは、<a href="http://naoty.hatenablog.com/entry/2013/10/20/171658">参照記事</a>
+の3. クックブックの作成とテストを参照して下さい。</p>
+
+<p>引用：</p>
+
+<blockquote><p>書いたクックブックを実行する前にVagrantをサンドボックスモードにしておく。<br/>
+こうすると、失敗したときに実行した部分だけやり直すこと（ロールバック）ができる。<br/>
+サンドボックスモードにするためにはsaharaというVagrantのプラグインが必要なのでインストールしておく。</p>
+
+<p>サンドボックスモードをオンにしてクックブックを実行したあと、本当に期待した通りに環境構築できたかどうかをServerspecを使ってテストする。
+Serverspecにはいくつかテストを実行する方法があるようだけど、今回はSSHでログインしてテストを実行する形式を採った。
+テストを通らなかった場合は、saharaを使ってロールバックしてやり直す。<br/>
+テストが通った場合は、saharaを使って変更を確定させる（コミット）。</p>
+
+<p>これをサイクルさせながら、どんどんクックブックを追加していく。以上をコマンドで表すとこんな感じ。</p></blockquote>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ knife cookbook create ruby -o site-cookbooks
+</span><span class='line'>$ vi site-cookbooks/ruby/recipes/default.rb
+</span><span class='line'>$ vi nodes/vm-raspberry_pi.json
+</span><span class='line'>$ vi spec/vm-raspberry_pi/ruby_spec.rb
+</span><span class='line'>$ vagrant sandbox on
+</span><span class='line'>$ knife solo cook vm-raspberry_pi
+</span><span class='line'>$ rspec
+</span><span class='line'>$ vagrant sandbox commit</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(引用終わり)</p>
+
+<p>ここで書いたレシピの内容や困り事については、<br/>
+別の記事で紹介します。</p>
+
+<p>とにかく上記の流れが参考になりまくったので、
+ここに記すことにしました。</p>
+
+<h2>4. 本物のRaspberryPiを環境構築</h2>
+
+<p>引用：</p>
+
+<blockquote><p>仮想環境での環境構築が完了したら、いよいよ本物のRaspberry Piにクックブックを適用する。<br/>
+そのためにはnodes以下に本物用の設定を追加するだけでいい。</p></blockquote>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vi nodes/raspberry_pi.json
+</span><span class='line'>$ knife solo cook raspberry_pi</span></code></pre></td></tr></table></div></figure>
+
+
+<p>(引用終わり)</p>
+
+<p>基本の流れは、上記の通りです。
+本番環境を作る上でも、sshの設定など、多少の試行錯誤があったので、
+別の記事で書きます。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -224,8 +407,6 @@ Cookbookの管理が便利になる（RubyのGemのようなもの）</p>
 <li>出力：整理済のChefリポジトリ</li>
 </ul>
 
-
-<hr />
 
 <h2>まとめ</h2>
 
@@ -1117,197 +1298,6 @@ show_dialog
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/04/bitnami-setting/">Bitnamiの仮想マシンを使うためのステップ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-07-04T07:35:00+09:00" pubdate data-updated="true">2012-07-04 07:35</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>WordPressを使ったWebサイト作りをしようとしています。
-ローカルの仮想サーバーでサイトのソースをGitに上げ、
-公開用のサーバーでGitからPullすることで、デプロイする構成です。</p>
-
-<p>そこで、ローカルの仮想サーバーには、
-WordPressとMySQLとPHPのスタックである、
-bitnamiを使ってみます。</p>
-
-<h2>bitnami仮想マシンのダウンロード</h2>
-
-<p>bitnamiを使うためには、２つの方法があります。</p>
-
-<ol>
-<li>既存の仮想マシンに、bitnamiをインストールする</li>
-<li>bitnamiインストール済の仮想マシンを、新規にダウンロードする</li>
-</ol>
-
-
-<p>今回は、2.を解説します。
-公式サイトから、bitnamiがインストールされた仮想マシンをダウンロードします。</p>
-
-<h2>sshの導入</h2>
-
-<p>コマンドラインから操作するため、仮想マシンでsshを有効にします。
-公開鍵の受け渡しが、最も苦労した部分です。</p>
-
-<h3>公開鍵の渡し方</h3>
-
-<p>仮想サーバーの公開鍵を、開発用マシンに渡すための方法は、
-次のような選択肢があります。</p>
-
-<ol>
-<li>仮想マシンがSmabaサーバーとなり、ホストOSのがクライアントとなってファイルを受け渡す</li>
-<li>逆に、ホストOSの共有フォルダに、仮想マシンからアクセスしてファイルを受け渡す</li>
-<li>GitHubなど、外部ストレージを経由してファイルを受け渡す</li>
-</ol>
-
-
-<p>ここでは、2.を解説します。</p>
-
-<h3>VMware-Toolsの導入</h3>
-
-<p>ホストOSの共有フォルダにゲストOSからアクセスするには、<br/>
-VMware-Toolsをインストールします。</p>
-
-<p>別の記事にまとめていますので、参照してください。
-<a href="http://blog.satrex.jp/blog2012/07/02/vmware-tools-installed">vmware-tools-install</a></p>
-
-<h3>ssh鍵の生成</h3>
-
-<p>ホストOSで、以下のコマンドを入力します。</p>
-
-<pre><code>sudo ssh-keygen
-</code></pre>
-
-<p>画面に従ってパスワードを入力すると、公開鍵と秘密鍵が生成されます。
-id_rsa.pubファイルが公開鍵、id_rsaファイルが秘密鍵です。</p>
-
-<h3>公開鍵を、共有フォルダに置く</h3>
-
-<p>これから、いまホストOSで作った公開鍵をサーバーに渡します。</p>
-
-<p>まず、id_rsa.pubファイルを、ホストOSの共有フォルダにコピーします。
-オイラの環境では、Macの~/shareフォルダです。</p>
-
-<p>マウスでポイっと入れればOKです。</p>
-
-<h3>ゲストubuntuに、ホストOSの公開鍵をインストール</h3>
-
-<p>共有フォルダに入れた公開鍵を、ゲストOSから見てみます。</p>
-
-<pre><code>$ ls /mnt/hgfs/share
-&gt; id_rsa.pub
-</code></pre>
-
-<p>ホストOSの公開鍵が見えています。
-これを、ゲストOSにインストールします。</p>
-
-<p>でも、いったいどこにインストールするのでしょうか？</p>
-
-<p>サーバーには『この鍵をくれたマシンのアクセスには応じるよ』というファイルがあります。<br/>
-authorized-keysというファイルです。
-今回受け取った公開鍵を、authorized_keysファイルに追記します。</p>
-
-<p>このファイルには、複数の鍵を書き込むことができます。
-上書きすると、今までアクセスできたマシンがアクセスできなくなる、
-という現象が起こりますよ。</p>
-
-<pre><code>cat /mnt/hgfs/share/id_rsa.pub &gt;&gt; /home/bitnami/.ssh/authorized_keys
-</code></pre>
-
-<p><strong>>>に注目。</strong></p>
-
-<p>これで、ゲストOSに、ホストOSの公開鍵がコピーされました。</p>
-
-<h2>sshの設定</h2>
-
-<p>ゲストOSで、以下のコマンドを実行します。</p>
-
-<pre><code>$ sudo vi /etc/ssh/sshd_config
-</code></pre>
-
-<p>以下の行を探して、下のように変更します。</p>
-
-<p>  ChallengeResponseAuthentication no
-  PasswordAuthentication no
-  UsePAM no</p>
-
-<h2>sshデーモン、いでよ！</h2>
-
-<p>ゲストOSがアクセスを待ち構えるために、
-sshデーモンを召喚します。
-このデーモンが、サーバーの門番を務めてくれるわけです。</p>
-
-<p>召喚の呪文は、これです。</p>
-
-<pre><code>$ sudo start ssh
-</code></pre>
-
-<p>これで、ゲストOS上でsshが有効になりました。</p>
-
-<h2>ホストOSからアクセスしてみる</h2>
-
-<p>ホストOS上で、sshコマンドを入力します。</p>
-
-<pre><code>ssh 192.168.100.xxx（ゲストOSのIPアドレス）-l bitnami
-</code></pre>
-
-<p>ゲストOSのIPアドレスは、ゲストOSでifconfigコマンドを使用すると、<br/>
-表示されます。<br/>
-・・・大丈夫ですよね？？</p>
-
-<p>あと、-l bitnamiの部分がなんなのかというと、
-bitnamiユーザーでログインします、という意味です。
-サーバーにはbitnamiユーザーしかいないため、
-他のユーザーではログインできません。</p>
-
-<p>別のユーザーを作っている場合は、
-そのユーザー名を指定してください。</p>
-
-<p>これを指定しない場合は、ホストOSのユーザー名でログインします。</p>
-
-<pre><code>$ ssh 192.168.100.101 -l bitnami         
-&gt; The authenticity of host '192.168.100.101 (192.168.100.101)' can't be established.
-&gt; RSA key fingerprint is 86:74:fe:6b:8b:b1:c2:64:3f:d0:80:bc:92:f3:c0:75.
-&gt; Are you sure you want to continue connecting (yes/no)? yes
-</code></pre>
-
-<p>何か聞かれた場合は、yesと答えて下さい。</p>
-
-<pre><code>&gt; Warning: Permanently added '192.168.100.101' (RSA) to the list of known hosts.
-&gt; Last login: Tue Jul  3 13:10:37 2012
-</code></pre>
-
-<p>これで、sshログインできました。<br/>
-めでたし。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1331,6 +1321,10 @@ bitnamiユーザーでログインします、という意味です。
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/08/19/raspberry_chef_intro/">raspberry piをchefでcookするまでのあれこれ</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/25/dev_ops_tools/">仮想マシン構築自動化ツールのまとめ</a>
       </li>
     
@@ -1344,10 +1338,6 @@ bitnamiユーザーでログインします、という意味です。
     
       <li class="post">
         <a href="/blog/2013/07/14/rvm_to_rbenv/">rvmからrbenvへ移行</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/07/14/timemachine-spotlight/">TimeMachineのバックアップが遅い時は、Spotlightを確認せよ</a>
       </li>
     
   </ul>
