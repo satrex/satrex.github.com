@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: octopress | 電気羊の執務室]]></title>
-  <link href="http://blog.satrex.jp/blog/categories/octopress/atom.xml" rel="self"/>
-  <link href="http://blog.satrex.jp/"/>
-  <updated>2014-08-19T10:56:51+09:00</updated>
-  <id>http://blog.satrex.jp/</id>
+  <link href="http://satrex.github.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://satrex.github.com/"/>
+  <updated>2014-08-27T07:33:26+09:00</updated>
+  <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[はてブが表示されないなぁ]]></title>
-    <link href="http://blog.satrex.jp/blog/2012/05/11/hatena_never_appears/"/>
+    <link href="http://satrex.github.com/blog/2012/05/11/hatena_never_appears/"/>
     <updated>2012-05-11T07:09:00+09:00</updated>
-    <id>http://blog.satrex.jp/blog/2012/05/11/hatena_never_appears</id>
+    <id>http://satrex.github.com/blog/2012/05/11/hatena_never_appears</id>
     <content type="html"><![CDATA[<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">T.I.D</a>さんの記事を見ながら、<br/>
 このブログにはてブボタンを設置しようとしています。</p>
 
@@ -41,15 +41,15 @@
 
 <h2>参考資料</h2>
 
-<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">Octopressにはてブボタンを設置する &ndash; T.I.D.</a></p>
+<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">Octopressにはてブボタンを設置する - T.I.D.</a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[bitbucketへ引っ越してみた]]></title>
-    <link href="http://blog.satrex.jp/blog/2012/05/08/moving_to_bitbucket/"/>
+    <link href="http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket/"/>
     <updated>2012-05-08T20:59:00+09:00</updated>
-    <id>http://blog.satrex.jp/blog/2012/05/08/moving_to_bitbucket</id>
+    <id>http://satrex.github.com/blog/2012/05/08/moving_to_bitbucket</id>
     <content type="html"><![CDATA[<p>ブログのリポジトリを、githubからbitbucketへ移してみました。
 だんだんGitの使い方に習熟してきたので、楽になってきました。</p>
 
@@ -79,9 +79,9 @@
   
   <entry>
     <title type="html"><![CDATA[Octopressのインストール（前編）]]></title>
-    <link href="http://blog.satrex.jp/blog/2012/04/23/installed-octopress-001/"/>
+    <link href="http://satrex.github.com/blog/2012/04/23/installed-octopress-001/"/>
     <updated>2012-04-23T12:47:00+09:00</updated>
-    <id>http://blog.satrex.jp/blog/2012/04/23/installed-octopress-001</id>
+    <id>http://satrex.github.com/blog/2012/04/23/installed-octopress-001</id>
     <content type="html"><![CDATA[<p>OctopressとGitでブログを作ろう、と思い立ってから１週間。<br/>
 試行錯誤の末に、ようやくブログが上げられたので、ハマったポイントを紹介してみたいと思います。</p>
 
@@ -192,7 +192,7 @@ Noの方は、ここでは何もしなくていいです。RVMのインストー
 <h5>参考資料：</h5>
 
 <p><a href="http://d.hatena.ne.jp/holypp/20120212/1328992440">MacOSX LionでのRubyの扱い方、またはllvm-gccについて</a><br/>
-<a href="https://gist.github.com/1104557">FIX for Lion&rsquo;s posix_spawn_ext.bundle: [BUG] Segmentation fault</a></p>
+<a href="https://gist.github.com/1104557">FIX for Lion's posix_spawn_ext.bundle: [BUG] Segmentation fault</a></p>
 
 <hr />
 

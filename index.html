@@ -21,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.satrex.jp">
+  <link rel="canonical" href="http://satrex.github.com">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -64,7 +64,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:blog.satrex.jp" />
+    <input type="hidden" name="q" value="site:satrex.github.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -384,8 +384,8 @@ OSの差異をChefが吸収し、OSに適したコマンドで
   *Chefリポジトリ(kitchenとも呼ばれるファイルセット)
 <pre>
 kitchen(ここでは一部のみ)
-  |&ndash; cookbooks(各設定内容をアプリごと、ジャンルごとにまとめておく)
-  |&ndash; nodes(設定対象のノードと、そのノードにどんな設定を行うかを記述) </pre></li>
+  |- cookbooks(各設定内容をアプリごと、ジャンルごとにまとめておく)
+  |- nodes(設定対象のノードと、そのノードにどんな設定を行うかを記述) </pre></li>
 <li>実行対象：実行中のマシン</li>
 <li>出力：実行中のマシンに設定が完了した状態</li>
 </ul>
@@ -522,9 +522,9 @@ VMWare使いは、手で作らなくてはなりません。</p>
 <p>まず、VMWare ESXホストでSSH通信を有効化します。
 ホストにログインし、コンソールから、以下のふたつの項目を選びます。</p>
 
-<p>Troubleshooting Options &ndash;>
-&ndash; Enable ESXi Shell
-&ndash; Enabe SSH</p>
+<p>Troubleshooting Options ->
+- Enable ESXi Shell
+- Enabe SSH</p>
 
 <h4>ホストにSSHログインし、GuestIPHackを有効化する</h4>
 
@@ -1046,9 +1046,9 @@ SketchUp 8.0.4810</p>
 動作を設定しているのですが、<br/>
 なんと、入力部品の違いによって、動作の一部が実行されません。</p>
 
-<h2>buttonとinput type=&ldquo;button&rdquo;</h2>
+<h2>buttonとinput type=&#8221;button&#8221;</h2>
 
-<p>結論から言うと、リンクと、&lt;input type=&ldquo;button&rdquo;>で生成したボタンは、<br/>
+<p>結論から言うと、リンクと、&lt;input type=&#8221;button&#8221;>で生成したボタンは、<br/>
 問題なく動作します。</p>
 
 <p>しかし、&lt;button>エレメントで生成したボタンは、<br/>
@@ -1212,20 +1212,20 @@ Vim上でショートカットを入力するだけで、サンプルコード�
 また、入力部品の動作はjavascriptで指定します。</p>
 
 <p>基本的な使い方は、公式ヘルプに載っています。<br/>
-<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
+http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</p>
 
 <h2>rubyスクリプトの実行方法</h2>
 
 <p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。
 指定されたコールバックメソッドには、仮想urlが割り当てられており、
-&ldquo;skp:&rdquo; + コールバックメソッド名のアドレスに遷移しようとすると、
+&#8220;skp:&#8221; + コールバックメソッド名のアドレスに遷移しようとすると、
 コールバックメソッドが実行されます。</p>
 
 <p>仮想urlへ遷移するには、以下のいずれかの方法で指定します。</p>
 
 <ul>
 <li>リンクのurlとして指定</li>
-<li>javascript関数内に、window.location=&ldquo;skp:&rdquo; + 関数名を指定し、ボタンに割り当て</li>
+<li>javascript関数内に、window.location=&#8221;skp:&#8221; + 関数名を指定し、ボタンに割り当て</li>
 </ul>
 
 
@@ -1282,7 +1282,7 @@ show_dialog
 <p><img src="https://www.evernote.com/shard/s75/sh/801ac46e-8054-4e33-bb96-95187e0cab7c/531face5d8e312d13f234eba2baccd62/deep/0/WebDialog002.jpg" alt="ボタンを押すと、javascriptのアラートが表示される" /></p>
 
 <p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。
-コード内では、リンクのurlとして、&#8221;skp:&ldquo;に続いてrubyのコールバックメソッド名が
+コード内では、リンクのurlとして、&#8221;skp:&#8221;に続いてrubyのコールバックメソッド名が
 指定されているのがわかります。</p>
 
 <p><img src="https://www.evernote.com/shard/s75/sh/57a25f6d-39ec-4f93-9780-962e52a0318e/174dbd1151fadda7723fe1b7426c30f5/deep/0/WebDialog003.jpg" alt="リンクをクリックすると、rubyのメッセージが表示される" /></p>
@@ -1391,15 +1391,6 @@ show_dialog
 
 
 
-<section class="googleplus">
-  <h1>
-    <a href="https://plus.google.com/sat1501@gmail.com?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
-</section>
-
 
 
   
@@ -1429,15 +1420,6 @@ show_dialog
 </script>
 
 
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 
 

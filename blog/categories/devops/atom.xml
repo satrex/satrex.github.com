@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: DevOps | 電気羊の執務室]]></title>
-  <link href="http://blog.satrex.jp/blog/categories/devops/atom.xml" rel="self"/>
-  <link href="http://blog.satrex.jp/"/>
-  <updated>2014-08-19T10:56:51+09:00</updated>
-  <id>http://blog.satrex.jp/</id>
+  <link href="http://satrex.github.com/blog/categories/devops/atom.xml" rel="self"/>
+  <link href="http://satrex.github.com/"/>
+  <updated>2014-08-27T07:33:26+09:00</updated>
+  <id>http://satrex.github.com/</id>
   <author>
     <name><![CDATA[satrex]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[仮想マシン構築自動化ツールのまとめ]]></title>
-    <link href="http://blog.satrex.jp/blog/2014/06/25/dev_ops_tools/"/>
+    <link href="http://satrex.github.com/blog/2014/06/25/dev_ops_tools/"/>
     <updated>2014-06-25T10:32:00+09:00</updated>
-    <id>http://blog.satrex.jp/blog/2014/06/25/dev_ops_tools</id>
+    <id>http://satrex.github.com/blog/2014/06/25/dev_ops_tools</id>
     <content type="html"><![CDATA[<h2>はじめに</h2>
 
 <p>３月から、仮想マシン構築を自動化しようとして、
@@ -110,8 +110,8 @@ OSの差異をChefが吸収し、OSに適したコマンドで
   *Chefリポジトリ(kitchenとも呼ばれるファイルセット)
 <pre>
 kitchen(ここでは一部のみ)
-  |&ndash; cookbooks(各設定内容をアプリごと、ジャンルごとにまとめておく)
-  |&ndash; nodes(設定対象のノードと、そのノードにどんな設定を行うかを記述) </pre></li>
+  |- cookbooks(各設定内容をアプリごと、ジャンルごとにまとめておく)
+  |- nodes(設定対象のノードと、そのノードにどんな設定を行うかを記述) </pre></li>
 <li>実行対象：実行中のマシン</li>
 <li>出力：実行中のマシンに設定が完了した状態</li>
 </ul>

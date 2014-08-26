@@ -21,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://blog.satrex.jp/blog/2012/12/24/webdialog">
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/12/24/webdialog">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -64,7 +64,7 @@
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:blog.satrex.jp" />
+    <input type="hidden" name="q" value="site:satrex.github.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
@@ -129,20 +129,20 @@
 また、入力部品の動作はjavascriptで指定します。</p>
 
 <p>基本的な使い方は、公式ヘルプに載っています。<br/>
-<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
+http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</p>
 
 <h2>rubyスクリプトの実行方法</h2>
 
 <p>あらかじめ、ダイアログに、コールバックメソッドを指定しておく必要があります。
 指定されたコールバックメソッドには、仮想urlが割り当てられており、
-&ldquo;skp:&rdquo; + コールバックメソッド名のアドレスに遷移しようとすると、
+&#8220;skp:&#8221; + コールバックメソッド名のアドレスに遷移しようとすると、
 コールバックメソッドが実行されます。</p>
 
 <p>仮想urlへ遷移するには、以下のいずれかの方法で指定します。</p>
 
 <ul>
 <li>リンクのurlとして指定</li>
-<li>javascript関数内に、window.location=&ldquo;skp:&rdquo; + 関数名を指定し、ボタンに割り当て</li>
+<li>javascript関数内に、window.location=&#8221;skp:&#8221; + 関数名を指定し、ボタンに割り当て</li>
 </ul>
 
 
@@ -199,7 +199,7 @@ show_dialog
 <p><img src="https://www.evernote.com/shard/s75/sh/801ac46e-8054-4e33-bb96-95187e0cab7c/531face5d8e312d13f234eba2baccd62/deep/0/WebDialog002.jpg" alt="ボタンを押すと、javascriptのアラートが表示される" /></p>
 
 <p>リンクをクリックすると、rubyで作成されたメッセージが表示されます。
-コード内では、リンクのurlとして、&#8221;skp:&ldquo;に続いてrubyのコールバックメソッド名が
+コード内では、リンクのurlとして、&#8221;skp:&#8221;に続いてrubyのコールバックメソッド名が
 指定されているのがわかります。</p>
 
 <p><img src="https://www.evernote.com/shard/s75/sh/57a25f6d-39ec-4f93-9780-962e52a0318e/174dbd1151fadda7723fe1b7426c30f5/deep/0/WebDialog003.jpg" alt="リンクをクリックすると、rubyのメッセージが表示される" /></p>
@@ -238,9 +238,9 @@ show_dialog
     
       <div class="sharing">
   
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/12/24/webdialog/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/12/24/webdialog/" >Tweet</a>
   
   
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
   
 </div>
 
@@ -349,15 +349,6 @@ show_dialog
 
 
 
-<section class="googleplus">
-  <h1>
-    <a href="https://plus.google.com/sat1501@gmail.com?rel=author">
-      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
-      Google+
-    </a>
-  </h1>
-</section>
-
 
 
   
@@ -379,8 +370,8 @@ show_dialog
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.satrex.jp/blog/2012/12/24/webdialog/';
-        var disqus_url = 'http://blog.satrex.jp/blog/2012/12/24/webdialog/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/12/24/webdialog/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/12/24/webdialog/';
         var disqus_script = 'embed.js';
       
     (function () {
@@ -391,15 +382,6 @@ show_dialog
 </script>
 
 
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) {return;}
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
 
 
 
