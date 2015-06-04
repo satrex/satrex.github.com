@@ -5,14 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>VMWare ESXiホストへ、Windows7マシンをPackerで作る - 電気羊の執務室</title>
+  <title>packer_esx - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="今回は、VMWare ESXiのホストマシンに、
-Packerを使用してWindows7のゲストマシンを導入する方法を紹介します。 今回の構成 Packerを使う理由 ゲストマシンの立ち上げは、
-ESXiから直接やるよりも、
-ツール経由でやるほうが後々便利です。 Packerは、『 &hellip;">
+  <meta name="description" content="Packerで、Windowsの仮想マシンをESX上に生成 以前の記事でも紹介しましたが、
+PackerでWindowsゲストの仮想マシンを、VMWare ESXサーバ上に
+直接生成するやり方を模索しています。 ここで作るのは実行中の仮想マシンで、boxファイルではありません。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +20,7 @@ ESXiから直接やるよりも、
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2014/03/31/esx_vmware_win7">
+  <link rel="canonical" href="http://satrex.github.com/blog/2014/11/10/packer_esx">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -85,7 +84,7 @@ ESXiから直接やるよりも、
   
   <header>
     
-      <h1 class="entry-title">VMWare ESXiホストへ、Windows7マシンをPackerで作る</h1>
+      <h1 class="entry-title">Packer_esx</h1>
     
     
       <p class="meta">
@@ -101,94 +100,58 @@ ESXiから直接やるよりも、
   
 
 
-<time datetime="2014-03-31T13:57:00+09:00" pubdate data-updated="true">2014-03-31 13:57</time>
+<time datetime="2014-11-10T12:31:00+09:00" pubdate data-updated="true">2014-11-10 12:31</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>今回は、VMWare ESXiのホストマシンに、
-Packerを使用してWindows7のゲストマシンを導入する方法を紹介します。</p>
+<div class="entry-content"><h3>Packerで、Windowsの仮想マシンをESX上に生成</h3>
 
-<h4>今回の構成</h4>
+<p>以前の記事でも紹介しましたが、
+PackerでWindowsゲストの仮想マシンを、VMWare ESXサーバ上に
+直接生成するやり方を模索しています。</p>
 
-<p><img src="https://www.evernote.com/shard/s75/sh/c1eea577-aa4f-47de-8ef3-e5bf407e87ad/7d65bb6c490c7dfc99def18e887c97e5/deep/0/esx.png" alt="構成図" /></p>
+<p>ここで作るのは実行中の仮想マシンで、boxファイルではありません。</p>
 
-<h4>Packerを使う理由</h4>
+<p>いくつかの壁があるので、ひとつひとつ確認してみましょう。</p>
 
-<p>ゲストマシンの立ち上げは、
-ESXiから直接やるよりも、
-ツール経由でやるほうが後々便利です。</p>
+<h4>1.output_directoryを指定してはいけない</h4>
 
-<p>Packerは、『Vagrantで扱えるVMのひな形(boxファイル)を作るツール』です。
-最終的には、Vagrantなどでサーバーインスタンスを次々と
-作る予定ですが、そのためには最初のひな形をどうにか作る必要があります。</p>
+<p>ローカルでboxファイルを構築する場合には、
+output_directoryを指定するのが常ですが、
+ESXサーバー上でビルドする際には、output_directoryを指定すると、
+vmxファイルが参照できなくなってしまいます。</p>
 
-<p>Linuxなどは、boxファイルが多数公開されていて、
-ダウンロードして使う事ができますが、Windowsはライセンスの関係で、
-公開されているものがありません。自分で作るしかないわけです。</p>
+<p>そのため、output_directoryは指定しません。</p>
 
-<p>VirtualBox使いには、<code>vagrant package</code>というコマンドで、
-動いているインスタンスからひな形を作ってしまう手がありますが、
-VMWare使いは、手で作らなくてはなりません。</p>
+<h4>2.仮想マシンのバージョンを指定する</h4>
 
-<h4>ESXiホストに、ユーザーを追加する</h4>
+<p>使用中のESXサーバーは、無償バージョンです。
+そのため、仮想マシンのバージョンは、すべて８を使用しています。</p>
 
-<p>作業用のmacで動くPackerで、ネットワーク上のVMWare ESXiにリモート接続します。
-デフォルトでは、rootでSSHログインできません。
-ここは真っ当に、別ユーザーを追加することにします。</p>
+<p>これをPackerでビルドする際、以下のように項目を指定します。</p>
 
-<p>以下の２点を確認します。
-* 作業用WindowsのvSphereクライアントからESXiホストを参照し、『ローカルユーザーおよびグループ』タブから、ユーザーを追加します。
-* 『権限』タブから、新規ユーザーに権限を付与します。ここでは、管理者権限を付与しました。</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>"vmx_data": {
+</span><span class='line'>  "virtualHW.version": "8"
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-<h4>ESXiホストのSSHを有効化する</h4>
 
-<p>まず、VMWare ESXホストでSSH通信を有効化します。
-ホストにログインし、コンソールから、以下のふたつの項目を選びます。</p>
+<h4>サーバー上のファイアウォール設定</h4>
 
-<p>Troubleshooting Options ->
-- Enable ESXi Shell
-- Enabe SSH</p>
+<p>ESXサーバーが、ゲストマシンへのSSH接続を受け入れないと、
+失敗してしまいます。</p>
 
-<h4>ホストにSSHログインし、GuestIPHackを有効化する</h4>
+<p>そこで、サーバーのファイアウォールを設定します。</p>
 
-<p>SSHが有効になったら、作業用macから以下のコマンドでESXホストにログインします。
-<code>ssh (新規ユーザー)@ESXホストのアドレス</code></p>
+<p>詳細は、以下を参照。
+<a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=2086560">VMWare公式記事</a></p>
 
-<p>パスワードを入力し、ログインできたら、以下のコマンドを入力します。</p>
-
-<p><code>esxcli system settings advanced set -o /Net/GuestIPHack -i 1</code></p>
-
-<p>エラーなく完了したら、exitコマンドでSSHを抜けます。</p>
-
-<h4>Packer用のビルドファイルを作成</h4>
-
-<p>Packerを実行するためのファイルを作成します。
-ここでは、先人の記述してくれたjsonファイルを、
-ありがたく使わせていただく事にします。</p>
-
-<p><code>
-git clone https://github.com/misheska/basebox-packer
-</code>
-template/windows7ディレクトリから、
-ここではwin7x86-pro.jsonを選択します。
-インストーラのパスなどを実際のものに置き換えた後、以下のコマンドで内容を確認します。</p>
-
-<p><code>
-packer validate vmware_win7.json
-</code></p>
-
-<p>エラーが出なければ、以下のコマンドでビルドを行います。</p>
-
-<p><code>
-packer build vmware_win7.json
-</code></p>
-
-<p>１回失敗するごとに、OSインストール分の時間がかかるので、
-小さな修正が一番つらい。
-がんばりましょう。</p>
+<h4>VNCの設定</h4>
 </div>
 
 
@@ -211,7 +174,7 @@ packer build vmware_win7.json
   
 
 
-<time datetime="2014-03-31T13:57:00+09:00" pubdate data-updated="true">2014-03-31 13:57</time>
+<time datetime="2014-11-10T12:31:00+09:00" pubdate data-updated="true">2014-11-10 12:31</time>
       
 
 
@@ -219,7 +182,7 @@ packer build vmware_win7.json
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2014/03/31/esx_vmware_win7/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2014/03/31/esx_vmware_win7/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2014/11/10/packer_esx/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2014/11/10/packer_esx/" >Tweet</a>
   
   
   
@@ -228,10 +191,8 @@ packer build vmware_win7.json
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/15/active_scaffold/" title="Previous Post: active_scaffoldが調子いい">&laquo; active_scaffoldが調子いい</a>
+        <a class="basic-alignment left" href="/blog/2014/08/19/raspberry_chef_intro/" title="Previous Post: raspberry piをchefでcookするまでのあれこれ">&laquo; raspberry piをchefでcookするまでのあれこれ</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/06/25/dev_ops_tools/" title="Next Post: 仮想マシン構築自動化ツールのまとめ">仮想マシン構築自動化ツールのまとめ &raquo;</a>
       
     </p>
   </footer>
@@ -352,8 +313,8 @@ packer build vmware_win7.json
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2014/03/31/esx_vmware_win7/';
-        var disqus_url = 'http://satrex.github.com/blog/2014/03/31/esx_vmware_win7/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2014/11/10/packer_esx/';
+        var disqus_url = 'http://satrex.github.com/blog/2014/11/10/packer_esx/';
         var disqus_script = 'embed.js';
       
     (function () {
