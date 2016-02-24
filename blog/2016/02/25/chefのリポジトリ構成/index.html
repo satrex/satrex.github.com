@@ -5,14 +5,14 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>ゲストubuntuに、VMware-Toolsをインストールする - 電気羊の執務室</title>
+  <title>chefのリポジトリ構成 - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="ゲストOSの仮想サーバーへ、ホストOSからssh接続するために、
-公開鍵を渡します。
-今回は、ホストの共有フォルダ経由でファイルを渡します。 ホストOSの共有フォルダを使うには、VMware-Toolsが必要です。
-VMwareToolsをインストールする方法を解説します。 VMWare &hellip;">
+  <meta name="description" content="chefの構成について 今回、DigitalOceanに仮想マシンを作り、
+Angular.jsでサイトを作りたい。
+そのために、Vagrant+chefで構成管理をする。 環境構築ふたたび １年近く放っておいたので、Rubyアプリの常として、
+バージョンは上がり、環境は崩れている。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +21,7 @@ VMwareToolsをインストールする方法を解説します。 VMWare &hellip
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed">
+  <link rel="canonical" href="http://satrex.github.com/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -85,7 +85,7 @@ VMwareToolsをインストールする方法を解説します。 VMWare &hellip
   
   <header>
     
-      <h1 class="entry-title">ゲストubuntuに、VMware-Toolsをインストールする</h1>
+      <h1 class="entry-title">Chefのリポジトリ構成</h1>
     
     
       <p class="meta">
@@ -101,111 +101,65 @@ VMwareToolsをインストールする方法を解説します。 VMWare &hellip
   
 
 
-<time datetime="2012-07-02T19:42:00+09:00" pubdate data-updated="true">2012-07-02 19:42</time>
+<time datetime="2016-02-25T00:11:00+09:00" pubdate data-updated="true">2016-02-25 00:11</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><p>ゲストOSの仮想サーバーへ、ホストOSからssh接続するために、<br/>
-公開鍵を渡します。<br/>
-今回は、ホストの共有フォルダ経由でファイルを渡します。</p>
+<div class="entry-content"><h3>chefの構成について</h3>
 
-<p>ホストOSの共有フォルダを使うには、VMware-Toolsが必要です。<br/>
-VMwareToolsをインストールする方法を解説します。</p>
+<p>今回、DigitalOceanに仮想マシンを作り、
+Angular.jsでサイトを作りたい。
+そのために、Vagrant+chefで構成管理をする。</p>
 
-<h2>VMWare Toolsの導入</h2>
+<h3>環境構築ふたたび</h3>
 
-<ol>
-<li>VMware-Toolsの仮想CDを挿入</li>
-<li>カーネルの番号を確認する</li>
-<li>カーネルヘッダーをインストールする</li>
-<li>VMware-Toolsをインストールする</li>
-</ol>
+<p>１年近く放っておいたので、Rubyアプリの常として、
+バージョンは上がり、環境は崩れている。</p>
+
+<ul>
+<li>vagrant upしようとしたら、stdin: is not a ttyが出た
+** <a href="https://github.com/Varying-Vagrant-Vagrants/VVV/issues/517">このへｎ</a>を見て対処</li>
+<li>chefDKを入れた時のお約束
+** .zprofileに、export PATH=/opt/chefdk/bin:$PATHを追加</li>
+</ul>
 
 
-<h3>VMwareToolsの仮想CDを挿入</h3>
+<p>rbenvからの入れなおしになり、
+ついでにRubyのバージョンも2.2.2に上げることに。</p>
 
-<p>VMwareFusionのメニューから、『仮想マシン->VMWareToolsのインストール』を選択します。<br/>
-その後、以下のように仮想CDをマウントします。</p>
+<h3>chefはchefDKに</h3>
 
-<pre><code>$ sudo mkdir -p /mnt/cdrom
-$ sudo mount /dev/cdrom /mnt/cdrom
-&gt; mount: block device /dev/sr0 is write-protected, mounting read-only
-</code></pre>
+<p>こないだインストールした気もしますが、
+chefDKをダウンロードして実行。</p>
 
-<p>ここでインストールを行うと、失敗します。</p>
+<h3>knife soloはおさらば</h3>
 
-<pre><code>tar xzvf /mnt/cdrom/VMwareTools-8.8.4-730257.tar.gz 
-cd ./vmware-tools-distrib/
-sudo ./vmware-install.pl 
+<p>chefDKの最新環境では、net-sshはv3.0.2必須。
+しかし、knife soloのどこかで、net-sshは2.7~3.0を
+指定されている。
+Gemfileとかに器用な事を書いて切り抜けられる技量がないので、
+この矛盾を解消できなかった。</p>
 
-...
+<p>よって、knife soloはあきらめる。</p>
 
-Searching for a valid kernel header path...
-The path "" is not valid.
-Would you like to change it? [yes] 
-</code></pre>
+<h3>knife zeroで行きましょう</h3>
 
-<p>カーネルヘッダーがないとだめだそうです。</p>
+<p>この時点で3日め。
+knife zeroで環境構築。</p>
 
-<h3>カーネルのバージョンを確認する</h3>
+<p>chefリポジトリは、新しく作るの辛かったので、前回作りまくったchef-repoにシンボリックリンクを張り、vagrant-digitaloceanフォルダ-> chef-repoフォルダの構成に。</p>
 
-<p>メニューから、『仮想マシン->設定->ネットワークアダプタ』を選択し、<br/>
-ネットワークにブリッジ接続を指定します。</p>
+<p>しかし、chefプロビジョンは、vagrantフォルダからchef-repoフォルダに移動しないとうまく行かない。
+面倒だし、できれば１ノード１フォルダで完結するような管理がしたい。</p>
 
-<p>カーネルのバージョンを確認し、適切なヘッダーを取得します。</p>
+<h3>chefリポジトリは、githubから</h3>
 
-<pre><code>uname -a
-
-`linux 3.2.0-24-virtual #39-ubuntu SMP Mon May 21 18:44:18 UTC 2012 x86_64 x86_64 x86_64 GNU/Linux`  
-</code></pre>
-
-<p>このカーネルバージョンは、3.2.0-24-virtual だということがわかりました。</p>
-
-<h3>ヘッダーファイルをインストールする</h3>
-
-<p>ヘッダーファイルをインストールします。</p>
-
-<pre><code>sudo apt-get install linux-headers-3.2.0-24-virtual
-</code></pre>
-
-<p>バージョンのないヘッダーファイル（linux-headers-virtual）も存在しますが、<br/>
-自分の環境では、サーバー接続エラー（404）が発生して、<br/>
-インストールが成功しませんでした。</p>
-
-<h3>VMware-Toolsをインストールする</h3>
-
-<p>もう一度、VMware-Toolsをインストールします。</p>
-
-<pre><code>sudo ./vmware-install.pl -d
-
-Searching for a valid kernel header path...
-Detected the kernel headers at "/lib/modules/3.2.0-24-virtual/build/include".
-The path "/lib/modules/3.2.0-24-virtual/build/include" appears 
-to be a valid path to the 3.2.0-virtual kernel headers.
-Would you like to change it? [no]
-</code></pre>
-
-<p>今度は、カーネルヘッダーを認識しているようです。
-正しくVMware-Toolsがインストールされました。</p>
-
-<h2>おわりに</h2>
-
-<p>これをちゃんと読む人はとても少ないはずですが、
-いるとすれば、とても困っている方でしょう。</p>
-
-<p>この記事が少しでもお役に立てれば嬉しいものですね。</p>
-
-<p>ちなみに・・・本当は、ゲストOSにsmbclientを入れれば<br/>
-ホストOSの共有フォルダにアクセスできると思うのですが、<br/>
-設定がうまくいかず、今回はあきらめました。</p>
-
-<h2>参考資料</h2>
-
-<p>CentOS 5.5 x86 に VMware Tools をインストールする<br/>
-<a href="http://d.hatena.ne.jp/yohei-a/20101222/1293051179">http://d.hatena.ne.jp/yohei-a/20101222/1293051179</a></p>
+<p>ローカルのcookbookはコピーと割り切り、
+github上のchef-repoフォルダを、各ノードのディレクトリに展開すると、
+使い回しもでき、環境を濁らせないのでよいだろうか。</p>
 </div>
 
 
@@ -228,7 +182,7 @@ Would you like to change it? [no]
   
 
 
-<time datetime="2012-07-02T19:42:00+09:00" pubdate data-updated="true">2012-07-02 19:42</time>
+<time datetime="2016-02-25T00:11:00+09:00" pubdate data-updated="true">2016-02-25 00:11</time>
       
 
 
@@ -236,7 +190,7 @@ Would you like to change it? [no]
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/" >Tweet</a>
   
   
   
@@ -245,10 +199,8 @@ Would you like to change it? [no]
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2012/06/25/xp_converted/" title="Previous Post: ConverterでXPマシンを仮想化するために必要な4つのこと">&laquo; ConverterでXPマシンを仮想化するために必要な4つのこと</a>
+        <a class="basic-alignment left" href="/blog/2014/11/10/packer_esx/" title="Previous Post: packer_esx">&laquo; packer_esx</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2012/07/03/vmware-enable-sharing/" title="Next Post: ゲストubuntuから、ホスト上の共有フォルダにアクセスする">ゲストubuntuから、ホスト上の共有フォルダにアクセスする &raquo;</a>
       
     </p>
   </footer>
@@ -369,8 +321,8 @@ Would you like to change it? [no]
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/';
-        var disqus_url = 'http://satrex.github.com/blog/2012/07/02/vmware-tools-installed/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/';
+        var disqus_url = 'http://satrex.github.com/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/';
         var disqus_script = 'embed.js';
       
     (function () {

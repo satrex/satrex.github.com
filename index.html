@@ -9,9 +9,10 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="Packerで、Windowsの仮想マシンをESX上に生成 以前の記事でも紹介しましたが、
-PackerでWindowsゲストの仮想マシンを、VMWare ESXサーバ上に
-直接生成するやり方を模索しています。 ここで作るのは実行中の仮想マシンで、boxファイルではありません。 &hellip;">
+  <meta name="description" content="chefの構成について 今回、DigitalOceanに仮想マシンを作り、
+Angular.jsでサイトを作りたい。
+そのために、Vagrant+chefで構成管理をする。 環境構築ふたたび １年近く放っておいたので、Rubyアプリの常として、
+バージョンは上がり、環境は崩れている。 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +82,93 @@ PackerでWindowsゲストの仮想マシンを、VMWare ESXサーバ上に
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/">Chefのリポジトリ構成</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-02-25T00:11:00+09:00" pubdate data-updated="true">2016-02-25 00:11</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>chefの構成について</h3>
+
+<p>今回、DigitalOceanに仮想マシンを作り、
+Angular.jsでサイトを作りたい。
+そのために、Vagrant+chefで構成管理をする。</p>
+
+<h3>環境構築ふたたび</h3>
+
+<p>１年近く放っておいたので、Rubyアプリの常として、
+バージョンは上がり、環境は崩れている。</p>
+
+<ul>
+<li>vagrant upしようとしたら、stdin: is not a ttyが出た
+** <a href="https://github.com/Varying-Vagrant-Vagrants/VVV/issues/517">このへｎ</a>を見て対処</li>
+<li>chefDKを入れた時のお約束
+** .zprofileに、export PATH=/opt/chefdk/bin:$PATHを追加</li>
+</ul>
+
+
+<p>rbenvからの入れなおしになり、
+ついでにRubyのバージョンも2.2.2に上げることに。</p>
+
+<h3>chefはchefDKに</h3>
+
+<p>こないだインストールした気もしますが、
+chefDKをダウンロードして実行。</p>
+
+<h3>knife soloはおさらば</h3>
+
+<p>chefDKの最新環境では、net-sshはv3.0.2必須。
+しかし、knife soloのどこかで、net-sshは2.7~3.0を
+指定されている。
+Gemfileとかに器用な事を書いて切り抜けられる技量がないので、
+この矛盾を解消できなかった。</p>
+
+<p>よって、knife soloはあきらめる。</p>
+
+<h3>knife zeroで行きましょう</h3>
+
+<p>この時点で3日め。
+knife zeroで環境構築。</p>
+
+<p>chefリポジトリは、新しく作るの辛かったので、前回作りまくったchef-repoにシンボリックリンクを張り、vagrant-digitaloceanフォルダ-> chef-repoフォルダの構成に。</p>
+
+<p>しかし、chefプロビジョンは、vagrantフォルダからchef-repoフォルダに移動しないとうまく行かない。
+面倒だし、できれば１ノード１フォルダで完結するような管理がしたい。</p>
+
+<h3>chefリポジトリは、githubから</h3>
+
+<p>ローカルのcookbookはコピーと割り切り、
+github上のchef-repoフォルダを、各ノードのディレクトリに展開すると、
+使い回しもでき、環境を濁らせないのでよいだろうか。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1081,167 +1169,6 @@ Could not find generator lazy_high_charts:install.
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/12/24/sketchupjs/">SketchupのWebDialogで、rubyスクリプトが呼べない時</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/12/24/webdialog/">前回</a>の続きです。<br/>
-SketchUpには、WebDialogというコンポーネントがあります。  <br/>
-これを使うとrubyスクリプトから、フォームを作成でき,  <br/>
-ユーザーと対話的にスクリプトを実行できるわけです。</p>
-
-<h2>すごくハマったところ</h2>
-
-<p>今回、WebDialog経由でrubyスクリプトを実行する際に、<br/>
-すごくハマったポイントをお教えします。</p>
-
-<p>動作環境：<br/>
-mac OS X 10.8.2<br/>
-SketchUp 8.0.4810</p>
-
-<p>それは・・・入力部品の種類です。<br/>
-ボタンなどを押した際にjavascriptのコードが実行されるよう、<br/>
-動作を設定しているのですが、<br/>
-なんと、入力部品の違いによって、動作の一部が実行されません。</p>
-
-<h2>buttonとinput type=&#8221;button&#8221;</h2>
-
-<p>結論から言うと、リンクと、&lt;input type=&#8221;button&#8221;>で生成したボタンは、<br/>
-問題なく動作します。</p>
-
-<p>しかし、&lt;button>エレメントで生成したボタンは、<br/>
-window.location=でリダイレクトを行う事ができません。</p>
-
-<p>これができないと、javascriptからrubyコードが呼べないのです。<br/>
-rubyスクリプトは、javascriptからはurlとして指定する必要があるからです。</p>
-
-<h2>サンプルコード</h2>
-
-<div><script src='https://gist.github.com/4367294.js'></script>
-<noscript><pre><code>require 'Sketchup'
-
-def show_dialog
-  dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
-   &quot;DialogTest&quot;, 200, 150, 150, 150, true);
-  html = &lt;&lt;-HTML
-  &lt;html&gt;
-  &lt;head&gt;
-  &lt;script type=&quot;text/javascript&quot;&gt;
-  &lt;!--
-    function doubleAlert()
-    {
-        jsAlert();
-        rubyAlert();
-    }
-
-    function rubyAlert()
-    {
-       // ruby経由でメッセージボックスを呼ぶ
-       window.location.href=&quot;skp:ruby_messagebox@Hello World&quot;;
-    }
-
-    function jsAlert()
-    {
-        // javascript経由でメッセージボックスを呼ぶ
-        window.alert('alert from javascript');
-    }
-   --&gt;
-    &lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;form&gt;
-      &lt;!--buttonエレメントからは、window.locationが指定できないので、rubyスクリプトは呼べない--&gt;
-      &lt;button id=&quot;start&quot; onclick=&quot;doubleAlert()&quot;&gt;button&lt;/button&gt;
-      &lt;/br&gt;
-      &lt;!--inputエレメントからは、window.locationが指定できるので、rubyスクリプトが呼べる--&gt;
-      &lt;input id=&quot;start2&quot; onClick=&quot;doubleAlert()&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
-      &lt;/br&gt;
-      &lt;!--リンクからは、urlが指定できるので、rubyスクリプトが呼べる--&gt;
-      &lt;a href=&quot;javascript:doubleAlert();&quot;&gt;link&lt;/a&gt;
-    &lt;/form&gt;
-    &lt;/html&gt;
-  HTML
-  
-  dlg.set_html html
-  dlg.add_action_callback(&quot;ruby_messagebox&quot;) {|dialog, params|
-    UI.messagebox(&quot;You called ruby_messagebox with: &quot; + params.to_s)
-  }
-  dlg.show
-end
-
-show_dialog</code></pre></noscript></div>
-
-
-<h2>サンプルコードの使い方</h2>
-
-<p>まずはSketchUp上で、コードを実行します。</p>
-
-<p>実行すると、こんな画面が表示されます。<br/>
-<img src="https://www.evernote.com/shard/s75/sh/b94c926c-0fac-48ad-81a5-4ef3054c6faa/e474f0b5080f91f74e17c112be5d0925/deep/0/WebDialog04.jpg" alt="ボタンが２つ、リンクが１つある画面" /></p>
-
-<p>１番上のボタンを押すと、ダイアログボックスが１回表示されます。</p>
-
-<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /></p>
-
-<p>２番めのボタンを押すと、ダイアログボックスが２回表示されます。</p>
-
-<p><img src="https://www.evernote.com/shard/s75/sh/bf295dcd-202d-4bc4-9a1f-853b257fffd3/2408e4d0fe18c83ae73b5cb7fe30c619/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%209.51.36.jpg" alt="javascriptのメッセージ" /><br/>
-<img src="https://www.evernote.com/shard/s75/sh/b6109fb2-28db-433a-a0e0-50c73f913727/76121cc80e493c91ecff350b2752d4e3/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202012-12-24%2012.36.05.jpg" alt="rubyのメッセージ" /></p>
-
-<p>リンクをクリックしても、同様に２回表示されます。</p>
-
-<p>３つとも同じ関数を実行しているのに、buttonエレメントだけは、挙動が違います。<br/>
-window.locationを指定することができず、rubyのメソッドを呼べません。</p>
-
-<p>ボタンの動作がうまくいかない方は、<br/>
-参考にしてください。</p>
-
-<p>次回は、ruby側からjavascriptの関数を呼び出す処理について書こうと思います。</p>
-
-<h2>VimSketchUpのすすめ</h2>
-
-<p>余談ですが、これを読んでいらっしゃる貴方は、どうやってサンプルコードを実行していますか？<br/>
-Vim上でショートカットを入力するだけで、サンプルコードが実行できたら楽ですよね。<br/>
-ちょっと心が動いた方には、<a href="http://blog.satrex.jp/blog/2012/06/04/vimsketchup/">VimSketchUp</a>をおすすめします。</p>
-
-<h2>参考資料</h2>
-
-<p>Trimble SketchUp<br/>
-<a href="http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback">http://www.sketchup.com/intl/en/developer/docs/ourdoc/webdialog#add_action_callback</a></p>
-
-<p>Engineering The World   <br/>
-<a href="http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/">http://engineeringtheworld.wordpress.com/2010/02/16/creating-web-dialogs-in-sketchup-and-making-calls-from-and-to-sketchup/</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1266,6 +1193,10 @@ Vim上でショートカットを入力するだけで、サンプルコード�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/">chefのリポジトリ構成</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/11/10/packer_esx/">packer_esx</a>
       </li>
     
@@ -1279,10 +1210,6 @@ Vim上でショートカットを入力するだけで、サンプルコード�
     
       <li class="post">
         <a href="/blog/2014/03/31/esx_vmware_win7/">VMWare ESXiホストへ、Windows7マシンをPackerで作る</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/15/active_scaffold/">active_scaffoldが調子いい</a>
       </li>
     
   </ul>
