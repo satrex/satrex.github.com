@@ -10,9 +10,8 @@
 
   
   <meta name="description" content="chefの構成について 今回、DigitalOceanに仮想マシンを作り、
-Angular.jsでサイトを作りたい。
-そのために、Vagrant+chefで構成管理をする。 環境構築ふたたび １年近く放っておいたので、Rubyアプリの常として、
-バージョンは上がり、環境は崩れている。 &hellip;">
+Angular.jsでサイトを作りたいです。
+そのために、Vagrant+chefで構成管理をします。 毎度の事ですが、今回も失敗記です。 環境構築ふたたび １年近く放っておいたので、Rubyアプリの常として、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -111,23 +110,24 @@ Angular.jsでサイトを作りたい。
 <div class="entry-content"><h3>chefの構成について</h3>
 
 <p>今回、DigitalOceanに仮想マシンを作り、
-Angular.jsでサイトを作りたい。
-そのために、Vagrant+chefで構成管理をする。</p>
+Angular.jsでサイトを作りたいです。
+そのために、Vagrant+chefで構成管理をします。</p>
+
+<p>毎度の事ですが、今回も失敗記です。</p>
 
 <h3>環境構築ふたたび</h3>
 
 <p>１年近く放っておいたので、Rubyアプリの常として、
-バージョンは上がり、環境は崩れている。</p>
+バージョンは上がり、環境は崩れていました。</p>
 
 <ul>
 <li>vagrant upしようとしたら、stdin: is not a ttyが出た
-** <a href="https://github.com/Varying-Vagrant-Vagrants/VVV/issues/517">このへｎ</a>を見て対処</li>
-<li>chefDKを入れた時のお約束
-** .zprofileに、export PATH=/opt/chefdk/bin:$PATHを追加</li>
+&#8211; <a href="https://github.com/Varying-Vagrant-Vagrants/VVV/issues/517">githubのフォーラム</a>を見て対処</li>
 </ul>
 
 
 <p>rbenvからの入れなおしになり、
+net-sshがRuby2.0以降を指定するため、
 ついでにRubyのバージョンも2.2.2に上げることに。</p>
 
 <h3>chefはchefDKに</h3>
@@ -135,15 +135,27 @@ Angular.jsでサイトを作りたい。
 <p>こないだインストールした気もしますが、
 chefDKをダウンロードして実行。</p>
 
+<ul>
+<li>chefDKを入れた時のお約束
+&#8211; .zprofileに、export PATH=/opt/chefdk/bin:$PATHを追加</li>
+<li>berkshelfが見つからない
+&#8211; <a href="http://stackoverflow.com/questions/27772047/could-not-find-berkshelf-0-among-90-total-gems-gemloaderror">stackOverflowのフォーラム</a>を見て解決。最終的に、berkshelfはchefDKの組み込みgemを使うことに。</li>
+</ul>
+
+
 <h3>knife soloはおさらば</h3>
 
+<p><code>Unable to activate knife-solo-0.5.1, because net-ssh-3.0.2 conflicts with net-ssh</code></p>
+
 <p>chefDKの最新環境では、net-sshはv3.0.2必須。
-しかし、knife soloのどこかで、net-sshは2.7~3.0を
-指定されている。
-Gemfileとかに器用な事を書いて切り抜けられる技量がないので、
+2.9.4も、別途インストールはされている。
+しかし、knife soloのどこかで、net-sshは2.7~3.0を指定されている。
+3.0.2をアンインストールすると『knife-soloはnet-ssh3.0.2必須！』と怒られ。</p>
+
+<p>Gemfileとかに器用な事を書いて切り抜けられる技量がないので、
 この矛盾を解消できなかった。</p>
 
-<p>よって、knife soloはあきらめる。</p>
+<p>よって、knife soloはあきらめました。</p>
 
 <h3>knife zeroで行きましょう</h3>
 
@@ -152,14 +164,14 @@ knife zeroで環境構築。</p>
 
 <p>chefリポジトリは、新しく作るの辛かったので、前回作りまくったchef-repoにシンボリックリンクを張り、vagrant-digitaloceanフォルダ-> chef-repoフォルダの構成に。</p>
 
-<p>しかし、chefプロビジョンは、vagrantフォルダからchef-repoフォルダに移動しないとうまく行かない。
-面倒だし、できれば１ノード１フォルダで完結するような管理がしたい。</p>
+<p>しかし、chefプロビジョンは、vagrantフォルダからchef-repoフォルダに移動しないとうまく行きません。
+面倒だし、できれば１ノード１フォルダで完結するような管理がしたいです。</p>
 
 <h3>chefリポジトリは、githubから</h3>
 
 <p>ローカルのcookbookはコピーと割り切り、
 github上のchef-repoフォルダを、各ノードのディレクトリに展開すると、
-使い回しもでき、環境を濁らせないのでよいだろうか。</p>
+使い回しもでき、環境を濁らせないのでよいのでしょうか。</p>
 </div>
 
 
