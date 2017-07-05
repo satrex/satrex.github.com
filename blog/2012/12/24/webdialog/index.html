@@ -166,14 +166,14 @@ rubyの戻り値をjavascriptで利用することはできないようです。
 リンクのurlにrubyのコールバックイベントの仮想urlを指定しています。</p>
 
 <div><script src='https://gist.github.com/4367009.js'></script>
-<noscript><pre><code>require 'Sketchup'
+<noscript><pre><code>require &#39;Sketchup&#39;
 
 def show_dialog
   dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
    &quot;DialogTest&quot;, 200, 150, 150, 150, true);
   html = &lt;&lt;-HTML
     &lt;form&gt;
-      &lt;input id=&quot;start2&quot; onClick=&quot;window.alert('alert from javascript');&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
+      &lt;input id=&quot;start2&quot; onClick=&quot;window.alert(&#39;alert from javascript&#39;);&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
       &lt;/br&gt;
       &lt;a href=&quot;skp:ruby_messagebox@from link&quot;&gt;link&lt;/a&gt;
     &lt;/form&gt;
@@ -283,11 +283,11 @@ show_dialog
   <ul id="recent_posts">
     
       <li class="post">
-        <a href="/blog/2017/07/05/%5Bsql-server%5Dgrouping%E6%BC%94%E7%AE%97%E5%AD%90/">[TSQL]Grouping演算子</a>
+        <a href="/blog/2017/07/05/%5Bsql-server%5Dgrouping%E6%BC%94%E7%AE%97%E5%AD%90/">SQLでもう一歩頑張るのが大事？</a>
       </li>
     
       <li class="post">
-        <a href="/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/">chefのリポジトリ構成</a>
+        <a href="/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/">chefのリポジトリ構成</a>
       </li>
     
       <li class="post">
