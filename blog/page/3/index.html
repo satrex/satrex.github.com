@@ -9,8 +9,10 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="以前に書いていた、GoogleSketchUpのコードをVimから書けるプラグインを書いています。 Windowsでは、Bridgeという神アプリで、Eclipse上から
-SketchUpを操作する事ができますが、macには対応しません。 AppleScriptでなんとかしてみた そこで、 &hellip;">
+  <meta name="description" content="VimでSketchUpのRubyスクリプトを書きたい方に朗報です。
+VimでSketchUpRubyを実行できるプラグインをリリースしました。 動作のイメージ 例えば、スクリプトで三角形を描いてみます。
+初めに、SketchUpを起動します。
+これが初期画面。ちなみに、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +82,89 @@ SketchUpを操作する事ができますが、macには対応しません。 Ap
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/06/04/vimsketchup/">VimSketchUpをリリースしました</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-04T00:38:00+09:00" pubdate data-updated="true">2012-06-04 00:38</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>VimでSketchUpのRubyスクリプトを書きたい方に朗報です。
+VimでSketchUpRubyを実行できるプラグインをリリースしました。</p>
+
+<h2>動作のイメージ</h2>
+
+<p>例えば、スクリプトで三角形を描いてみます。
+初めに、SketchUpを起動します。
+これが初期画面。ちなみに、女の子の名前はサンちゃんです。</p>
+
+<p><img src="https://img.skitch.com/20120603-bi3hcwd594ubauj132rkhkwk92.gif" alt="SketchUpの初期画面" /></p>
+
+<p>何もないところに、Rubyスクリプトで三角形を描きます。
+まず、VimでSketchUp用のスクリプトを書きます。</p>
+
+<p><img src="https://img.skitch.com/20120603-e29j4n2sq9hk15mmfrqj461sib.gif" alt="VimでRubyスクリプトを書いたところ" /></p>
+
+<p>そして、”￥sur”とキーボードで入力すると、
+SketchUpの画面に変化が起きます。</p>
+
+<p><img src="https://img.skitch.com/20120603-jmbeicj5qw2xp1rmujb42cqub.gif" alt="三角形が出たところ" /></p>
+
+<p>三角形が描けました。</p>
+
+<h2>GitHubに登録しました</h2>
+
+<p>このスクリプトを、GitHubに登録しました。
+リポジトリは<a href="https://github.com/satrex/VimSketchUpRuby">ここです</a>。</p>
+
+<h2>これから</h2>
+
+<p>インストールの仕方、初期設定など、
+使い方に関する記事を書きます。</p>
+
+<p>VimでSketchUpRubyが書けるようになったからには、
+補完の支援を受けたり、SketchUpAPIのヘルプをローカルで
+見たりできるようになりたいです。</p>
+
+<p>Rubyの補完は弱いので限界はあるのですが、
+現在はdictファイルを使って、補完に挑戦しています。</p>
+
+<h2>感想</h2>
+
+<p>前々から作りたいと言っていたプラグインです。
+やっと完成を見ることができました。
+長かったです。</p>
+
+<p>相変わらず、VimScriptもSketchUpAPIも手探りですが、
+困るのに慣れてきました。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -701,69 +786,6 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/04/27/task_remain/">これからやりたいこと</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-27T07:51:00+09:00" pubdate data-updated="true">2012-04-27 07:51</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>ひととおりブログの形はできたので、<br/>
-これからやりたいことをまとめて、優先順位を付けてみたいと思います。</p>
-
-<ol>
-<li><p>ブログのデザインを変更する</p>
-
-<ul>
-<li>トップページの画像を作る</li>
-<li>スタイル（sass）を設定する</li>
-<li>はてブとか入れる</li>
-</ul>
-</li>
-<li><p>Skitchの画像管理を楽にする</p>
-
-<ul>
-<li>Skitchで編集した画像が、Octopress配下にコピーされる仕組みを構築する</li>
-</ul>
-</li>
-<li>LokkaでCSSとjavascriptの勉強をする
-
-<ul>
-<li>よくColissとかに載ってるサンプルを、実際に書いてみたい</li>
-</ul>
-</li>
-</ol>
-
-
-<p>Octopressへの投稿じたい、まだまだ練習です。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -790,6 +812,10 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/07/05/%5Bsql-server%5Dgrouping%E6%BC%94%E7%AE%97%E5%AD%90/">[TSQL]Grouping演算子</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/">chefのリポジトリ構成</a>
       </li>
     
@@ -803,10 +829,6 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
     
       <li class="post">
         <a href="/blog/2014/06/25/dev_ops_tools/">仮想マシン構築自動化ツールのまとめ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/31/esx_vmware_win7/">VMWare ESXiホストへ、Windows7マシンをPackerで作る</a>
       </li>
     
   </ul>
@@ -868,7 +890,7 @@ Vimのコマンドでlessを使うたびに、『ターミナルの全機能が�
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - satrex -
+  Copyright &copy; 2017 - satrex -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

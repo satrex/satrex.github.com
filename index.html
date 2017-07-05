@@ -9,9 +9,9 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="chefの構成について 今回、DigitalOceanに仮想マシンを作り、
-Angular.jsでサイトを作りたいです。
-そのために、Vagrant+chefで構成管理をします。 毎度の事ですが、今回も失敗記です。 環境構築ふたたび １年近く放っておいたので、Rubyアプリの常として、 &hellip;">
+  <meta name="description" content="SQLの重要性 昨年から、販売管理の基幹システムをリプレースして、
+昔使えていた便利な機能がなくなった！
+という不満を受け、かなりたくさんのSQLを書かざるを得なかった。 そこで思う所がある。 業務システムは、SQLでいろいろできると、そこから先が楽。 SQLでやると楽な理由 1.移植性が高い &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +81,83 @@ Angular.jsでサイトを作りたいです。
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/07/05/%5Bsql-server%5Dgrouping%E6%BC%94%E7%AE%97%E5%AD%90/">[TSQL]Grouping演算子</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-07-05T09:51:00+09:00" pubdate data-updated="true">2017-07-05 09:51</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>SQLの重要性</h3>
+
+<p>昨年から、販売管理の基幹システムをリプレースして、<br/>
+昔使えていた便利な機能がなくなった！<br/>
+という不満を受け、かなりたくさんのSQLを書かざるを得なかった。</p>
+
+<p>そこで思う所がある。</p>
+
+<p>業務システムは、SQLでいろいろできると、そこから先が楽。</p>
+
+<h4>SQLでやると楽な理由</h4>
+
+<p>1.移植性が高い</p>
+
+<p>SQL（テーブル関数）で書いてしまえば、社内のイントラ環境で作ったものも、
+Web化したとして、リモートDBに同じ関数を呼べれば同じデータが手に入る。</p>
+
+<p>2.最適化されてて速い</p>
+
+<p>サーバー側で最適化した実行プランで動くので、
+モバイルアプリ化した時の事など考えると、端末側で計算させるより、<br/>
+サーバーでやるほうがうまく行きそう。</p>
+
+<p>3.意外と表現力がある</p>
+
+<p>でもSQLでやれる事に限界があるし・・・と思っていたが、<br/>
+ありきたりなデータ加工なら、標準SQLでできることがわかった。</p>
+
+<h3>SQLのデータ加工</h3>
+
+<h4>Grouping演算子</h4>
+
+<p>例えば、SQLには、Grouping演算子というものがある。</p>
+
+<p>これは、データの最後に集計行を足してくれるというもの。
+よくあるけど、できると便利。</p>
+
+<h4>Pivot／Unpivot</h4>
+
+<p>データの縦持ち／横持ちを変換するキーワード。</p>
+
+<p>こういうのを使いこなすと、かなり楽ができそう。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1036,151 +1113,6 @@ railsは前にも練習しましたが、ほとんど忘れてしまったので
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2013/03/22/lazy_high_charts/">Lazy_high_chartsを使ってみた</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-03-22T07:28:00+09:00" pubdate data-updated="true">2013-03-22 07:28</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Lazy high chartsを使ってみた</h3>
-
-<p>railsでグラフを表示させたくて、
-Lazy high chartsを使ってみました。
-やった事を書いておきます。</p>
-
-<h3>なんでLazy high chartsなの？</h3>
-
-<p>Lazy high chartsを選んだ理由は、以下の通りです。</p>
-
-<ol>
-<li>『Web グラフ』で検索したら、high chartsの評判がよかった<br/>
- →<a href="http://d.hatena.ne.jp/end0tknr/20111218/1324206587">webアプリ(perlやjavascript)でグラフ表示なら、Highcharts で決まりかも</a></li>
-<li>『ruby high charts』で検索したら、Lazy high chartsの記事を見つけた<br/>
- →<a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">Rails で Lazy high charts を使ってチャートを実装してみた</a></li>
-</ol>
-
-
-<p>というわけで、Lazy high chartsを使ってみます。</p>
-
-<h3>まずはインストール</h3>
-
-<p><a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">上記のサイト</a>を参考に、Lazy high chartsのインストールを行います。</p>
-
-<p>まず、Gemfile に
-<code>gem 'lazy_high_charts'</code></p>
-
-<p>を追加しました。
-そして、
-<code>bundle</code> を実行します。インストールが始まりました。<br/>
-ここまでは問題ありません。</p>
-
-<p>そして、</p>
-
-<p>bundle exec rails g lazy_high_charts:install</p>
-
-<p>を実行すると、highchart.js がダウンロードされて、assets/javascripts に配置される・・・<br/>
-はずでしたが、何やらエラーが表示されました。</p>
-
-<h3>インストールエラー</h3>
-
-<p>エラーメッセージは、次のようなものでした。</p>
-
-<p><code>
-% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
-[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
-/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
-/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
-script/rails:6:in `require'
-script/rails:6:in `&lt;main&gt;'
-Could not find generator lazy_high_charts:install.
-</code></p>
-
-<p>このエラーについて調べたところ、次の記事が見つかりました。</p>
-
-<p><a href="https://github.com/michelson/lazy_high_charts/issues/91">Problem with rails g lazy_high_charts:install</a><br/>
-どうやら、Railsのバージョンが3.1以上の場合は、<br/>
-app/assets/javascripts/application.jsに次の行を追加しないといけないようです。</p>
-
-<p><code>
-//= require highcharts <br/>
-//= require exporting
-</code></p>
-
-<p>これで、エラーは解決したでしょうか。</p>
-
-<p><code>
-% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
-[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
-/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
-/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
-/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
-script/rails:6:in `require'
-script/rails:6:in `&lt;main&gt;'
-Could not find generator lazy_high_charts:install.
-</code></p>
-
-<p>じゃん。
-やっぱり出ますね。</p>
-
-<p>しかし、<a href="https://github.com/michelson/lazy_high_charts/issues/91">くだんの記事</a>によると、どうやらこれでも問題なく動作するらしいです。</p>
-
-<h3>では、動かしてみますか</h3>
-
-<p>それでは、警告を気にせず、動作させてみます。</p>
-
-<p><code>rails s</code></p>
-
-<p><img src="https://www.evernote.com/shard/s75/sh/dbf05acf-97e1-4240-bf3b-90ec9d767ce1/57f93850b06d68a14848495f769e4bc6/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202013-03-23%2022.52.57.jpg" alt="棒グラフ" /></p>
-
-<p>グラフが出ました。</p>
-
-<p>あとは、データの取得がうまくできれば、楽しく暮らせそうです。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1205,6 +1137,10 @@ Could not find generator lazy_high_charts:install.
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/07/05/%5Bsql-server%5Dgrouping%E6%BC%94%E7%AE%97%E5%AD%90/">[TSQL]Grouping演算子</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9B%E3%82%9A%E3%82%B7%E3%82%99%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/">chefのリポジトリ構成</a>
       </li>
     
@@ -1218,10 +1154,6 @@ Could not find generator lazy_high_charts:install.
     
       <li class="post">
         <a href="/blog/2014/06/25/dev_ops_tools/">仮想マシン構築自動化ツールのまとめ</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/31/esx_vmware_win7/">VMWare ESXiホストへ、Windows7マシンをPackerで作る</a>
       </li>
     
   </ul>
@@ -1283,7 +1215,7 @@ Could not find generator lazy_high_charts:install.
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2016 - satrex -
+  Copyright &copy; 2017 - satrex -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
