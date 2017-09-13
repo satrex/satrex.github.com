@@ -1694,6 +1694,9 @@ figure.code .highlight {
     left: 0em;
     top: 1.8em;
   }
+  #blog-archives .content-title {
+    top: 1.8em;
+  }
   #blog-archives .year {
     display: none;
   }
