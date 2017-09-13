@@ -1695,7 +1695,8 @@ figure.code .highlight {
     top: 1.8em;
   }
   #blog-archives .content-title {
-    top: 1.8em;
+    position: relative;
+    top: 1.6em;
   }
   #blog-archives .year {
     display: none;
