@@ -1652,7 +1652,7 @@ figure.code .highlight {
   display: none;
 }
 #blog-archives time {
-  font-size: .9em;
+  font-size: 1em;
   line-height: 1.2em;
 }
 #blog-archives time .month, #blog-archives time .day {
@@ -1692,7 +1692,7 @@ figure.code .highlight {
     position: absolute;
     text-align: right;
     left: 0em;
-    top: 1.8em;
+    top: 1.6em;
   }
   #blog-archives .content-title {
     position: relative;
