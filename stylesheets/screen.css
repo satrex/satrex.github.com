@@ -2020,3 +2020,14 @@ body > footer p:last-child {
   background-repeat: no-repeat;
   background-position: left bottom;
 }
+.entry-content strong {
+  font-weight: bold;
+  color: #dc322f;
+}
+.entry-content em {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.entry-content blockquote {
+  font-size: large;
+}
