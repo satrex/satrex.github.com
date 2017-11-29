@@ -5,15 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>仮想マシン構築自動化ツールのまとめ - 電気羊の執務室</title>
+  <title>メールマガジンを始めました - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="はじめに ３月から、仮想マシン構築を自動化しようとして、
-色々もがいてみました。
-早いもので、もう３ヶ月も経つんですね。 当初、いろいろ疑問が多かった中で、
-『情報が少ないので、とにかく触って掴もう』
-というアプローチでやってきました。 ある程度わかってきたので、まとめていこうと思います。 &hellip;">
+  <meta name="description" content="今日から、メールマガジンを始めます。 プログラミングは、これからの日本を救う切り札になると思います。
+なぜなら、人口が減っていく日本の未来で、機械に仕事をやらせるのは、経済発展のキーファクターになるからです。 これは、僕がプログラミングを教える理由の最重要ポイントなので、
+繰り返し話します。 さて &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -22,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2014/06/25/dev_ops_tools">
+  <link rel="canonical" href="http://satrex.github.com/blog/2017/11/29/mail_magazine">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -87,7 +85,7 @@
   
   <header>
     
-      <h1 class="entry-title">仮想マシン構築自動化ツールのまとめ</h1>
+      <h1 class="entry-title">メールマガジンを始めました</h1>
     
     
       <p class="meta">
@@ -103,168 +101,65 @@
   
 
 
-<time datetime="2014-06-25T10:32:00+09:00" pubdate data-updated="true">2014-06-25 10:32</time>
+<time datetime="2017-11-29T21:03:00+09:00" pubdate data-updated="true">2017-11-29 21:03</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>はじめに</h2>
+<div class="entry-content"><p>今日から、メールマガジンを始めます。</p>
 
-<p>３月から、仮想マシン構築を自動化しようとして、
-色々もがいてみました。
-早いもので、もう３ヶ月も経つんですね。</p>
+<p>プログラミングは、これからの日本を救う切り札になると思います。
+なぜなら、人口が減っていく日本の未来で、機械に仕事をやらせるのは、経済発展のキーファクターになるからです。</p>
 
-<p>当初、いろいろ疑問が多かった中で、
-『情報が少ないので、とにかく触って掴もう』
-というアプローチでやってきました。</p>
+<p>これは、僕がプログラミングを教える理由の最重要ポイントなので、<br/>
+繰り返し話します。</p>
 
-<p>ある程度わかってきたので、まとめていこうと思います。</p>
+<p>さて、メールマガジンをやるからには、
+プログラミングを覚えるとうまく行く事や、
+勉強の挫折を防ぐポイント、速く書ける方法などについて、
+お話しできればと思います。</p>
 
-<h2>DevOpsツールについて</h2>
+<p>たまに、聞きたい内容について、アンケートも取る予定です。
+以下のフォームから、購読してください。</p>
 
-<p>仮想マシン構築の自動化など、コード化されたインフラを、
-DevOpsと呼ぶようですね。</p>
+<p><form action="https://www.agentmail.jp/list/register/"  method="post">
+<input type="hidden" name="AGENTMAIL__formid" value="wu1sBgcAsVo=" />
+<input type="hidden" name="AGENTMAIL__formpagereferer" value="" /></p>
 
-<p>これをやるのに、よくおすすめされる構成が、
-Vagrant+Chef+BerkshelfでVirtualBoxノードを作ろう！
-ですね。</p>
-
-<p>参考資料：
-あとでまとめる</p>
-
-<h2>Packer,Vagrant,Chef,Berkshelfの違いは？</h2>
-
-<p>記事を読みながら、何がなんだかよく分からなかったのが、
-各ツールの違いです。</p>
-
-<p>ここでは、各ツールの違いをまとめてみます。
-うまく伝わるかはわかりませんが・・・</p>
-
-<h2>Packer:無から仮想マシンファイルを作る</h2>
-
-<p>Packerは、OSイメージや既存の仮想マシンの『ファイル』から、
-boxや仮想マシンノードの『ファイル』を作るアプリ。</p>
-
-<ul>
-<li>設定ファイル：
-
-<ul>
-<li>入力ファイル(OSのISOファイル、仮想マシンのファイル)</li>
-<li>設定用jsonファイル(OS,バージョンごとに用意)</li>
-</ul>
-</li>
-<li>実行対象：ローカルマシン、クラウドサービス</li>
-<li>出力：ファイル(vagrant用boxファイル、仮想マシンのファイル)</li>
-</ul>
+<dl><dh>メールアドレス</dh><dd><input type="email"  name="AGENTMAIL__mailaddress" value=""   /></dd></dl>
 
 
-<h2>Vagrant:仮想マシンを実行・廃棄する</h2>
-
-<p>Vagrantは、仮想マシンのひな形（boxと呼ばれる）から、
-実際に動く仮想マシン（ノードと呼ばれる）を作るアプリ。
-実行した際に、マシンが動作を開始するのが特徴。</p>
-
-<ul>
-<li>設定ファイル：
-
-<ul>
-<li>boxファイル</li>
-<li>Vagrantfile(各ノードの設定内容を記述)</li>
-</ul>
-</li>
-<li>実行対象：ローカルマシン、クラウドサービス</li>
-<li>出力：
-
-<ul>
-<li>実行中の仮想マシン</li>
-<li>boxファイル(packageコマンドを使用したとき)</li>
-</ul>
-</li>
-</ul>
+<dl><dh>ニックネーム</dh><dd><input type="text"  name="AGENTMAIL__nickname" value=""   /></dd></dl>
 
 
-<h2>Chef:実行中のマシンに設定を行う</h2>
+<p><input class="AGENTMAIL__submit" type="submit" value="登録する"  />
+</form><div id="agentmailformshadow"></div></p>
 
-<p>Chefは、実行中の仮想マシンや物理マシンに対し、
-インストールや環境設定作業を自動化するアプリ。</p>
-
-<p>Cookbookと呼ばれるパッケージを指定すると、
-OSの差異をChefが吸収し、OSに適したコマンドで
-プロビジョン(環境設定や、アプリのインストールなど)してくれる。</p>
-
-<p>設定対象のマシンは、仮想マシンでも物理マシンでもOKだし、
-ローカルでもリモートでもOK。</p>
-
-<ul>
-<li>設定ファイル:
-  *Chefリポジトリ(kitchenとも呼ばれるファイルセット)
-<pre>
-kitchen(ここでは一部のみ)
-  |- cookbooks(各設定内容をアプリごと、ジャンルごとにまとめておく)
-  |- nodes(設定対象のノードと、そのノードにどんな設定を行うかを記述) </pre></li>
-<li>実行対象：実行中のマシン</li>
-<li>出力：実行中のマシンに設定が完了した状態</li>
-</ul>
+<!-- for form access start -->
 
 
-<h3>chef-soloとknife-solo</h3>
-
-<p>ローカルの場合は<code>chef solo</code>、リモートの場合は<code>knife solo</code>の
-コマンドで設定を行う。</p>
-
-<h2>Berkshelf:ChefのCookbook管理を便利にする</h2>
-
-<p>Chefを使う際、Berkshelfを併用することで、
-Cookbookの管理が便利になる（RubyのGemのようなもの）</p>
-
-<ul>
-<li>設定ファイル：Berksfile</li>
-<li>実行対象：Chefリポジトリ(=kitchen)</li>
-<li>出力：整理済のChefリポジトリ</li>
-</ul>
-
-
-<h2>まとめ</h2>
-
-<ul>
-<li>Packer
-
-<ul>
-<li>仮想マシンの実行ファイルを作る</li>
-<li>マシンの起動はインストール時のみ(電源OFFで終わる)</li>
-<li>マシンを継続的に実行する事はできない</li>
-</ul>
-</li>
-<li>Vagrant
-
-<ul>
-<li>仮想マシンの起動・終了などを制御する</li>
-<li>必ず仮想マシンのひな形(box)が必要</li>
-<li>OSインストールから実行することはできない</li>
-</ul>
-</li>
-<li>Chef
-
-<ul>
-<li>マシンの設定を自動で行う</li>
-<li>仮想マシンに限らず設定可能</li>
-<li>マシンが起動している事が条件</li>
-<li>マシンの起動自体を行うことはできない</li>
-</ul>
-</li>
-</ul>
+<script type="text/javascript">
+(function() {
+var dr = encodeURIComponent(document.referrer);
+var elements = document.getElementsByName("AGENTMAIL__formpagereferer");
+for(var i=0;i<elements.length; i++){ elements[i].value=dr; }
+var imgObj = document.createElement("img");
+imgObj.src = "https://www.agentmail.jp/image/fa/10222/?dr="+dr;
+imgObj.width = "1";
+imgObj.height = "1";
+imgObj.border = "0";
+var bodyObj = document.getElementsByTagName("body")[0];
+bodyObj.appendChild(imgObj);
+})();
+</script>
 
 
-<p>流れとしては、こんな感じです。</p>
+<!-- for form access end -->
 
-<ol>
-<li>Packerで仮想マシンを生成</li>
-<li>Vagrantで仮想マシンを実行</li>
-<li>Chefでツールのインストール、設定など</li>
-</ol>
 
+<p>あなたのポケットに僕の言葉をお届けできるのを、楽しみにしています。</p>
 </div>
 
 
@@ -287,12 +182,12 @@ Cookbookの管理が便利になる（RubyのGemのようなもの）</p>
   
 
 
-<time datetime="2014-06-25T10:32:00+09:00" pubdate data-updated="true">2014-06-25 10:32</time>
+<time datetime="2017-11-29T21:03:00+09:00" pubdate data-updated="true">2017-11-29 21:03</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/devops/'>DevOps</a>
+    <a class='category' href='/blog/categories/merumaga/'>メルマガ</a>
   
 </span>
 
@@ -301,7 +196,7 @@ Cookbookの管理が便利になる（RubyのGemのようなもの）</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2014/06/25/dev_ops_tools/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2014/06/25/dev_ops_tools/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2017/11/29/mail_magazine/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2017/11/29/mail_magazine/" >Tweet</a>
   
   
   
@@ -310,10 +205,8 @@ Cookbookの管理が便利になる（RubyのGemのようなもの）</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/03/31/esx_vmware_win7/" title="Previous Post: VMWare ESXiホストへ、Windows7マシンをPackerで作る">&laquo; VMWare ESXiホストへ、Windows7マシンをPackerで作る</a>
+        <a class="basic-alignment left" href="/blog/2017/11/25/%E3%82%BB%E3%83%9F%E3%83%8A%E3%83%BC%E3%81%AB%E5%87%BA%E3%81%BE%E3%81%97%E3%81%9F/" title="Previous Post: 集まる集客(R)セミナーに参加しました！">&laquo; 集まる集客(R)セミナーに参加しました！</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2014/08/19/raspberry_chef_intro/" title="Next Post: raspberry piをchefでcookするまでのあれこれ">raspberry piをchefでcookするまでのあれこれ &raquo;</a>
       
     </p>
   </footer>
@@ -434,8 +327,8 @@ Cookbookの管理が便利になる（RubyのGemのようなもの）</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2014/06/25/dev_ops_tools/';
-        var disqus_url = 'http://satrex.github.com/blog/2014/06/25/dev_ops_tools/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2017/11/29/mail_magazine/';
+        var disqus_url = 'http://satrex.github.com/blog/2017/11/29/mail_magazine/';
         var disqus_script = 'embed.js';
       
     (function () {
