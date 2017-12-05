@@ -9,8 +9,10 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="今回は、タイトルで内容を言い尽くした感があります。 今回起こったこと 約２週間前から、TimeMachineのバックアップが成功しなくなりました。 夜寝ようとすると、『バックアップ230MB/6GB』とか表示されてるわけです。
-で、InsomniaTを仕掛けてスリープしないようにし、 &hellip;">
+  <meta name="description" content="rvmからrbenvへ 最近、メインのmac上でRubyの調子が悪いです。
+herokuを使えばRails new できず、
+やっとRailsの環境ができたと思ったら
+rake generateできず。 しまいにはOctopressのGenerateもできなくなってしまったので、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +83,53 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/14/rvm_to_rbenv/">Rvmからrbenvへ移行</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-14T16:49:00+09:00" pubdate data-updated="true">2013-07-14 16:49</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>rvmからrbenvへ</h3>
+
+<p>最近、メインのmac上でRubyの調子が悪いです。
+herokuを使えばRails new できず、
+やっとRailsの環境ができたと思ったら
+rake generateできず。</p>
+
+<p>しまいにはOctopressのGenerateもできなくなってしまったので、
+もう環境をなんとかするしかない感じがしてきました。</p>
+
+<p>というわけで、rubyのパッケージをrvmで管理するのをやめ、
+rbenvに移行しました。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1165,89 +1214,6 @@ Windows XPのマシンを、macのVMWareで使うために仮想化しました�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/20/sakura-git-installed/">さくらのレンタルサーバーにgitをインストールした</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-20T19:29:00+09:00" pubdate data-updated="true">2012-06-20 19:29</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="http://blog.satrex.jp/blog/2012/06/20/sakura_start/">前回の記事</a>では、さくらのレンタルサーバーにGitを入れようとして失敗しました。
-今回は、その解決法を書きます。</p>
-
-<h2>解決法</h2>
-
-<p>パッケージ管理システム経由では入らないようなので、ソースをコンパイルして直接インストールしてしまう事にしました。</p>
-
-<p>gitのtarballからコンパイルしてインストールします。</p>
-
-<pre><code>mkdir gitinstall  
-cd gitinstall  
-wget https://github.com/git/git/tarball/v1.7.11-rc3 --no-check-certificate
-tar xjvf git-1.7.3.5.tar.bz2
-.cd git-1.7.3.5
-./configure -prefix=$HOME/local
-gmake
-vi Makefile
-# prefix = $(HOME)/local  を記述
-gmake install
-</code></pre>
-
-<p>これで、~/local/binにgitがインストールされます。
-Makefileを変更しないと、~/binに入ってしまい、具合が悪いようです。</p>
-
-<h4>2012/06/22追記：</h4>
-
-<p><em>~/binに入ってしまうと、組み込みのコマンドと混ざるので、  *
-</em>環境が汚くなってしまうからかな・・・と思いました。*</p>
-
-<h2>パスを通す</h2>
-
-<p>最後に、パスを通します。</p>
-
-<pre><code>vi ~/.cshrc
-</code></pre>
-
-<p>set path=( で始まる行を見つけ、括弧の中に、以下を追加します。</p>
-
-<pre><code>/$HOME/local/bin
-</code></pre>
-
-<p>直前の文字と、スペースを挟んで区切るのを忘れないでください。
-これで、gitにパスが通り、which gitが成功するはずです。
-光へ続く道が開かれました。</p>
-
-<h3>参考文献</h3>
-
-<p><a href="http://noumenon-th.net/text-hymn/2011/01/git.php">さくらのレンタルサーバーにGitをインストールする方法</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/3/">&larr; Older</a>
@@ -1274,6 +1240,10 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/12/05/hdd_changed/">NASのハードドライブを交換しました</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/11/29/mail_magazine/">メールマガジンを始めました</a>
       </li>
     
@@ -1287,10 +1257,6 @@ Makefileを変更しないと、~/binに入ってしまい、具合が悪いよ�
     
       <li class="post">
         <a href="/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/">chefのリポジトリ構成</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/11/10/packer_esx/">packer_esx</a>
       </li>
     
   </ul>
