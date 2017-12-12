@@ -9,11 +9,10 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="さくらのVPSを作りなおした さくらのVPSを借りていますが、新しいプロジェクトを
-作るに当たって、itamaeでサーバーをいじっています。 8月ごろに一度立てたサーバーですが、
-サービスを追加して、構成も変更したかったので、
-いったん壊して作りなおす事にしました。
-# &hellip;">
+  <meta name="description" content="SQL ServerでInsert or Update 今回、会社のデータ処理で、
+SQL Serverを使って、データが存在していれば更新、
+なければ追加、という処理をする必要がありました。 例によってGoogle先生に聞くと、
+『SQL Serverには、Merge文があるんだよ』 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -84,6 +83,98 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2017/12/12/sql_merge/">SQL ServerにはMergeがある</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-12-12T18:00:00+09:00" pubdate data-updated="true">2017-12-12 18:00</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>SQL ServerでInsert or Update</h2>
+
+<p>今回、会社のデータ処理で、<br/>
+SQL Serverを使って、データが存在していれば更新、<br/>
+なければ追加、という処理をする必要がありました。</p>
+
+<p>例によってGoogle先生に聞くと、
+『SQL Serverには、Merge文があるんだよ』というお告げを受けました。</p>
+
+<h2>構文</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MERGE INTO test_tableA AS A
+</span><span class='line'>    USING test_tableB AS B
+</span><span class='line'>    ON
+</span><span class='line'>    (
+</span><span class='line'>       A.no = B.no
+</span><span class='line'>    )
+</span><span class='line'>    WHEN MATCHED THEN
+</span><span class='line'>        UPDATE SET
+</span><span class='line'>             name = B.name
+</span><span class='line'>            ,age = B.age
+</span><span class='line'>    WHEN NOT MATCHED THEN
+</span><span class='line'>        INSERT (no,name,age)
+</span><span class='line'>        VALUES
+</span><span class='line'>        (
+</span><span class='line'>             B.no
+</span><span class='line'>            ,B.name
+</span><span class='line'>            ,B.age
+</span><span class='line'>        )
+</span><span class='line'>;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>暗記できる気はしないので、いつか同じ事をやる時は、<br/>
+このエントリーを見返すと思います。</p>
+
+<h2>参考資料</h2>
+
+<p><a href="https://lightgauge.net/database/sqlserver/2446/#MERGE1SQLOK">https://lightgauge.net/database/sqlserver/2446/#MERGE1SQLOK</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1063,122 +1154,6 @@ Cookbookの管理が便利になる（RubyのGemのようなもの）</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/03/31/esx_vmware_win7/">VMWare ESXiホストへ、Windows7マシンをPackerで作る</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-31T13:57:00+09:00" pubdate data-updated="true">2014-03-31 13:57</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>今回は、VMWare ESXiのホストマシンに、
-Packerを使用してWindows7のゲストマシンを導入する方法を紹介します。</p>
-
-<h4>今回の構成</h4>
-
-<p><img src="https://www.evernote.com/shard/s75/sh/c1eea577-aa4f-47de-8ef3-e5bf407e87ad/7d65bb6c490c7dfc99def18e887c97e5/deep/0/esx.png" alt="構成図" /></p>
-
-<h4>Packerを使う理由</h4>
-
-<p>ゲストマシンの立ち上げは、
-ESXiから直接やるよりも、
-ツール経由でやるほうが後々便利です。</p>
-
-<p>Packerは、『Vagrantで扱えるVMのひな形(boxファイル)を作るツール』です。
-最終的には、Vagrantなどでサーバーインスタンスを次々と
-作る予定ですが、そのためには最初のひな形をどうにか作る必要があります。</p>
-
-<p>Linuxなどは、boxファイルが多数公開されていて、
-ダウンロードして使う事ができますが、Windowsはライセンスの関係で、
-公開されているものがありません。自分で作るしかないわけです。</p>
-
-<p>VirtualBox使いには、<code>vagrant package</code>というコマンドで、
-動いているインスタンスからひな形を作ってしまう手がありますが、
-VMWare使いは、手で作らなくてはなりません。</p>
-
-<h4>ESXiホストに、ユーザーを追加する</h4>
-
-<p>作業用のmacで動くPackerで、ネットワーク上のVMWare ESXiにリモート接続します。
-デフォルトでは、rootでSSHログインできません。
-ここは真っ当に、別ユーザーを追加することにします。</p>
-
-<p>以下の２点を確認します。
-* 作業用WindowsのvSphereクライアントからESXiホストを参照し、『ローカルユーザーおよびグループ』タブから、ユーザーを追加します。
-* 『権限』タブから、新規ユーザーに権限を付与します。ここでは、管理者権限を付与しました。</p>
-
-<h4>ESXiホストのSSHを有効化する</h4>
-
-<p>まず、VMWare ESXホストでSSH通信を有効化します。
-ホストにログインし、コンソールから、以下のふたつの項目を選びます。</p>
-
-<p>Troubleshooting Options ->
-- Enable ESXi Shell
-- Enabe SSH</p>
-
-<h4>ホストにSSHログインし、GuestIPHackを有効化する</h4>
-
-<p>SSHが有効になったら、作業用macから以下のコマンドでESXホストにログインします。
-<code>ssh (新規ユーザー)@ESXホストのアドレス</code></p>
-
-<p>パスワードを入力し、ログインできたら、以下のコマンドを入力します。</p>
-
-<p><code>esxcli system settings advanced set -o /Net/GuestIPHack -i 1</code></p>
-
-<p>エラーなく完了したら、exitコマンドでSSHを抜けます。</p>
-
-<h4>Packer用のビルドファイルを作成</h4>
-
-<p>Packerを実行するためのファイルを作成します。
-ここでは、先人の記述してくれたjsonファイルを、
-ありがたく使わせていただく事にします。</p>
-
-<p><code>
-git clone https://github.com/misheska/basebox-packer
-</code>
-template/windows7ディレクトリから、
-ここではwin7x86-pro.jsonを選択します。
-インストーラのパスなどを実際のものに置き換えた後、以下のコマンドで内容を確認します。</p>
-
-<p><code>
-packer validate vmware_win7.json
-</code></p>
-
-<p>エラーが出なければ、以下のコマンドでビルドを行います。</p>
-
-<p><code>
-packer build vmware_win7.json
-</code></p>
-
-<p>１回失敗するごとに、OSインストール分の時間がかかるので、
-小さな修正が一番つらい。
-がんばりましょう。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -1203,6 +1178,10 @@ packer build vmware_win7.json
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/12/12/sql_merge/">SQL ServerにはMergeがある</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/12/12/sakura_vps_ssh/">サーバーを作り直す時、known_hostsをメンテする</a>
       </li>
     
@@ -1216,10 +1195,6 @@ packer build vmware_win7.json
     
       <li class="post">
         <a href="/blog/2017/11/25/%E3%82%BB%E3%83%9F%E3%83%8A%E3%83%BC%E3%81%AB%E5%87%BA%E3%81%BE%E3%81%97%E3%81%9F/">集まる集客(R)セミナーに参加しました！</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/07/05/%5Bsql-server%5Dgrouping%E6%BC%94%E7%AE%97%E5%AD%90/">SQLでもう一歩頑張るのが大事？</a>
       </li>
     
   </ul>
