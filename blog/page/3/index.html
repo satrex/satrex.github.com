@@ -9,8 +9,10 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="ゲストOSから、ホストOSの共有フォルダにアクセスします。 VMware 上 の Ubuntu で共有フォルダ
-http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html この記事を参考にやってみたところ、だいたいこの通りにできました。感謝 &hellip;">
+  <meta name="description" content="WordPressを使ったWebサイト作りをしようとしています。
+ローカルの仮想サーバーでサイトのソースをGitに上げ、
+公開用のサーバーでGitからPullすることで、デプロイする構成です。 そこで、ローカルの仮想サーバーには、
+WordPressとMySQLとPHPのスタックである、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +83,197 @@ http://tekitobibouroku.blog42.fc2.com/blog-entry-305.html この記事を参考�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/07/04/bitnami-setting/">Bitnamiの仮想マシンを使うためのステップ</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-07-04T07:35:00+09:00" pubdate data-updated="true">2012-07-04 07:35</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>WordPressを使ったWebサイト作りをしようとしています。
+ローカルの仮想サーバーでサイトのソースをGitに上げ、
+公開用のサーバーでGitからPullすることで、デプロイする構成です。</p>
+
+<p>そこで、ローカルの仮想サーバーには、
+WordPressとMySQLとPHPのスタックである、
+bitnamiを使ってみます。</p>
+
+<h2>bitnami仮想マシンのダウンロード</h2>
+
+<p>bitnamiを使うためには、２つの方法があります。</p>
+
+<ol>
+<li>既存の仮想マシンに、bitnamiをインストールする</li>
+<li>bitnamiインストール済の仮想マシンを、新規にダウンロードする</li>
+</ol>
+
+
+<p>今回は、2.を解説します。
+公式サイトから、bitnamiがインストールされた仮想マシンをダウンロードします。</p>
+
+<h2>sshの導入</h2>
+
+<p>コマンドラインから操作するため、仮想マシンでsshを有効にします。
+公開鍵の受け渡しが、最も苦労した部分です。</p>
+
+<h3>公開鍵の渡し方</h3>
+
+<p>仮想サーバーの公開鍵を、開発用マシンに渡すための方法は、
+次のような選択肢があります。</p>
+
+<ol>
+<li>仮想マシンがSmabaサーバーとなり、ホストOSのがクライアントとなってファイルを受け渡す</li>
+<li>逆に、ホストOSの共有フォルダに、仮想マシンからアクセスしてファイルを受け渡す</li>
+<li>GitHubなど、外部ストレージを経由してファイルを受け渡す</li>
+</ol>
+
+
+<p>ここでは、2.を解説します。</p>
+
+<h3>VMware-Toolsの導入</h3>
+
+<p>ホストOSの共有フォルダにゲストOSからアクセスするには、<br/>
+VMware-Toolsをインストールします。</p>
+
+<p>別の記事にまとめていますので、参照してください。
+<a href="http://blog.satrex.jp/blog2012/07/02/vmware-tools-installed">vmware-tools-install</a></p>
+
+<h3>ssh鍵の生成</h3>
+
+<p>ホストOSで、以下のコマンドを入力します。</p>
+
+<pre><code>sudo ssh-keygen
+</code></pre>
+
+<p>画面に従ってパスワードを入力すると、公開鍵と秘密鍵が生成されます。
+id_rsa.pubファイルが公開鍵、id_rsaファイルが秘密鍵です。</p>
+
+<h3>公開鍵を、共有フォルダに置く</h3>
+
+<p>これから、いまホストOSで作った公開鍵をサーバーに渡します。</p>
+
+<p>まず、id_rsa.pubファイルを、ホストOSの共有フォルダにコピーします。
+オイラの環境では、Macの~/shareフォルダです。</p>
+
+<p>マウスでポイっと入れればOKです。</p>
+
+<h3>ゲストubuntuに、ホストOSの公開鍵をインストール</h3>
+
+<p>共有フォルダに入れた公開鍵を、ゲストOSから見てみます。</p>
+
+<pre><code>$ ls /mnt/hgfs/share
+&gt; id_rsa.pub
+</code></pre>
+
+<p>ホストOSの公開鍵が見えています。
+これを、ゲストOSにインストールします。</p>
+
+<p>でも、いったいどこにインストールするのでしょうか？</p>
+
+<p>サーバーには『この鍵をくれたマシンのアクセスには応じるよ』というファイルがあります。<br/>
+authorized-keysというファイルです。
+今回受け取った公開鍵を、authorized_keysファイルに追記します。</p>
+
+<p>このファイルには、複数の鍵を書き込むことができます。
+上書きすると、今までアクセスできたマシンがアクセスできなくなる、
+という現象が起こりますよ。</p>
+
+<pre><code>cat /mnt/hgfs/share/id_rsa.pub &gt;&gt; /home/bitnami/.ssh/authorized_keys
+</code></pre>
+
+<p><strong>>>に注目。</strong></p>
+
+<p>これで、ゲストOSに、ホストOSの公開鍵がコピーされました。</p>
+
+<h2>sshの設定</h2>
+
+<p>ゲストOSで、以下のコマンドを実行します。</p>
+
+<pre><code>$ sudo vi /etc/ssh/sshd_config
+</code></pre>
+
+<p>以下の行を探して、下のように変更します。</p>
+
+<p>  ChallengeResponseAuthentication no
+  PasswordAuthentication no
+  UsePAM no</p>
+
+<h2>sshデーモン、いでよ！</h2>
+
+<p>ゲストOSがアクセスを待ち構えるために、
+sshデーモンを召喚します。
+このデーモンが、サーバーの門番を務めてくれるわけです。</p>
+
+<p>召喚の呪文は、これです。</p>
+
+<pre><code>$ sudo start ssh
+</code></pre>
+
+<p>これで、ゲストOS上でsshが有効になりました。</p>
+
+<h2>ホストOSからアクセスしてみる</h2>
+
+<p>ホストOS上で、sshコマンドを入力します。</p>
+
+<pre><code>ssh 192.168.100.xxx（ゲストOSのIPアドレス）-l bitnami
+</code></pre>
+
+<p>ゲストOSのIPアドレスは、ゲストOSでifconfigコマンドを使用すると、<br/>
+表示されます。<br/>
+・・・大丈夫ですよね？？</p>
+
+<p>あと、-l bitnamiの部分がなんなのかというと、
+bitnamiユーザーでログインします、という意味です。
+サーバーにはbitnamiユーザーしかいないため、
+他のユーザーではログインできません。</p>
+
+<p>別のユーザーを作っている場合は、
+そのユーザー名を指定してください。</p>
+
+<p>これを指定しない場合は、ホストOSのユーザー名でログインします。</p>
+
+<pre><code>$ ssh 192.168.100.101 -l bitnami         
+&gt; The authenticity of host '192.168.100.101 (192.168.100.101)' can't be established.
+&gt; RSA key fingerprint is 86:74:fe:6b:8b:b1:c2:64:3f:d0:80:bc:92:f3:c0:75.
+&gt; Are you sure you want to continue connecting (yes/no)? yes
+</code></pre>
+
+<p>何か聞かれた場合は、yesと答えて下さい。</p>
+
+<pre><code>&gt; Warning: Permanently added '192.168.100.101' (RSA) to the list of known hosts.
+&gt; Last login: Tue Jul  3 13:10:37 2012
+</code></pre>
+
+<p>これで、sshログインできました。<br/>
+めでたし。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1001,65 +1194,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/05/11/hatena_never_appears/">はてブが表示されないなぁ</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-05-11T07:09:00+09:00" pubdate data-updated="true">2012-05-11 07:09</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">T.I.D</a>さんの記事を見ながら、<br/>
-このブログにはてブボタンを設置しようとしています。</p>
-
-<p>ブックマークされる事は書けないかも知れませんが、何事も勉強です。</p>
-
-<h2>どううまく行かないか</h2>
-
-<p>はてブボタンの領域は確保してありそうなのですが、表示がうまくいっていないようです。</p>
-
-<p><img src="https://img.skitch.com/20120511-mibj9s3y2ijm21iasjsjcs8i5k.gif" alt="はてブボタンがある？？" /></p>
-
-<h2>やったこと</h2>
-
-<p>記事をもとに、あれこれとテンプレートを変更しました。
-本当は一部始終を書かないといけないのですが、面倒で書けません。</p>
-
-<p><img src="https://img.skitch.com/20120512-x7w4ykj5if64f8sd1w1yx9pswg.gif" alt="Sharing.htmlの中身" /></p>
-
-<p>後でじっくりやります。
-いまは嫁にホットケーキを焼いてあげないと・・・</p>
-
-<h2>参考資料</h2>
-
-<p><a href="tokkonopapa.github.com/blog/2011/12/31/hatena-bookmark-on-octopress/">Octopressにはてブボタンを設置する - T.I.D.</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1086,6 +1220,10 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2017/12/28/think_logical/">脳を味方にしましょう</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/12/18/spreadsheet_shorturl/">GoogleSpreadsheetを使って、短縮URLを作る</a>
       </li>
     
@@ -1099,10 +1237,6 @@ cmd-uでソースの表示。そこからリンクを辿ってスクリプトな
     
       <li class="post">
         <a href="/blog/2017/12/05/hdd_changed/">NASのハードドライブを交換しました</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/11/29/mail_magazine/">メールマガジンを始めました</a>
       </li>
     
   </ul>
