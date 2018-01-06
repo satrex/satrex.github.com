@@ -689,6 +689,9 @@ body > header h2 {
   color: #e6d1bd;
   font-weight: normal;
 }
+body > header .title_img {
+  max-width: 100%;
+}
 
 body > nav {
   position: relative;
