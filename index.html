@@ -9,8 +9,7 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="脳を味方にしましょう あなたの脳について、あなたはどれだけ知っていますか？ この記事では、脳科学のエッセンスを取り入れ、人生がうまく行くヒントを提供します。
-自分の脳を上手にコントロールすれば、自然と爆発的な力を出す事ができます。 脳は食いしんぼう もののサイトによると、脳は相当大食らいのようです &hellip;">
+  <meta name="description" content="質問サイトQuoraより プログラマーが少なくとも1回は作るべきプログラムは何ですか？という質問がありました。 僕は、こう答えました。 作るべき、という言葉の定義 *『作るべき』という言葉の定義を、ここでは『やらなければ失格の、必要条件』ではなく、『作った事があれば、どなた様でも理想的』 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +80,70 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/01/06/os_make/">OSを作るといい</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-01-06T21:56:00+09:00" pubdate data-updated="true">2018-01-06 21:56</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h2>質問サイトQuoraより</h2>
+
+<p><strong>プログラマーが少なくとも1回は作るべきプログラムは何ですか？</strong>という質問がありました。</p>
+
+<p>僕は、こう答えました。</p>
+
+<h2>作るべき、という言葉の定義</h2>
+
+<p>*『作るべき』という言葉の定義を、ここでは『やらなければ失格の、必要条件』ではなく、『作った事があれば、どなた様でも理想的』という意味で解説します。</p>
+
+<h2>OSがおすすめ</h2>
+
+<p>ズバリ、OSです。
+OSは、ロマンがあるので作るべきでしょう。</p>
+
+<p>普段、我々が使っているパソコンは、電源を入れた時に、どこから最初のプログラムをロードするのか、それがどのようにして、日本語の文字を表示させるのか。
+そのように、小さなプログラムが無限に発展してゆく様子を、感じ取る事ができます。</p>
+
+<h2>ふだん使うOSのありがたみ</h2>
+
+<p>Windowsなど、普段触るOSがどんな働きをしているのか、ふだんプログラムを作るうえで前提となっている部分のありがたみを知り、動作を理解することで、プログラマーとしてのスキルは大幅に向上するはずです。</p>
+
+<p>ついでに、『ハードとしてのパソコンに、自分の書いたOSでイチから描画させる』というハード寄りの楽しみもあります。</p>
+
+<p>OS作りを、強くお勧めします。</p>
+
+<h2>参考文献</h2>
+
+<p><a target="_blank" href="https://www.amazon.co.jp/gp/product/4839919844/ref=as_li_tl?ie=UTF8&camp=247&creative=1211&creativeASIN=4839919844&linkCode=as2&tag=satrex-22&linkId=d68dee611e771ddf356af226ea0f6233">30日でできる! OS自作入門</a><img src="//ir-jp.amazon-adsystem.com/e/ir?t=satrex-22&l=am2&o=9&a=4839919844" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -865,86 +928,6 @@ github上のchef-repoフォルダを、各ノードのディレクトリに展�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2014/11/10/packer_esx/">Packer_esx</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-11-10T12:31:00+09:00" pubdate data-updated="true">2014-11-10 12:31</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h3>Packerで、Windowsの仮想マシンをESX上に生成</h3>
-
-<p>以前の記事でも紹介しましたが、
-PackerでWindowsゲストの仮想マシンを、VMWare ESXサーバ上に
-直接生成するやり方を模索しています。</p>
-
-<p>ここで作るのは実行中の仮想マシンで、boxファイルではありません。</p>
-
-<p>いくつかの壁があるので、ひとつひとつ確認してみましょう。</p>
-
-<h4>1.output_directoryを指定してはいけない</h4>
-
-<p>ローカルでboxファイルを構築する場合には、
-output_directoryを指定するのが常ですが、
-ESXサーバー上でビルドする際には、output_directoryを指定すると、
-vmxファイルが参照できなくなってしまいます。</p>
-
-<p>そのため、output_directoryは指定しません。</p>
-
-<h4>2.仮想マシンのバージョンを指定する</h4>
-
-<p>使用中のESXサーバーは、無償バージョンです。
-そのため、仮想マシンのバージョンは、すべて８を使用しています。</p>
-
-<p>これをPackerでビルドする際、以下のように項目を指定します。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>"vmx_data": {
-</span><span class='line'>  "virtualHW.version": "8"
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>サーバー上のファイアウォール設定</h4>
-
-<p>ESXサーバーが、ゲストマシンへのSSH接続を受け入れないと、
-失敗してしまいます。</p>
-
-<p>そこで、サーバーのファイアウォールを設定します。</p>
-
-<p>詳細は、以下を参照。
-<a href="http://kb.vmware.com/selfservice/microsites/search.do?language=en_US&amp;cmd=displayKC&amp;externalId=2086560">VMWare公式記事</a></p>
-
-<h4>VNCの設定</h4>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/2/">&larr; Older</a>
@@ -969,6 +952,10 @@ vmxファイルが参照できなくなってしまいます。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/01/06/os_make/">OSを作るといい</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2017/12/28/think_logical/">脳を味方にしましょう</a>
       </li>
     
@@ -982,10 +969,6 @@ vmxファイルが参照できなくなってしまいます。</p>
     
       <li class="post">
         <a href="/blog/2017/12/12/sakura_vps_ssh/">サーバーを作り直す時、known_hostsをメンテする</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/12/05/hdd_changed/">NASのハードドライブを交換しました</a>
       </li>
     
   </ul>
