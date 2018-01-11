@@ -9,8 +9,10 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="前回の続きです。
-SketchUpには、WebDialogというコンポーネントがあります。 これを使うとrubyスクリプトから、フォームを作成でき, ユーザーと対話的にスクリプトを実行できるわけです。 すごくハマったところ 今回、WebDialog経由でrubyスクリプトを実行する際に、 &hellip;">
+  <meta name="description" content="ruby on railsのアプリを作るのに、herokuを使ってみます。
+railsは前にも練習しましたが、ほとんど忘れてしまったので、
+改めてやります。
+">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +83,189 @@ SketchUpには、WebDialogというコンポーネントがあります。 こ�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/04/heroku%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%82%88%E3%81%86/">Herokuを使ってみよう</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-04T22:22:00+09:00" pubdate data-updated="true">2013-07-04 22:22</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ruby on railsのアプリを作るのに、herokuを使ってみます。
+railsは前にも練習しましたが、ほとんど忘れてしまったので、
+改めてやります。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/03/22/lazy_high_charts/">Lazy_high_chartsを使ってみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-03-22T07:28:00+09:00" pubdate data-updated="true">2013-03-22 07:28</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><h3>Lazy high chartsを使ってみた</h3>
+
+<p>railsでグラフを表示させたくて、
+Lazy high chartsを使ってみました。
+やった事を書いておきます。</p>
+
+<h3>なんでLazy high chartsなの？</h3>
+
+<p>Lazy high chartsを選んだ理由は、以下の通りです。</p>
+
+<ol>
+<li>『Web グラフ』で検索したら、high chartsの評判がよかった<br/>
+ →<a href="http://d.hatena.ne.jp/end0tknr/20111218/1324206587">webアプリ(perlやjavascript)でグラフ表示なら、Highcharts で決まりかも</a></li>
+<li>『ruby high charts』で検索したら、Lazy high chartsの記事を見つけた<br/>
+ →<a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">Rails で Lazy high charts を使ってチャートを実装してみた</a></li>
+</ol>
+
+
+<p>というわけで、Lazy high chartsを使ってみます。</p>
+
+<h3>まずはインストール</h3>
+
+<p><a href="http://tnakamura.hatenablog.com/entry/20120528/rails_lazy_high_chart">上記のサイト</a>を参考に、Lazy high chartsのインストールを行います。</p>
+
+<p>まず、Gemfile に
+<code>gem 'lazy_high_charts'</code></p>
+
+<p>を追加しました。
+そして、
+<code>bundle</code> を実行します。インストールが始まりました。<br/>
+ここまでは問題ありません。</p>
+
+<p>そして、</p>
+
+<p>bundle exec rails g lazy_high_charts:install</p>
+
+<p>を実行すると、highchart.js がダウンロードされて、assets/javascripts に配置される・・・<br/>
+はずでしたが、何やらエラーが表示されました。</p>
+
+<h3>インストールエラー</h3>
+
+<p>エラーメッセージは、次のようなものでした。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>このエラーについて調べたところ、次の記事が見つかりました。</p>
+
+<p><a href="https://github.com/michelson/lazy_high_charts/issues/91">Problem with rails g lazy_high_charts:install</a><br/>
+どうやら、Railsのバージョンが3.1以上の場合は、<br/>
+app/assets/javascripts/application.jsに次の行を追加しないといけないようです。</p>
+
+<p><code>
+//= require highcharts <br/>
+//= require exporting
+</code></p>
+
+<p>これで、エラーは解決したでしょうか。</p>
+
+<p><code>
+% /projects/rails/lazy_chart% bundle exec rails g lazy_high_charts:install
+[WARNING] Could not load generator "generators/lazy_high_charts/install/install_generator". Error: uninitialized constant LazyHighCharts::Rails::Generators.
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:4:in `&lt;module:LazyHighCharts&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/lazy_high_charts-1.4.0/lib/generators/lazy_high_charts/install/install_generator.rb:3:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:300:in `block (2 levels) in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:296:in `block in lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `each'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:295:in `lookup'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:152:in `find_by_namespace'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/generators.rb:169:in `invoke'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands/generate.rb:12:in `&lt;top (required)&gt;'
+/.rvm/gems/ruby-1.9.3-p0/gems/railties-3.2.13/lib/rails/commands.rb:29:in `&lt;top (required)&gt;'
+script/rails:6:in `require'
+script/rails:6:in `&lt;main&gt;'
+Could not find generator lazy_high_charts:install.
+</code></p>
+
+<p>じゃん。
+やっぱり出ますね。</p>
+
+<p>しかし、<a href="https://github.com/michelson/lazy_high_charts/issues/91">くだんの記事</a>によると、どうやらこれでも問題なく動作するらしいです。</p>
+
+<h3>では、動かしてみますか</h3>
+
+<p>それでは、警告を気にせず、動作させてみます。</p>
+
+<p><code>rails s</code></p>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/dbf05acf-97e1-4240-bf3b-90ec9d767ce1/57f93850b06d68a14848495f769e4bc6/deep/0/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88%202013-03-23%2022.52.57.jpg" alt="棒グラフ" /></p>
+
+<p>グラフが出ました。</p>
+
+<p>あとは、データの取得がうまくできれば、楽しく暮らせそうです。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -1150,181 +1335,6 @@ pkgは、WordPressをインストールするために、すでにインスト�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/13/toodledoautopass/">便利！Toodledoアプリのパスワード</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-13T07:27:00+09:00" pubdate data-updated="true">2012-06-13 07:27</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>Toodledoをアプリから使う</h2>
-
-<p>普段、オイラはタスク管理にToodledoを使っています。</p>
-
-<p>Webブラウザで操作する事が多いのですが、
-専用アプリがあるので、それもたまに使います。</p>
-
-<p>[ToodledoApp]</p>
-
-<h2>アプリの利点</h2>
-
-<p>基本的には、アプリの操作は、ブラウザと同じです。
-というか、専用Webブラウザのようなものです。</p>
-
-<p>Webブラウザと別になっていることで、
-見たい時にさっと見られるし、画面も広く使えます。
-Webブラウザと同時に画面に表示することもできるので、
-とても便利です。</p>
-
-<h2>アプリの弱点</h2>
-
-<p>しかし、ひとつだけとても不便なところがありました。
-それは、パスワードを覚えてくれないことです。</p>
-
-<p>FireFoxにはパスワード管理ソフトのLastPassが入っていますが、
-専用ブラウザでは、その恩恵を受けることができません。</p>
-
-<p>[PasswordCopying]</p>
-
-<p>KeyChainも効いてくれないので、今までは、いちいちブラウザの
-LastPass管理サイトを開き、パスワードをコピーしていました。
-面倒このうえないです。</p>
-
-<h2>魔法で解決</h2>
-
-<p>そこで、ページを読み込んだ際に、あらかじめ決めておいたパスワードを
-画面の入力項目に挿入するスクリプトを書きました。</p>
-
-<p>[ScriptInput]</p>
-
-<p>画面丈夫のスクロールマークをクリックして、
-スクリプトを入力します。</p>
-
-<p>ファイルは、ホームフォルダに勝手に作られます。
-この１行には、『PASSという名の部品を選んで、パスワードを入力する』
-という意味があります。</p>
-
-<h2>使用後</h2>
-
-<p>さて、Toodledoアプリを再起動します。</p>
-
-<p>すると、パスワード欄が埋まりましたね。</p>
-
-<p>[ToodledoApp][]
-[PasswordCopying][]
-[ScriptInput][]
-[Done][]</p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/06/04/vimsketchup/">VimSketchUpをリリースしました</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-06-04T00:38:00+09:00" pubdate data-updated="true">2012-06-04 00:38</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>VimでSketchUpのRubyスクリプトを書きたい方に朗報です。
-VimでSketchUpRubyを実行できるプラグインをリリースしました。</p>
-
-<h2>動作のイメージ</h2>
-
-<p>例えば、スクリプトで三角形を描いてみます。
-初めに、SketchUpを起動します。
-これが初期画面。ちなみに、女の子の名前はサンちゃんです。</p>
-
-<p><img src="https://img.skitch.com/20120603-bi3hcwd594ubauj132rkhkwk92.gif" alt="SketchUpの初期画面" /></p>
-
-<p>何もないところに、Rubyスクリプトで三角形を描きます。
-まず、VimでSketchUp用のスクリプトを書きます。</p>
-
-<p><img src="https://img.skitch.com/20120603-e29j4n2sq9hk15mmfrqj461sib.gif" alt="VimでRubyスクリプトを書いたところ" /></p>
-
-<p>そして、”￥sur”とキーボードで入力すると、
-SketchUpの画面に変化が起きます。</p>
-
-<p><img src="https://img.skitch.com/20120603-jmbeicj5qw2xp1rmujb42cqub.gif" alt="三角形が出たところ" /></p>
-
-<p>三角形が描けました。</p>
-
-<h2>GitHubに登録しました</h2>
-
-<p>このスクリプトを、GitHubに登録しました。
-リポジトリは<a href="https://github.com/satrex/VimSketchUpRuby">ここです</a>。</p>
-
-<h2>これから</h2>
-
-<p>インストールの仕方、初期設定など、
-使い方に関する記事を書きます。</p>
-
-<p>VimでSketchUpRubyが書けるようになったからには、
-補完の支援を受けたり、SketchUpAPIのヘルプをローカルで
-見たりできるようになりたいです。</p>
-
-<p>Rubyの補完は弱いので限界はあるのですが、
-現在はdictファイルを使って、補完に挑戦しています。</p>
-
-<h2>感想</h2>
-
-<p>前々から作りたいと言っていたプラグインです。
-やっと完成を見ることができました。
-長かったです。</p>
-
-<p>相変わらず、VimScriptもSketchUpAPIも手探りですが、
-困るのに慣れてきました。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/blog/page/4/">&larr; Older</a>
@@ -1351,6 +1361,14 @@ SketchUpの画面に変化が起きます。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
       </li>
     
@@ -1360,14 +1378,6 @@ SketchUpの画面に変化が起きます。</p>
     
       <li class="post">
         <a href="/blog/2017/12/28/think_logical/">脳を味方にしましょう</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/12/18/spreadsheet_shorturl/">GoogleSpreadsheetを使って、短縮URLを作る</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/12/12/sql_merge/">SQL ServerにはMergeがある</a>
       </li>
     
   </ul>

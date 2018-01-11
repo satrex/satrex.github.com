@@ -9,8 +9,9 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="前編の続きです。 Octopressのインストール いよいよOctopressをインストールしていきます。
-公式サイトやGlideNoteさんの記事、またjedipunkzさんの記事が参考になります。 GithubとOctopressでモダンな技術系ブログを作ってみる - GlideNote &hellip;">
+  <meta name="description" content="vimの設定を見直しています。
+最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
+コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。 今の設定で行くと、いろいろと超えないといけない壁がある感じです。 NeoComplCacheが使えない &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -81,6 +82,141 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/01/vim_setting/">Vimの設定見直し中</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-01T22:43:00+09:00" pubdate data-updated="true">2012-05-01 22:43</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>vimの設定を見直しています。
+最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
+コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。</p>
+
+<p>今の設定で行くと、いろいろと超えないといけない壁がある感じです。</p>
+
+<h3>NeoComplCacheが使えない</h3>
+
+<p>最大の問題は、NeoComplCacheがコマンドラインからは使えないこと。<br/>
+rbファイルやHTMLファイルを編集しようとすると、
+ファイルを開いた時か保存した時のどちらかに、猛烈な勢いでエラーを吐きまくります（詳細は画像参照）。</p>
+
+<p>もう一点重大な問題として、日本語入力などの設定が、コマンドラインからのVimでは不便すぎます。</p>
+
+<ul>
+<li>IMEが全ての入力に優先している。<br/>
+Vimのモード切替などは、日本語入力中でも、半角で受け付けてくれないと不便です。</li>
+<li>Insertモードにすると、カーソルキーでカーソルが移動できない（A〜Dの入力で代替される）。
+set nocompatibleと, imap ^[OA <Up>を試した結果、改善されないので諦めました。</li>
+</ul>
+
+
+<p>基本はGvimを立ち上げるが吉、で当面やってみようかと思います。
+むしろGvimのコマンドラインがzshになってくれたら文句ないんですが、
+Vimのコマンドでlessを使うたびに、『ターミナルの全機能が使えるなんて思うなよ』と言われてしまうので、
+半ば諦めています。おわり。</p>
+
+<h3>エラーメッセージの画像</h3>
+
+<div class="thumbnail"><a href="https://skitch.com/sat-rex/8aqq2/tmux-114x44"><img style="max-width:638px" src="https://img.skitch.com/20120502-ep9y7r2mj68ey3rcgdmy2u86kj.medium.jpg" alt="tmux-114×44" /></a></div>
+
+
+<div class="thumbnail"><a href="https://skitch.com/sat-rex/8axfu/tmux-114x44-1-3"><img style="max-width:638px" src="https://img.skitch.com/20120502-cb8ih2ksrnnfxk7bkgsujpk1ud.medium.jpg" alt="tmux-114×44-1-3" /></a></div>
+
+
+<div class="thumbnail"><a href="https://skitch.com/sat-rex/8axrb/tmux-114x44-3"><img style="max-width:638px" src="https://img.skitch.com/20120502-tt6iku576gwk3sx96yeh32jspx.medium.jpg" alt="tmux-114×44-3" /></a></div>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/04/27/task_remain/">これからやりたいこと</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-27T07:51:00+09:00" pubdate data-updated="true">2012-04-27 07:51</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ひととおりブログの形はできたので、<br/>
+これからやりたいことをまとめて、優先順位を付けてみたいと思います。</p>
+
+<ol>
+<li><p>ブログのデザインを変更する</p>
+
+<ul>
+<li>トップページの画像を作る</li>
+<li>スタイル（sass）を設定する</li>
+<li>はてブとか入れる</li>
+</ul>
+</li>
+<li><p>Skitchの画像管理を楽にする</p>
+
+<ul>
+<li>Skitchで編集した画像が、Octopress配下にコピーされる仕組みを構築する</li>
+</ul>
+</li>
+<li>LokkaでCSSとjavascriptの勉強をする
+
+<ul>
+<li>よくColissとかに載ってるサンプルを、実際に書いてみたい</li>
+</ul>
+</li>
+</ol>
+
+
+<p>Octopressへの投稿じたい、まだまだ練習です。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -478,6 +614,14 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
       </li>
     
@@ -487,14 +631,6 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
     
       <li class="post">
         <a href="/blog/2017/12/28/think_logical/">脳を味方にしましょう</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/12/18/spreadsheet_shorturl/">GoogleSpreadsheetを使って、短縮URLを作る</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/12/12/sql_merge/">SQL ServerにはMergeがある</a>
       </li>
     
   </ul>
