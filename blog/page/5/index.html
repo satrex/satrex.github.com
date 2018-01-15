@@ -9,9 +9,10 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="vimの設定を見直しています。
-最近zshを使うようになって、gvimのコマンドラインに不便を感じるので、
-コマンドラインから起動するモードでも便利にやれたらいいなぁと思っています。 今の設定で行くと、いろいろと超えないといけない壁がある感じです。 NeoComplCacheが使えない &hellip;">
+  <meta name="description" content="ブログのデザインが終わったので、これからやりたいことを整理します。
+まず、[前回のTODOリスト][prev_todo]を確認します。 ブログのデザインを変更する トップページの画像を作る → 完了
+スタイル（sass）を設定する → 完了
+はてブとか入れる → 未完 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -82,6 +83,186 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/06/todo/">これからやりたいこと</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-06T06:41:00+09:00" pubdate data-updated="true">2012-05-06 06:41</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>ブログのデザインが終わったので、これからやりたいことを整理します。
+まず、[前回のTODOリスト][prev_todo]を確認します。</p>
+
+<ol>
+<li><p>ブログのデザインを変更する</p>
+
+<ul>
+<li>トップページの画像を作る → 完了</li>
+<li>スタイル（sass）を設定する → 完了</li>
+<li>はてブとか入れる → 未完</li>
+</ul>
+</li>
+<li><p>Skitchの画像管理を楽にする</p>
+
+<ul>
+<li>Skitchで編集した画像が、Octopress配下にコピーされる仕組みを構築する → やめた</li>
+</ul>
+</li>
+<li><p>LokkaでCSSとjavascriptの勉強をする → 未着手</p>
+
+<ul>
+<li>よくColissとかに載ってるサンプルを、実際に書いてみたい</li>
+</ul>
+</li>
+</ol>
+
+
+<h2>ふりかえり</h2>
+
+<h3>ブログのデザイン</h3>
+
+<p>整理してみたら、ブログのデザインは終わってなかった事が分かりました。
+僕は阿呆ですね。</p>
+
+<p>はてブボタンやら、ブックマーク数が表示される仕組みを入れるつもりでした。</p>
+
+<h3>Skitchの画像管理について</h3>
+
+<p>まず、Octopressフォルダ内で画像を管理するのを一旦やめ、Skitchのサイトにアップロードしてます。<br/>
+GitHubの無料アカウント容量が300MBしかないので、画像の管理に向きません。</p>
+
+<p>GitHubからBitBucketにリポジトリを変える事を検討します。
+最終的には、最速でブログが書ける環境になれればいいです。</p>
+
+<h2>いま考えていること</h2>
+
+<h3>画像管理の方法</h3>
+
+<p>Octopressフォルダ内のsource/images配下で画像が管理できれば、次のような事ができるのかも知れません。</p>
+
+<ul>
+<li>新しい記事を生成する時、当日のimagesフォルダの中身を、記事の末尾に自動記述する。</li>
+</ul>
+
+
+<p>これを実現するのには、OctoEditorをカスタマイズする必要がありそうです。</p>
+
+<p>Skitchから画像を保存する手順を高速化する必要があります。画像をローカルで管理する場合、検討したいのは、次のような作戦です。</p>
+
+<ul>
+<li>Skitchから最速でエクスポートできるよう、当日の画像フォルダは自動的に作る。</li>
+<li>前日までの画像フォルダで、空のものは自動的に削除する。</li>
+</ul>
+
+
+<p>画像をローカルで管理するには、無料で容量無制限のBitBucketが必須です。
+いまは二の足を踏んでますが、BitBucketをちょっと使ってみます。</p>
+
+<h3>Gistを使ってみる</h3>
+
+<p>よく見かける、行番号の入ったかっこいいコード、あれはGistで実現するのだという事は、知識として知っています。</p>
+
+<p>これからは、自分もGistを使ってコードをかっこよく載せたいものです。</p>
+
+<h2>新しいTODO</h2>
+
+<ol>
+<li><p>ブログのデザインを変更する</p>
+
+<ul>
+<li>はてブとか入れる</li>
+</ul>
+</li>
+<li><p>Skitchの画像管理を楽にする</p>
+
+<ul>
+<li>BitBucketを使ってみる</li>
+<li>当日の画像フォルダ自動生成</li>
+<li>当日の画像を記事に自動挿入</li>
+</ul>
+</li>
+<li><p>LokkaでCSSとjavascriptの勉強をする → 当面保留</p>
+
+<ul>
+<li>よくColissとかに載ってるサンプルを、実際に書いてみたい</li>
+</ul>
+</li>
+</ol>
+
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2012/05/05/design_changed/">デザイン変えてみた</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-05T22:14:00+09:00" pubdate data-updated="true">2012-05-05 22:14</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>連休のまとまった時間を利用して、Octopressの勉強がてら、スタイルの設定をがっつりやってみました。
+デフォルトのClassicテーマから、<a href="http://blog.glidenote.com/">GlideNote</a>風のデザインへ。</p>
+
+<p>たぶん、細かい書式を使うとレイアウトが崩れると思うので、これから少しずつブラッシュアップしていければよいでしょう。</p>
+
+<h2>感謝を込めて</h2>
+
+<p>かなりの部分を参考にさせて頂いた<a href="http://twitter.com/glidenote">GlideNoteさん</a>に、感謝の意を表します。好き過ぎてパクっちゃいました★</p>
+
+<p>そもそもOctopress、zshなど、GlideNoteさんの記事を読んでは、もろもろパクり倒してます。
+本当にありがとうございます。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -606,12 +787,20 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
   <br />
   satrex(Satoshi Suzuki)
   <br />
-  <a href="http://twitter.com/satrex">@satrex</a>
-  <a href="mailto:info@satrex.jp">info@satrex.jp</a>
+  <a href="http://twitter.com/satrex">twitter(@satrex)</a><br />
+  <a href="mailto:info@satrex.jp">Mail(info@satrex.jp)</a>
 </section>
 <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/01/16/music_and_passion/">音楽と情熱</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/12/gas_url/">Google Apps Scriptに再挑戦中</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
@@ -623,14 +812,6 @@ Ubuntuの方は、<code>sudo apt-get install git-core</code>です。</p>
     
       <li class="post">
         <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/06/os_make/">OSを作るといい</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2017/12/28/think_logical/">脳を味方にしましょう</a>
       </li>
     
   </ul>

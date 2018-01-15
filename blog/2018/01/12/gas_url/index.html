@@ -5,14 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>SQL ServerにはMergeがある - 電気羊の執務室</title>
+  <title>Google Apps Scriptに再挑戦中 - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="SQL ServerでInsert or Update 今回、会社のデータ処理で、
-SQL Serverを使って、データが存在していれば更新、
-なければ追加、という処理をする必要がありました。 例によってGoogle先生に聞くと、
-『SQL Serverには、Merge文があるんだよ』 &hellip;">
+  <meta name="description" content="小さなアプリをGoogleAppsScriptで作る GoogleAppsScript(GAS)を知っていますか？
+Googleのサーバー上に、小さなプログラムを乗せる事ができるのです。 これは地味にすごいことです。 Herokuを始め、プログラムを乗せる場所を使わせてくれるサービスは、 &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,7 +19,7 @@ SQL Serverを使って、データが存在していれば更新、
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2017/12/12/sql_merge">
+  <link rel="canonical" href="http://satrex.github.com/blog/2018/01/12/gas_url">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="/javascripts/modernizr-2.0.js"></script>
@@ -86,7 +84,7 @@ SQL Serverを使って、データが存在していれば更新、
   
   <header>
     
-      <h1 class="entry-title">SQL ServerにはMergeがある</h1>
+      <h1 class="entry-title">Google Apps Scriptに再挑戦中</h1>
     
     
       <p class="meta">
@@ -102,70 +100,37 @@ SQL Serverを使って、データが存在していれば更新、
   
 
 
-<time datetime="2017-12-12T18:00:00+09:00" pubdate data-updated="true">2017-12-12 18:00</time>
+<time datetime="2018-01-12T23:32:00+09:00" pubdate data-updated="true">2018-01-12 23:32</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>SQL ServerでInsert or Update</h2>
+<div class="entry-content"><h2>小さなアプリをGoogleAppsScriptで作る</h2>
 
-<p>今回、会社のデータ処理で、<br/>
-SQL Serverを使って、データが存在していれば更新、<br/>
-なければ追加、という処理をする必要がありました。</p>
+<p>GoogleAppsScript(GAS)を知っていますか？
+Googleのサーバー上に、小さなプログラムを乗せる事ができるのです。</p>
 
-<p>例によってGoogle先生に聞くと、
-『SQL Serverには、Merge文があるんだよ』というお告げを受けました。</p>
+<p>これは地味にすごいことです。</p>
 
-<h2>構文</h2>
+<p>Herokuを始め、プログラムを乗せる場所を使わせてくれるサービスは、他にもあります。</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>MERGE INTO test_tableA AS A
-</span><span class='line'>    USING test_tableB AS B
-</span><span class='line'>    ON
-</span><span class='line'>    (
-</span><span class='line'>       A.no = B.no
-</span><span class='line'>    )
-</span><span class='line'>    WHEN MATCHED THEN
-</span><span class='line'>        UPDATE SET
-</span><span class='line'>             name = B.name
-</span><span class='line'>            ,age = B.age
-</span><span class='line'>    WHEN NOT MATCHED THEN
-</span><span class='line'>        INSERT (no,name,age)
-</span><span class='line'>        VALUES
-</span><span class='line'>        (
-</span><span class='line'>             B.no
-</span><span class='line'>            ,B.name
-</span><span class='line'>            ,B.age
-</span><span class='line'>        )
-</span><span class='line'>;</span></code></pre></td></tr></table></div></figure>
+<h2>GoogleAppsScriptの何がいいか？</h2>
 
+<p>GASのいいところは、ある程度お手軽にサラッと書く事もでき、
+Webアプリに拡張する事もできる事です。</p>
 
-<p>暗記できる気はしないので、いつか同じ事をやる時は、<br/>
-このエントリーを見返すと思います。</p>
+<p>また、自動実行で定期的な処理をさせる用途にも使えます。</p>
 
-<h2>参考資料</h2>
+<h2>イメージは太陽や風</h2>
 
-<p><a href="https://lightgauge.net/database/sqlserver/2446/#MERGE1SQLOK">https://lightgauge.net/database/sqlserver/2446/#MERGE1SQLOK</a></p>
+<p>太陽の光は、毎日定期的に降り注いで、植物を育てたり、熱を与えてくれたりします。
+あるいは、常に吹いている風のようなものです。</p>
+
+<p>その一部分を、自分がうまく行くように仕掛けをしてあげることで、得をすることができます。</p>
+
+<p>プログラミングは、まず自分が得をしないといけません。</p>
 </div>
 
 
@@ -188,7 +153,7 @@ SQL Serverを使って、データが存在していれば更新、<br/>
   
 
 
-<time datetime="2017-12-12T18:00:00+09:00" pubdate data-updated="true">2017-12-12 18:00</time>
+<time datetime="2018-01-12T23:32:00+09:00" pubdate data-updated="true">2018-01-12 23:32</time>
       
 
 
@@ -196,7 +161,7 @@ SQL Serverを使って、データが存在していれば更新、<br/>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2017/12/12/sql_merge/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2017/12/12/sql_merge/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2018/01/12/gas_url/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2018/01/12/gas_url/" >Tweet</a>
   
   
   
@@ -205,10 +170,10 @@ SQL Serverを使って、データが存在していれば更新、<br/>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2017/12/12/sakura_vps_ssh/" title="Previous Post: サーバーを作り直す時、known_hostsをメンテする">&laquo; サーバーを作り直す時、known_hostsをメンテする</a>
+        <a class="basic-alignment left" href="/blog/2018/01/12/aibo/" title="Previous Post: AIBOがニュースになってます">&laquo; AIBOがニュースになってます</a>
       
       
-        <a class="basic-alignment right" href="/blog/2017/12/18/spreadsheet_shorturl/" title="Next Post: GoogleSpreadsheetを使って、短縮URLを作る">GoogleSpreadsheetを使って、短縮URLを作る &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2018/01/16/music_and_passion/" title="Next Post: 音楽と情熱">音楽と情熱 &raquo;</a>
       
     </p>
   </footer>
@@ -329,8 +294,8 @@ SQL Serverを使って、データが存在していれば更新、<br/>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2017/12/12/sql_merge/';
-        var disqus_url = 'http://satrex.github.com/blog/2017/12/12/sql_merge/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2018/01/12/gas_url/';
+        var disqus_url = 'http://satrex.github.com/blog/2018/01/12/gas_url/';
         var disqus_script = 'embed.js';
       
     (function () {
