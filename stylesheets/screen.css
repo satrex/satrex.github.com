@@ -155,6 +155,7 @@ body {
 }
 
 .entry-title {
+  padding-left: 10px;
   font-size: 1.4em;
   line-height: 1.7em;
   font-weight: normal;
