@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>VimSketchUpをリリースしました - 電気羊の執務室</title>
+  <meta name="author" content="satrex">
+
+  
+  <meta name="description" content="VimでSketchUpのRubyスクリプトを書きたい方に朗報です。
+VimでSketchUpRubyを実行できるプラグインをリリースしました。 動作のイメージ 例えば、スクリプトで三角形を描いてみます。
+初めに、SketchUpを起動します。
+これが初期画面。ちなみに、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/06/04/vimsketchup">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31451390-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+<div class="title_img">
+    <a href="/"><img class="title_img" src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+</div>
+<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
+  
+    <h2>魔法を作る仕事をしています。</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/blog/categories">Category</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">VimSketchUpをリリースしました</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-04T00:38:00+09:00" pubdate data-updated="true">2012-06-04 00:38</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>VimでSketchUpのRubyスクリプトを書きたい方に朗報です。
+VimでSketchUpRubyを実行できるプラグインをリリースしました。</p>
+
+<h2>動作のイメージ</h2>
+
+<p>例えば、スクリプトで三角形を描いてみます。
+初めに、SketchUpを起動します。
+これが初期画面。ちなみに、女の子の名前はサンちゃんです。</p>
+
+<p><img src="https://img.skitch.com/20120603-bi3hcwd594ubauj132rkhkwk92.gif" alt="SketchUpの初期画面" /></p>
+
+<p>何もないところに、Rubyスクリプトで三角形を描きます。
+まず、VimでSketchUp用のスクリプトを書きます。</p>
+
+<p><img src="https://img.skitch.com/20120603-e29j4n2sq9hk15mmfrqj461sib.gif" alt="VimでRubyスクリプトを書いたところ" /></p>
+
+<p>そして、”￥sur”とキーボードで入力すると、
+SketchUpの画面に変化が起きます。</p>
+
+<p><img src="https://img.skitch.com/20120603-jmbeicj5qw2xp1rmujb42cqub.gif" alt="三角形が出たところ" /></p>
+
+<p>三角形が描けました。</p>
+
+<h2>GitHubに登録しました</h2>
+
+<p>このスクリプトを、GitHubに登録しました。
+リポジトリは<a href="https://github.com/satrex/VimSketchUpRuby">ここです</a>。</p>
+
+<h2>これから</h2>
+
+<p>インストールの仕方、初期設定など、
+使い方に関する記事を書きます。</p>
+
+<p>VimでSketchUpRubyが書けるようになったからには、
+補完の支援を受けたり、SketchUpAPIのヘルプをローカルで
+見たりできるようになりたいです。</p>
+
+<p>Rubyの補完は弱いので限界はあるのですが、
+現在はdictファイルを使って、補完に挑戦しています。</p>
+
+<h2>感想</h2>
+
+<p>前々から作りたいと言っていたプラグインです。
+やっと完成を見ることができました。
+長かったです。</p>
+
+<p>相変わらず、VimScriptもSketchUpAPIも手探りですが、
+困るのに慣れてきました。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-06-04T00:38:00+09:00" pubdate data-updated="true">2012-06-04 00:38</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2012/06/04/vimsketchup/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2012/06/04/vimsketchup/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/05/29/sketchup_activation/" title="Previous Post: MacでSketchUpのRubyスクリプトを自動実行">&laquo; MacでSketchUpのRubyスクリプトを自動実行</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/06/13/toodledoautopass/" title="Next Post: 便利！Toodledoアプリのパスワード">便利！Toodledoアプリのパスワード &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="http://blog.satrex.jp/images/self-portrait_pop.png" height="250" width="200" />
+  <br />
+  satrex(Satoshi Suzuki)
+  <br />
+  <a href="http://twitter.com/satrex">twitter(@satrex)</a><br />
+  <a href="mailto:info@satrex.jp">Mail(info@satrex.jp)</a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/01/16/music_and_passion/">音楽と情熱</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/12/gas_url/">Google Apps Scriptが便利</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/satrex">@satrex</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'satrex',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("satrex", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - satrex -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'e-sheep';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://satrex.github.com/blog/2012/06/04/vimsketchup/';
+        var disqus_url = 'http://satrex.github.com/blog/2012/06/04/vimsketchup/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

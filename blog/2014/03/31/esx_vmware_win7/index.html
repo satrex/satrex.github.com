@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>VMWare ESXiホストへ、Windows7マシンをPackerで作る - 電気羊の執務室</title>
+  <meta name="author" content="satrex">
+
+  
+  <meta name="description" content="今回は、VMWare ESXiのホストマシンに、
+Packerを使用してWindows7のゲストマシンを導入する方法を紹介します。 今回の構成 Packerを使う理由 ゲストマシンの立ち上げは、
+ESXiから直接やるよりも、
+ツール経由でやるほうが後々便利です。 Packerは、『 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://satrex.github.com/blog/2014/03/31/esx_vmware_win7">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31451390-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+<div class="title_img">
+    <a href="/"><img class="title_img" src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+</div>
+<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
+  
+    <h2>魔法を作る仕事をしています。</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+  <li><a href="/blog/categories">Category</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">VMWare ESXiホストへ、Windows7マシンをPackerで作る</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-31T13:57:00+09:00" pubdate data-updated="true">2014-03-31 13:57</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>今回は、VMWare ESXiのホストマシンに、
+Packerを使用してWindows7のゲストマシンを導入する方法を紹介します。</p>
+
+<h4>今回の構成</h4>
+
+<p><img src="https://www.evernote.com/shard/s75/sh/c1eea577-aa4f-47de-8ef3-e5bf407e87ad/7d65bb6c490c7dfc99def18e887c97e5/deep/0/esx.png" alt="構成図" /></p>
+
+<h4>Packerを使う理由</h4>
+
+<p>ゲストマシンの立ち上げは、
+ESXiから直接やるよりも、
+ツール経由でやるほうが後々便利です。</p>
+
+<p>Packerは、『Vagrantで扱えるVMのひな形(boxファイル)を作るツール』です。
+最終的には、Vagrantなどでサーバーインスタンスを次々と
+作る予定ですが、そのためには最初のひな形をどうにか作る必要があります。</p>
+
+<p>Linuxなどは、boxファイルが多数公開されていて、
+ダウンロードして使う事ができますが、Windowsはライセンスの関係で、
+公開されているものがありません。自分で作るしかないわけです。</p>
+
+<p>VirtualBox使いには、<code>vagrant package</code>というコマンドで、
+動いているインスタンスからひな形を作ってしまう手がありますが、
+VMWare使いは、手で作らなくてはなりません。</p>
+
+<h4>ESXiホストに、ユーザーを追加する</h4>
+
+<p>作業用のmacで動くPackerで、ネットワーク上のVMWare ESXiにリモート接続します。
+デフォルトでは、rootでSSHログインできません。
+ここは真っ当に、別ユーザーを追加することにします。</p>
+
+<p>以下の２点を確認します。
+* 作業用WindowsのvSphereクライアントからESXiホストを参照し、『ローカルユーザーおよびグループ』タブから、ユーザーを追加します。
+* 『権限』タブから、新規ユーザーに権限を付与します。ここでは、管理者権限を付与しました。</p>
+
+<h4>ESXiホストのSSHを有効化する</h4>
+
+<p>まず、VMWare ESXホストでSSH通信を有効化します。
+ホストにログインし、コンソールから、以下のふたつの項目を選びます。</p>
+
+<p>Troubleshooting Options ->
+- Enable ESXi Shell
+- Enabe SSH</p>
+
+<h4>ホストにSSHログインし、GuestIPHackを有効化する</h4>
+
+<p>SSHが有効になったら、作業用macから以下のコマンドでESXホストにログインします。
+<code>ssh (新規ユーザー)@ESXホストのアドレス</code></p>
+
+<p>パスワードを入力し、ログインできたら、以下のコマンドを入力します。</p>
+
+<p><code>esxcli system settings advanced set -o /Net/GuestIPHack -i 1</code></p>
+
+<p>エラーなく完了したら、exitコマンドでSSHを抜けます。</p>
+
+<h4>Packer用のビルドファイルを作成</h4>
+
+<p>Packerを実行するためのファイルを作成します。
+ここでは、先人の記述してくれたjsonファイルを、
+ありがたく使わせていただく事にします。</p>
+
+<p><code>
+git clone https://github.com/misheska/basebox-packer
+</code>
+template/windows7ディレクトリから、
+ここではwin7x86-pro.jsonを選択します。
+インストーラのパスなどを実際のものに置き換えた後、以下のコマンドで内容を確認します。</p>
+
+<p><code>
+packer validate vmware_win7.json
+</code></p>
+
+<p>エラーが出なければ、以下のコマンドでビルドを行います。</p>
+
+<p><code>
+packer build vmware_win7.json
+</code></p>
+
+<p>１回失敗するごとに、OSインストール分の時間がかかるので、
+小さな修正が一番つらい。
+がんばりましょう。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-31T13:57:00+09:00" pubdate data-updated="true">2014-03-31 13:57</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2014/03/31/esx_vmware_win7/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2014/03/31/esx_vmware_win7/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/03/15/active_scaffold/" title="Previous Post: active_scaffoldが調子いい">&laquo; active_scaffoldが調子いい</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/06/25/dev_ops_tools/" title="Next Post: 仮想マシン構築自動化ツールのまとめ">仮想マシン構築自動化ツールのまとめ &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <p><img src="http://blog.satrex.jp/images/self-portrait_pop.png" height="250" width="200" />
+  <br />
+  satrex(Satoshi Suzuki)
+  <br />
+  <a href="http://twitter.com/satrex">twitter(@satrex)</a><br />
+  <a href="mailto:info@satrex.jp">Mail(info@satrex.jp)</a>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2018/01/16/music_and_passion/">音楽と情熱</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/12/gas_url/">Google Apps Scriptが便利</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/satrex">@satrex</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'satrex',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("satrex", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - satrex -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'e-sheep';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://satrex.github.com/blog/2014/03/31/esx_vmware_win7/';
+        var disqus_url = 'http://satrex.github.com/blog/2014/03/31/esx_vmware_win7/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

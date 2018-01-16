@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: メルマガ | 電気羊の執務室]]></title>
+  <link href="http://satrex.github.com/blog/categories/merumaga/atom.xml" rel="self"/>
+  <link href="http://satrex.github.com/"/>
+  <updated>2018-01-17T00:31:53+09:00</updated>
+  <id>http://satrex.github.com/</id>
+  <author>
+    <name><![CDATA[satrex]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[メールマガジンを始めました]]></title>
+    <link href="http://satrex.github.com/blog/2017/11/29/mail_magazine/"/>
+    <updated>2017-11-29T21:03:00+09:00</updated>
+    <id>http://satrex.github.com/blog/2017/11/29/mail_magazine</id>
+    <content type="html"><![CDATA[<p>今日から、メールマガジンを始めます。</p>
+
+<p>プログラミングは、これからの日本を救う切り札になると思います。
+なぜなら、人口が減っていく日本の未来で、機械に仕事をやらせるのは、経済発展のキーファクターになるからです。</p>
+
+<p>これは、僕がプログラミングを教える理由の最重要ポイントなので、<br/>
+繰り返し話します。</p>
+
+<p>さて、メールマガジンをやるからには、
+プログラミングを覚えるとうまく行く事や、
+勉強の挫折を防ぐポイント、速く書ける方法などについて、
+お話しできればと思います。</p>
+
+<p>たまに、聞きたい内容について、アンケートも取る予定です。
+以下のフォームから、購読してください。</p>
+
+<p><form action="https://www.agentmail.jp/list/register/"  method="post">
+<input type="hidden" name="AGENTMAIL__formid" value="wu1sBgcAsVo=" />
+<input type="hidden" name="AGENTMAIL__formpagereferer" value="" /></p>
+
+<dl><dh>メールアドレス</dh><dd><input type="email"  name="AGENTMAIL__mailaddress" value=""   /></dd></dl>
+
+
+<dl><dh>ニックネーム</dh><dd><input type="text"  name="AGENTMAIL__nickname" value=""   /></dd></dl>
+
+
+<p><input class="AGENTMAIL__submit" type="submit" value="登録する"  />
+</form><div id="agentmailformshadow"></div></p>
+
+<!-- for form access start -->
+
+
+<script type="text/javascript">
+(function() {
+var dr = encodeURIComponent(document.referrer);
+var elements = document.getElementsByName("AGENTMAIL__formpagereferer");
+for(var i=0;i<elements.length; i++){ elements[i].value=dr; }
+var imgObj = document.createElement("img");
+imgObj.src = "https://www.agentmail.jp/image/fa/10222/?dr="+dr;
+imgObj.width = "1";
+imgObj.height = "1";
+imgObj.border = "0";
+var bodyObj = document.getElementsByTagName("body")[0];
+bodyObj.appendChild(imgObj);
+})();
+</script>
+
+
+<!-- for form access end -->
+
+
+<p>あなたのポケットに僕の言葉をお届けできるのを、楽しみにしています。</p>
+]]></content>
+  </entry>
+  
+</feed>
