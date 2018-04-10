@@ -9,8 +9,34 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="前回の続きです。
-SketchUpには、WebDialogというコンポーネントがあります。 これを使うとrubyスクリプトから、フォームを作成でき, ユーザーと対話的にスクリプトを実行できるわけです。 すごくハマったところ 今回、WebDialog経由でrubyスクリプトを実行する際に、 &hellip;">
+  <meta name="description" content="
+
+  
+  
+    
+      SketchupのWebDialogで、rubyスクリプトが呼べない時
+    
+    
+      
+        
+
+
+
+
+
+
+
+
+
+
+        
+      
+    
+  
+
+
+前回の続きです。
+SketchUpには、WebDialogと...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,16 +45,17 @@ SketchUpには、WebDialogというコンポーネントがあります。 こ�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2012/12/24/sketchupjs">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link rel="canonical" href="http://satrex.github.com/blog/2012/12/24/sketchupjs/">
+  <link href="//favicon.png" rel="icon">
+  <link href="//stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="//javascripts/modernizr-2.0.js"></script>
+  <script src="//javascripts/ender.js"></script>
+  <script src="//javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="//javascripts/monthly_archive.js"></script>
 
   
   <script type="text/javascript">
@@ -49,9 +76,9 @@ SketchUpには、WebDialogというコンポーネントがあります。 こ�
 <body   >
   <header role="banner"><hgroup>
 <div class="title_img">
-    <a href="/"><img class="title_img" src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+    <a href="//"><img class="title_img" src="//images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
 </div>
-<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
+<!--  <h1><a href="//">電気羊の執務室</a></h1> -->
   
     <h2>魔法を作る仕事をしています。</h2>
   
@@ -65,15 +92,15 @@ SketchUpには、WebDialogというコンポーネントがあります。 こ�
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input type="hidden" name="q" value="site:http://satrex.github.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/blog/categories">Category</a></li>
+  <li><a href="//">Blog</a></li>
+  <li><a href="//blog/archives">Archives</a></li>
+  <li><a href="//blog/categories">Category</a></li>
 </ul>
 
 </nav>
@@ -97,10 +124,8 @@ SketchUpには、WebDialogというコンポーネントがあります。 こ�
 
 
 
-  
 
-
-<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
+<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -126,12 +151,12 @@ SketchUp 8.0.4810</p>
 動作を設定しているのですが、<br/>
 なんと、入力部品の違いによって、動作の一部が実行されません。</p>
 
-<h2>buttonとinput type=&#8221;button&#8221;</h2>
+<h2>buttonとinput type="button"</h2>
 
-<p>結論から言うと、リンクと、&lt;input type=&#8221;button&#8221;>で生成したボタンは、<br/>
+<p>結論から言うと、リンクと、\<input type="button"\>で生成したボタンは、<br/>
 問題なく動作します。</p>
 
-<p>しかし、&lt;button>エレメントで生成したボタンは、<br/>
+<p>しかし、\&lt;button>エレメントで生成したボタンは、<br/>
 window.location=でリダイレクトを行う事ができません。</p>
 
 <p>これができないと、javascriptからrubyコードが呼べないのです。<br/>
@@ -139,60 +164,8 @@ rubyスクリプトは、javascriptからはurlとして指定する必要があ
 
 <h2>サンプルコード</h2>
 
-<div><script src='https://gist.github.com/4367294.js'></script>
-<noscript><pre><code>require &#39;Sketchup&#39;
-
-def show_dialog
-  dlg = UI::WebDialog.new(&quot;DialogTest&quot;, false,
-   &quot;DialogTest&quot;, 200, 150, 150, 150, true);
-  html = &lt;&lt;-HTML
-  &lt;html&gt;
-  &lt;head&gt;
-  &lt;script type=&quot;text/javascript&quot;&gt;
-  &lt;!--
-    function doubleAlert()
-    {
-        jsAlert();
-        rubyAlert();
-    }
-
-    function rubyAlert()
-    {
-       // ruby経由でメッセージボックスを呼ぶ
-       window.location.href=&quot;skp:ruby_messagebox@Hello World&quot;;
-    }
-
-    function jsAlert()
-    {
-        // javascript経由でメッセージボックスを呼ぶ
-        window.alert(&#39;alert from javascript&#39;);
-    }
-   --&gt;
-    &lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;form&gt;
-      &lt;!--buttonエレメントからは、window.locationが指定できないので、rubyスクリプトは呼べない--&gt;
-      &lt;button id=&quot;start&quot; onclick=&quot;doubleAlert()&quot;&gt;button&lt;/button&gt;
-      &lt;/br&gt;
-      &lt;!--inputエレメントからは、window.locationが指定できるので、rubyスクリプトが呼べる--&gt;
-      &lt;input id=&quot;start2&quot; onClick=&quot;doubleAlert()&quot; type=&quot;button&quot; size=&quot;100&quot; value=&quot;input&quot;&gt;    
-      &lt;/br&gt;
-      &lt;!--リンクからは、urlが指定できるので、rubyスクリプトが呼べる--&gt;
-      &lt;a href=&quot;javascript:doubleAlert();&quot;&gt;link&lt;/a&gt;
-    &lt;/form&gt;
-    &lt;/html&gt;
-  HTML
-  
-  dlg.set_html html
-  dlg.add_action_callback(&quot;ruby_messagebox&quot;) {|dialog, params|
-    UI.messagebox(&quot;You called ruby_messagebox with: &quot; + params.to_s)
-  }
-  dlg.show
-end
-
-show_dialog</code></pre></noscript></div>
-
+<p><noscript><pre>400: Invalid request
+</pre></noscript><script src="https://gist.github.com/4367294.js"> </script></p>
 
 <h2>サンプルコードの使い方</h2>
 
@@ -239,8 +212,6 @@ Vim上でショートカットを入力するだけで、サンプルコード�
   <footer>
     <p class="meta">
       
-  
-
 <span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
 
       
@@ -252,10 +223,8 @@ Vim上でショートカットを入力するだけで、サンプルコード�
 
 
 
-  
 
-
-<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true">2012-12-24 12:00</time>
+<time datetime="2012-12-24T12:00:00+09:00" pubdate data-updated="true"></time>
       
 
 
@@ -290,93 +259,6 @@ Vim上でショートカットを入力するだけで、サンプルコード�
 </div>
 
 <aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p><img src="http://blog.satrex.jp/images/self-portrait_pop.png" height="250" width="200" />
-  <br />
-  satrex(Satoshi Suzuki)
-  <br />
-  <a href="http://twitter.com/satrex">twitter(@satrex)</a><br />
-  <a href="mailto:info@satrex.jp">Mail(info@satrex.jp)</a>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2018/01/16/music_and_passion/">音楽と情熱</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/gas_url/">Google Apps Scriptが便利</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/satrex">@satrex</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'satrex',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("satrex", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
-  
-</section>
-
-
-
-
-
   
 </aside>
 

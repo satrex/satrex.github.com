@@ -9,8 +9,37 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="指揮者のTEDトーク 最近動画で見た、ある指揮者のプレンテーションがたいへん面白かったのでシェアします。
-TEDという、アメリカの山の中で色んなプレゼンをする大会で話しているところです。 とりあえず見て下さい。 https://www.ted.com/talks/ &hellip;">
+  <meta name="description" content="
+  
+  
+  
+    
+      
+  
+    
+      Google Document API の文書構造
+    
+    
+      
+        
+
+
+
+
+
+
+
+
+
+
+        
+      
+    
+  
+
+
+  こんにちは。
+今回、Googleドキュメン...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,16 +48,17 @@ TEDという、アメリカの山の中で色んなプレゼンをする大会�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link rel="canonical" href="http://satrex.github.com/">
+  <link href="//favicon.png" rel="icon">
+  <link href="//stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="//javascripts/modernizr-2.0.js"></script>
+  <script src="//javascripts/ender.js"></script>
+  <script src="//javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="//javascripts/monthly_archive.js"></script>
 
   
   <script type="text/javascript">
@@ -49,9 +79,9 @@ TEDという、アメリカの山の中で色んなプレゼンをする大会�
 <body   >
   <header role="banner"><hgroup>
 <div class="title_img">
-    <a href="/"><img class="title_img" src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+    <a href="//"><img class="title_img" src="//images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
 </div>
-<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
+<!--  <h1><a href="//">電気羊の執務室</a></h1> -->
   
     <h2>魔法を作る仕事をしています。</h2>
   
@@ -65,15 +95,15 @@ TEDという、アメリカの山の中で色んなプレゼンをする大会�
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input type="hidden" name="q" value="site:http://satrex.github.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/blog/categories">Category</a></li>
+  <li><a href="//">Blog</a></li>
+  <li><a href="//blog/archives">Archives</a></li>
+  <li><a href="//blog/categories">Category</a></li>
 </ul>
 
 </nav>
@@ -81,6 +111,205 @@ TEDという、アメリカの山の中で色んなプレゼンをする大会�
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/03/10/gas%E3%81%AE%E6%96%87%E6%9B%B8%E6%A7%8B%E9%80%A0/">Google Document API の文書構造</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+
+<time datetime="2018-03-10T17:48:00+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>こんにちは。
+今回、Googleドキュメントの文書をスクリプトから編集する処理を書いていて、ハマったポイントがあるので共有します。</p>
+
+<p>水平線(hの扱い</p>
+
+<p>今回やろうとしたのは、文書を水平線(hr)で区切る構成です。
+- 水平線以前がテンプレート
+- 水平線以降に出力結果が表示される</p>
+
+<p>という構成で、水平線以前／以降を判定する処理が必要でした。</p>
+
+<h3>水平線を取得する</h3>
+
+<p>水平線を取得するのは、
+BodyオブジェクトのfindObjectメソッドで行います。</p>
+
+<pre><code>var firstHr = body.findElement(searchTypeHR);
+</code></pre>
+
+<p>こんな感じです。
+これで取得できるのはRangeElementオブジェクトなので、さらにgetElement()メソッドで、中身のHorizontalRuleオブジェクトを取り出してあげます。</p>
+
+<pre><code>var theHr = firstHr.getElement();
+</code></pre>
+
+<p>これを基準に、段落（Paragraphオブジェクト）の位置を判定すれば、水平線以前と以降がわかるはずです。</p>
+
+<h3>水平線の前後要素が取れない</h3>
+
+<p>しかし、ここがハマりポイントとなりました。
+すなわち、HorizontalRuleオブジェクトの、文書内の位置が取れません。</p>
+
+<p>ここで読むべきものはドキュメントです。</p>
+
+<p><a href="https://developers.google.com/apps-script/guides/docs#structure_of_a_document">https://developers.google.com/apps-script/guides/docs#structure_of_a_document</a></p>
+
+<p>これによると、『水平線は、ListItemやParagraphの配下である』と書いてあります。
+文書構造としては、このようになっているわけです。</p>
+
+<pre><code>Body
+  ├ Paragraph
+  │  ├ Text
+  │  └ Text
+  ├ Paragraph
+  │  └ HorizontalRule
+    .
+    .
+    .
+</code></pre>
+
+<h3>解決法</h3>
+
+<p>HorizontalRuleオブジェクトはParagraphオブジェクトの子なので、文書内の位置を知るには、親要素となるParagraphオブジェクトを取得する必要がありました。</p>
+
+<p>というわけで、以下のようにすると、文書内の位置が取れたのでした。</p>
+
+<pre><code>body.getChildIndex( theHr.getParent())
+</code></pre>
+
+<p>めでたし。</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2018/03/10/googleappsscript%E3%81%A7%E5%B7%AE%E3%81%97%E8%BE%BC%E3%81%BF%E5%8D%B0%E5%88%B7/">GoogleAppsScriptで差し込み印刷</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+
+<time datetime="2018-03-10T16:21:00+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Google Apps Scriptで、ドキュメントの差し込みを行うサンプルを作りました。</p>
+
+<p>完成品は別途シェアするとして、内容とハマったポイントを記録しておきます。</p>
+
+<h2>やりたいこと</h2>
+
+<p>Wordの差し込み印刷のような事が、Google Docsでやりたかったです。
+具体的には、こういう感じです。</p>
+
+<ol>
+<li>Google Documentの文書（テンプレート文書と呼びます）に本文と置換用のプレースホルダを書いておきます。</li>
+<li>別のスプレッドシート(実行シートと呼びます)に、差込用の言葉（相手の名前など）を書いておきます。</li>
+<li>スプレッドシートでスクリプトを実行します。</li>
+<li>プレースホルダが差込用の単語に置き換わって、テンプレート文書の後半に、新しい本文が生成されます。(テンプレートを置き換えてしまうと何度も使えないので)</li>
+<li>たくさん作れないと意味がないので、スプレッドシート上にたくさんの文書のURLと、それぞれの差し込み内容を書いておくと、一括で生成します。</li>
+</ol>
+
+
+<h2>この記事で作るもの</h2>
+
+<ol>
+<li>テンプレート文書</li>
+<li>Google Drive上にドキュメント文書を作り、テンプレート文書とします。</li>
+<li>テンプレート文書には、本文とプレースホルダを記述します。</li>
+<li>テンプレート文書のドキュメントIDをコピーしておきます。</li>
+<li>実行シート</li>
+<li><p>Google Drive上にスプレッドシートを作り、実行シートとします。</p></li>
+<li><p>スクリプトファイル</p></li>
+<li>実行シートから作ります。</li>
+<li>テンプレートから本文を生成する部分です。</li>
+</ol>
+
+
+<h2>作成手順</h2>
+
+<p>１．テンプレート文書を作る
+今回は、テンプレート文書の中に、テンプレート部分と出力結果を生成するスタイルにします。</p>
+
+<p>テンプレート文書はひとつで、出力結果を分けたい場合は、別途スクリプトを調整してください。</p>
+
+<p>文書の中では、テンプレート部分と出力結果を水平線で区切ります。最初の水平線以前がテンプレート部分、それ以降が出力結果となります。</p>
+
+<p>テンプレート部分に、本文とプレースホルダを記述します。
+今回のサンプルでは、{最初の差し込み内容}{ふたつ目の差し込み内容}という文字列を使っています。この波カッコ内がプレースホルダとなり、出力結果では差込文字列と置き換わります。</p>
+
+<p>２．実行シートを作る</p>
+
+<p>Google Drive内にスプレッドシートを作り、実行シートとします。
+シートの内容は、以下のようにします。</p>
+
+<ul>
+<li>最初の行をタイトル行とし、以下の項目を定義します。
+
+<ul>
+<li>ドキュメントID</li>
+<li>差込用文字列</li>
+</ul>
+</li>
+<li>2行目以下はデータ行です。
+
+<ul>
+<li>ドキュメントIDに、テンプレート文書のドキュメントIDを指定します。</li>
+<li>差込用文字列に、プレースホルダと置き換える文字列を指定します。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>３．スクリプトファイルを作る</p>
+
+<p>実行シート上で『ツール → スクリプトエディタ...』を選択し、スクリプトエディタを起動します。</p>
+
+<p>スクリプトエディタのファイルを、任意の名前に変更します。</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -100,10 +329,8 @@ TEDという、アメリカの山の中で色んなプレゼンをする大会�
 
 
 
-  
 
-
-<time datetime="2018-01-16T06:39:00+09:00" pubdate data-updated="true">2018-01-16 06:39</time>
+<time datetime="2018-01-16T06:39:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -159,10 +386,8 @@ TEDという、アメリカの山の中で色んなプレゼンをする大会�
 
 
 
-  
 
-
-<time datetime="2018-01-12T23:32:00+09:00" pubdate data-updated="true">2018-01-12 23:32</time>
+<time datetime="2018-01-12T23:32:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -218,10 +443,8 @@ Webアプリに拡張する事もできる事です。</p>
 
 
 
-  
 
-
-<time datetime="2018-01-12T00:09:00+09:00" pubdate data-updated="true">2018-01-12 00:09</time>
+<time datetime="2018-01-12T00:09:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -279,10 +502,8 @@ Webアプリに拡張する事もできる事です。</p>
 
 
 
-  
 
-
-<time datetime="2018-01-09T00:34:00+09:00" pubdate data-updated="true">2018-01-09 00:34</time>
+<time datetime="2018-01-09T00:34:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -350,10 +571,8 @@ Webアプリに拡張する事もできる事です。</p>
 
 
 
-  
 
-
-<time datetime="2018-01-07T22:45:00+09:00" pubdate data-updated="true">2018-01-07 22:45</time>
+<time datetime="2018-01-07T22:45:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -423,10 +642,8 @@ Webアプリに拡張する事もできる事です。</p>
 
 
 
-  
 
-
-<time datetime="2018-01-06T21:56:00+09:00" pubdate data-updated="true">2018-01-06 21:56</time>
+<time datetime="2018-01-06T21:56:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -487,10 +704,8 @@ OSは、ロマンがあるので作るべきでしょう。</p>
 
 
 
-  
 
-
-<time datetime="2017-12-28T17:39:00+09:00" pubdate data-updated="true">2017-12-28 17:39</time>
+<time datetime="2017-12-28T17:39:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -569,10 +784,8 @@ OSは、ロマンがあるので作るべきでしょう。</p>
 
 
 
-  
 
-
-<time datetime="2017-12-18T11:05:00+09:00" pubdate data-updated="true">2017-12-18 11:05</time>
+<time datetime="2017-12-18T11:05:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -636,252 +849,15 @@ Rubyでもいいのですが、バージョンに苦しんだ事もあり・・�
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2017/12/12/sql_merge/">SQL ServerにはMergeがある</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2017-12-12T18:00:00+09:00" pubdate data-updated="true">2017-12-12 18:00</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>SQL ServerでInsert or Update</h2>
-
-<p>今回、会社のデータ処理で、<br/>
-SQL Serverを使って、データが存在していれば更新、<br/>
-なければ追加、という処理をする必要がありました。</p>
-
-<p>例によってGoogle先生に聞くと、
-『SQL Serverには、Merge文があるんだよ』というお告げを受けました。</p>
-
-<h2>構文</h2>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>MERGE INTO test_tableA AS A
-</span><span class='line'>    USING test_tableB AS B
-</span><span class='line'>    ON
-</span><span class='line'>    (
-</span><span class='line'>       A.no = B.no
-</span><span class='line'>    )
-</span><span class='line'>    WHEN MATCHED THEN
-</span><span class='line'>        UPDATE SET
-</span><span class='line'>             name = B.name
-</span><span class='line'>            ,age = B.age
-</span><span class='line'>    WHEN NOT MATCHED THEN
-</span><span class='line'>        INSERT (no,name,age)
-</span><span class='line'>        VALUES
-</span><span class='line'>        (
-</span><span class='line'>             B.no
-</span><span class='line'>            ,B.name
-</span><span class='line'>            ,B.age
-</span><span class='line'>        )
-</span><span class='line'>;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>暗記できる気はしないので、いつか同じ事をやる時は、<br/>
-このエントリーを見返すと思います。</p>
-
-<h2>参考資料</h2>
-
-<p><a href="https://lightgauge.net/database/sqlserver/2446/#MERGE1SQLOK">https://lightgauge.net/database/sqlserver/2446/#MERGE1SQLOK</a></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2017/12/12/sakura_vps_ssh/">サーバーを作り直す時、known_hostsをメンテする</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2017-12-12T01:08:00+09:00" pubdate data-updated="true">2017-12-12 01:08</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h2>さくらのVPSを作りなおした</h2>
-
-<p>さくらのVPSを借りていますが、新しいプロジェクトを
-作るに当たって、itamaeでサーバーをいじっています。</p>
-
-<p>8月ごろに一度立てたサーバーですが、
-サービスを追加して、構成も変更したかったので、
-いったん壊して作りなおす事にしました。<br/>
-# itamaeで試行錯誤した過程が残ってしまうのも嫌だな・・・と<br/>
-# 冪等性がてきとーです。</p>
-
-<h2>で、SSHが失敗する</h2>
-
-<p>最初に立ててた時も、SSHエラーを見た記憶があります。
-しかし、何で出るのか忘れてしまったので、またGoogle先生のお世話に。</p>
-
-<p><a href="http://totutotu.hatenablog.com/entry/2015/02/08/ssh%E3%81%A7%E3%82%B5%E3%83%BC%E3%83%90%E3%83%BC%E3%81%AB%E6%8E%A5%E7%B6%9A%E3%81%A7%E3%81%8D%E3%81%AA%E3%81%84%E3%82%A8%E3%83%A9%E3%83%BC%E3%82%81%E3%82%82-OS%E5%86%8D%E3%82%A4%E3%83%B3%E3%82%B9">sshでサーバーに接続できないエラーめも-OS再インストール後【GMO】</a></p>
-
-<p>ああ、SSHのknown_hostsに、サーバーの情報が残ってると食い違うんでした。
-known_hostsから、VPSサーバーのIPを持つ1行を削除し、うまく行きました。</p>
-
-<p>同じような事で困っている人に、今日のまとめです。<br/>
-サーバーを壊した時は、known_hostsをメンテする。</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
-      <a class="prev" href="/blog/page/2/">&larr; Older</a>
+      <a class="prev" href="2">&larr; Older</a>
     
     <a href="/blog/archives">Blog Archives</a>
     
   </div>
 </div>
 <aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p><img src="http://blog.satrex.jp/images/self-portrait_pop.png" height="250" width="200" />
-  <br />
-  satrex(Satoshi Suzuki)
-  <br />
-  <a href="http://twitter.com/satrex">twitter(@satrex)</a><br />
-  <a href="mailto:info@satrex.jp">Mail(info@satrex.jp)</a>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2018/01/16/music_and_passion/">音楽と情熱</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/gas_url/">Google Apps Scriptが便利</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  
-  <a href="https://github.com/satrex">@satrex</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'satrex',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating&#8230;</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("satrex", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
-  
-</section>
-
-
-
-
-
   
 </aside>
 

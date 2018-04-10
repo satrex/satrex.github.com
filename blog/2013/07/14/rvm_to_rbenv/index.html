@@ -9,10 +9,36 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="rvmからrbenvへ 最近、メインのmac上でRubyの調子が悪いです。
-herokuを使えばRails new できず、
-やっとRailsの環境ができたと思ったら
-rake generateできず。 しまいにはOctopressのGenerateもできなくなってしまったので、 &hellip;">
+  <meta name="description" content="
+
+  
+  
+    
+      rvmからrbenvへ移行
+    
+    
+      
+        
+
+
+
+
+
+
+
+
+
+
+        
+      
+    
+  
+
+
+rvmからrbenvへ
+
+最近、メインのmac上でRubyの調子が悪いです。
+herokuを使えばRai...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,16 +47,17 @@ rake generateできず。 しまいにはOctopressのGenerateもできなくな�
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2013/07/14/rvm_to_rbenv">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link rel="canonical" href="http://satrex.github.com/blog/2013/07/14/rvm_to_rbenv/">
+  <link href="//favicon.png" rel="icon">
+  <link href="//stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="//javascripts/modernizr-2.0.js"></script>
+  <script src="//javascripts/ender.js"></script>
+  <script src="//javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="//javascripts/monthly_archive.js"></script>
 
   
   <script type="text/javascript">
@@ -51,9 +78,9 @@ rake generateできず。 しまいにはOctopressのGenerateもできなくな�
 <body   >
   <header role="banner"><hgroup>
 <div class="title_img">
-    <a href="/"><img class="title_img" src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+    <a href="//"><img class="title_img" src="//images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
 </div>
-<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
+<!--  <h1><a href="//">電気羊の執務室</a></h1> -->
   
     <h2>魔法を作る仕事をしています。</h2>
   
@@ -67,15 +94,15 @@ rake generateできず。 しまいにはOctopressのGenerateもできなくな�
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input type="hidden" name="q" value="site:http://satrex.github.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/blog/categories">Category</a></li>
+  <li><a href="//">Blog</a></li>
+  <li><a href="//blog/archives">Archives</a></li>
+  <li><a href="//blog/categories">Category</a></li>
 </ul>
 
 </nav>
@@ -86,7 +113,7 @@ rake generateできず。 しまいにはOctopressのGenerateもできなくな�
   
   <header>
     
-      <h1 class="entry-title">Rvmからrbenvへ移行</h1>
+      <h1 class="entry-title">rvmからrbenvへ移行</h1>
     
     
       <p class="meta">
@@ -99,10 +126,8 @@ rake generateできず。 しまいにはOctopressのGenerateもできなくな�
 
 
 
-  
 
-
-<time datetime="2013-07-14T16:49:00+09:00" pubdate data-updated="true">2013-07-14 16:49</time>
+<time datetime="2013-07-14T16:49:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -127,8 +152,6 @@ rbenvに移行しました。</p>
   <footer>
     <p class="meta">
       
-  
-
 <span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
 
       
@@ -140,10 +163,8 @@ rbenvに移行しました。</p>
 
 
 
-  
 
-
-<time datetime="2013-07-14T16:49:00+09:00" pubdate data-updated="true">2013-07-14 16:49</time>
+<time datetime="2013-07-14T16:49:00+09:00" pubdate data-updated="true"></time>
       
 
 
@@ -178,93 +199,6 @@ rbenvに移行しました。</p>
 </div>
 
 <aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p><img src="http://blog.satrex.jp/images/self-portrait_pop.png" height="250" width="200" />
-  <br />
-  satrex(Satoshi Suzuki)
-  <br />
-  <a href="http://twitter.com/satrex">twitter(@satrex)</a><br />
-  <a href="mailto:info@satrex.jp">Mail(info@satrex.jp)</a>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2018/01/16/music_and_passion/">音楽と情熱</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/gas_url/">Google Apps Scriptが便利</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/satrex">@satrex</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'satrex',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("satrex", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
-  
-</section>
-
-
-
-
-
   
 </aside>
 

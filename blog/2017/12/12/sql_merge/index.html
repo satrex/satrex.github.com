@@ -9,10 +9,36 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="SQL ServerでInsert or Update 今回、会社のデータ処理で、
-SQL Serverを使って、データが存在していれば更新、
-なければ追加、という処理をする必要がありました。 例によってGoogle先生に聞くと、
-『SQL Serverには、Merge文があるんだよ』 &hellip;">
+  <meta name="description" content="
+
+  
+  
+    
+      SQL ServerにはMergeがある
+    
+    
+      
+        
+
+
+
+
+
+
+
+
+
+
+        
+      
+    
+  
+
+
+SQL ServerでInsert or Update
+
+今回、会社のデータ処理で、
+SQ...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -21,16 +47,17 @@ SQL Serverを使って、データが存在していれば更新、
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2017/12/12/sql_merge">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link rel="canonical" href="http://satrex.github.com/blog/2017/12/12/sql_merge/">
+  <link href="//favicon.png" rel="icon">
+  <link href="//stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="//javascripts/modernizr-2.0.js"></script>
+  <script src="//javascripts/ender.js"></script>
+  <script src="//javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="//javascripts/monthly_archive.js"></script>
 
   
   <script type="text/javascript">
@@ -51,9 +78,9 @@ SQL Serverを使って、データが存在していれば更新、
 <body   >
   <header role="banner"><hgroup>
 <div class="title_img">
-    <a href="/"><img class="title_img" src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+    <a href="//"><img class="title_img" src="//images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
 </div>
-<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
+<!--  <h1><a href="//">電気羊の執務室</a></h1> -->
   
     <h2>魔法を作る仕事をしています。</h2>
   
@@ -67,15 +94,15 @@ SQL Serverを使って、データが存在していれば更新、
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input type="hidden" name="q" value="site:http://satrex.github.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/blog/categories">Category</a></li>
+  <li><a href="//">Blog</a></li>
+  <li><a href="//blog/archives">Archives</a></li>
+  <li><a href="//blog/categories">Category</a></li>
 </ul>
 
 </nav>
@@ -99,10 +126,8 @@ SQL Serverを使って、データが存在していれば更新、
 
 
 
-  
 
-
-<time datetime="2017-12-12T18:00:00+09:00" pubdate data-updated="true">2017-12-12 18:00</time>
+<time datetime="2017-12-12T18:00:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -120,45 +145,26 @@ SQL Serverを使って、データが存在していれば更新、<br/>
 
 <h2>構文</h2>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>MERGE INTO test_tableA AS A
-</span><span class='line'>    USING test_tableB AS B
-</span><span class='line'>    ON
-</span><span class='line'>    (
-</span><span class='line'>       A.no = B.no
-</span><span class='line'>    )
-</span><span class='line'>    WHEN MATCHED THEN
-</span><span class='line'>        UPDATE SET
-</span><span class='line'>             name = B.name
-</span><span class='line'>            ,age = B.age
-</span><span class='line'>    WHEN NOT MATCHED THEN
-</span><span class='line'>        INSERT (no,name,age)
-</span><span class='line'>        VALUES
-</span><span class='line'>        (
-</span><span class='line'>             B.no
-</span><span class='line'>            ,B.name
-</span><span class='line'>            ,B.age
-</span><span class='line'>        )
-</span><span class='line'>;</span></code></pre></td></tr></table></div></figure>
-
+<pre><code>MERGE INTO test_tableA AS A
+    USING test_tableB AS B
+    ON
+    (
+       A.no = B.no
+    )
+    WHEN MATCHED THEN
+        UPDATE SET
+             name = B.name
+            ,age = B.age
+    WHEN NOT MATCHED THEN
+        INSERT (no,name,age)
+        VALUES
+        (
+             B.no
+            ,B.name
+            ,B.age
+        )
+;
+</code></pre>
 
 <p>暗記できる気はしないので、いつか同じ事をやる時は、<br/>
 このエントリーを見返すと思います。</p>
@@ -172,8 +178,6 @@ SQL Serverを使って、データが存在していれば更新、<br/>
   <footer>
     <p class="meta">
       
-  
-
 <span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
 
       
@@ -185,10 +189,8 @@ SQL Serverを使って、データが存在していれば更新、<br/>
 
 
 
-  
 
-
-<time datetime="2017-12-12T18:00:00+09:00" pubdate data-updated="true">2017-12-12 18:00</time>
+<time datetime="2017-12-12T18:00:00+09:00" pubdate data-updated="true"></time>
       
 
 
@@ -223,93 +225,6 @@ SQL Serverを使って、データが存在していれば更新、<br/>
 </div>
 
 <aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p><img src="http://blog.satrex.jp/images/self-portrait_pop.png" height="250" width="200" />
-  <br />
-  satrex(Satoshi Suzuki)
-  <br />
-  <a href="http://twitter.com/satrex">twitter(@satrex)</a><br />
-  <a href="mailto:info@satrex.jp">Mail(info@satrex.jp)</a>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2018/01/16/music_and_passion/">音楽と情熱</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/gas_url/">Google Apps Scriptが便利</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/satrex">@satrex</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'satrex',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("satrex", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
-  
-</section>
-
-
-
-
-
   
 </aside>
 

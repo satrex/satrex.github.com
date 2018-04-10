@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>GoogleAppsScriptで差し込み印刷 - 電気羊の執務室</title>
+  <meta name="author" content="satrex">
+
+  
+  <meta name="description" content="
+
+  
+  
+    
+      GoogleAppsScriptで差し込み印刷
+    
+    
+      
+        
+
+
+
+
+
+
+
+
+
+
+        
+      
+    
+  
+
+
+Google Apps Scriptで、ドキュメントの差し込みを行うサンプルを作りま...">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://satrex.github.com/blog/2018/03/10/googleappsscript%E3%81%A7%E5%B7%AE%E3%81%97%E8%BE%BC%E3%81%BF%E5%8D%B0%E5%88%B7/">
+  <link href="//favicon.png" rel="icon">
+  <link href="//stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="//javascripts/modernizr-2.0.js"></script>
+  <script src="//javascripts/ender.js"></script>
+  <script src="//javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="//javascripts/monthly_archive.js"></script>
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-31451390-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+<div class="title_img">
+    <a href="//"><img class="title_img" src="//images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+</div>
+<!--  <h1><a href="//">電気羊の執務室</a></h1> -->
+  
+    <h2>魔法を作る仕事をしています。</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:http://satrex.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="//">Blog</a></li>
+  <li><a href="//blog/archives">Archives</a></li>
+  <li><a href="//blog/categories">Category</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">GoogleAppsScriptで差し込み印刷</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+
+<time datetime="2018-03-10T16:21:00+09:00" pubdate data-updated="true"></time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Google Apps Scriptで、ドキュメントの差し込みを行うサンプルを作りました。</p>
+
+<p>完成品は別途シェアするとして、内容とハマったポイントを記録しておきます。</p>
+
+<h2>やりたいこと</h2>
+
+<p>Wordの差し込み印刷のような事が、Google Docsでやりたかったです。
+具体的には、こういう感じです。</p>
+
+<ol>
+<li>Google Documentの文書（テンプレート文書と呼びます）に本文と置換用のプレースホルダを書いておきます。</li>
+<li>別のスプレッドシート(実行シートと呼びます)に、差込用の言葉（相手の名前など）を書いておきます。</li>
+<li>スプレッドシートでスクリプトを実行します。</li>
+<li>プレースホルダが差込用の単語に置き換わって、テンプレート文書の後半に、新しい本文が生成されます。(テンプレートを置き換えてしまうと何度も使えないので)</li>
+<li>たくさん作れないと意味がないので、スプレッドシート上にたくさんの文書のURLと、それぞれの差し込み内容を書いておくと、一括で生成します。</li>
+</ol>
+
+
+<h2>この記事で作るもの</h2>
+
+<ol>
+<li>テンプレート文書</li>
+<li>Google Drive上にドキュメント文書を作り、テンプレート文書とします。</li>
+<li>テンプレート文書には、本文とプレースホルダを記述します。</li>
+<li>テンプレート文書のドキュメントIDをコピーしておきます。</li>
+<li>実行シート</li>
+<li><p>Google Drive上にスプレッドシートを作り、実行シートとします。</p></li>
+<li><p>スクリプトファイル</p></li>
+<li>実行シートから作ります。</li>
+<li>テンプレートから本文を生成する部分です。</li>
+</ol>
+
+
+<h2>作成手順</h2>
+
+<p>１．テンプレート文書を作る
+今回は、テンプレート文書の中に、テンプレート部分と出力結果を生成するスタイルにします。</p>
+
+<p>テンプレート文書はひとつで、出力結果を分けたい場合は、別途スクリプトを調整してください。</p>
+
+<p>文書の中では、テンプレート部分と出力結果を水平線で区切ります。最初の水平線以前がテンプレート部分、それ以降が出力結果となります。</p>
+
+<p>テンプレート部分に、本文とプレースホルダを記述します。
+今回のサンプルでは、{最初の差し込み内容}{ふたつ目の差し込み内容}という文字列を使っています。この波カッコ内がプレースホルダとなり、出力結果では差込文字列と置き換わります。</p>
+
+<p>２．実行シートを作る</p>
+
+<p>Google Drive内にスプレッドシートを作り、実行シートとします。
+シートの内容は、以下のようにします。</p>
+
+<ul>
+<li>最初の行をタイトル行とし、以下の項目を定義します。
+
+<ul>
+<li>ドキュメントID</li>
+<li>差込用文字列</li>
+</ul>
+</li>
+<li>2行目以下はデータ行です。
+
+<ul>
+<li>ドキュメントIDに、テンプレート文書のドキュメントIDを指定します。</li>
+<li>差込用文字列に、プレースホルダと置き換える文字列を指定します。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>３．スクリプトファイルを作る</p>
+
+<p>実行シート上で『ツール → スクリプトエディタ...』を選択し、スクリプトエディタを起動します。</p>
+
+<p>スクリプトエディタのファイルを、任意の名前に変更します。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+<span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
+
+      
+
+
+
+
+
+
+
+
+
+<time datetime="2018-03-10T16:21:00+09:00" pubdate data-updated="true"></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2018/03/10/googleappsscript%E3%81%A7%E5%B7%AE%E3%81%97%E8%BE%BC%E3%81%BF%E5%8D%B0%E5%88%B7/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2018/03/10/googleappsscript%E3%81%A7%E5%B7%AE%E3%81%97%E8%BE%BC%E3%81%BF%E5%8D%B0%E5%88%B7/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2018/01/16/music_and_passion/" title="Previous Post: 音楽と情熱">&laquo; 音楽と情熱</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2018/03/10/gas%E3%81%AE%E6%96%87%E6%9B%B8%E6%A7%8B%E9%80%A0/" title="Next Post: Google Document API の文書構造">Google Document API の文書構造 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2018 - satrex -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'e-sheep';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://satrex.github.com/blog/2018/03/10/googleappsscript%E3%81%A7%E5%B7%AE%E3%81%97%E8%BE%BC%E3%81%BF%E5%8D%B0%E5%88%B7/';
+        var disqus_url = 'http://satrex.github.com/blog/2018/03/10/googleappsscript%E3%81%A7%E5%B7%AE%E3%81%97%E8%BE%BC%E3%81%BF%E5%8D%B0%E5%88%B7/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -9,9 +9,36 @@
   <meta name="author" content="satrex">
 
   
-  <meta name="description" content="chefの構成について 今回、DigitalOceanに仮想マシンを作り、
-Angular.jsでサイトを作りたいです。
-そのために、Vagrant+chefで構成管理をします。 毎度の事ですが、今回も失敗記です。 環境構築ふたたび １年近く放っておいたので、Rubyアプリの常として、 &hellip;">
+  <meta name="description" content="
+
+  
+  
+    
+      chefのリポジトリ構成
+    
+    
+      
+        
+
+
+
+
+
+
+
+
+
+
+        
+      
+    
+  
+
+
+chefの構成について
+
+今回、DigitalOceanに仮想マシンを作り、
+Angular.jsでサイト...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,16 +47,17 @@ Angular.jsでサイトを作りたいです。
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="/javascripts/ender.js"></script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link rel="canonical" href="http://satrex.github.com/blog/2016/02/25/chef%E3%81%AE%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90/">
+  <link href="//favicon.png" rel="icon">
+  <link href="//stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="//javascripts/modernizr-2.0.js"></script>
+  <script src="//javascripts/ender.js"></script>
+  <script src="//javascripts/octopress.js" type="text/javascript"></script>
   <link href="/atom.xml" rel="alternate" title="電気羊の執務室" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 <link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<script src="//javascripts/monthly_archive.js"></script>
 
   
   <script type="text/javascript">
@@ -50,9 +78,9 @@ Angular.jsでサイトを作りたいです。
 <body   >
   <header role="banner"><hgroup>
 <div class="title_img">
-    <a href="/"><img class="title_img" src="/images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
+    <a href="//"><img class="title_img" src="//images/e-sheep_logo003.png" alt="電気羊の執務室" /></a>
 </div>
-<!--  <h1><a href="/">電気羊の執務室</a></h1> -->
+<!--  <h1><a href="//">電気羊の執務室</a></h1> -->
   
     <h2>魔法を作る仕事をしています。</h2>
   
@@ -66,15 +94,15 @@ Angular.jsでサイトを作りたいです。
   
 <form action="http://google.com/search" method="get">
   <fieldset role="search">
-    <input type="hidden" name="q" value="site:satrex.github.com" />
+    <input type="hidden" name="q" value="site:http://satrex.github.com" />
     <input class="search" type="text" name="q" results="0" placeholder="Search"/>
   </fieldset>
 </form>
   
 <ul class="main-navigation">
-  <li><a href="/">Blog</a></li>
-  <li><a href="/blog/archives">Archives</a></li>
-  <li><a href="/blog/categories">Category</a></li>
+  <li><a href="//">Blog</a></li>
+  <li><a href="//blog/archives">Archives</a></li>
+  <li><a href="//blog/categories">Category</a></li>
 </ul>
 
 </nav>
@@ -85,7 +113,7 @@ Angular.jsでサイトを作りたいです。
   
   <header>
     
-      <h1 class="entry-title">Chefのリポジトリ構成</h1>
+      <h1 class="entry-title">chefのリポジトリ構成</h1>
     
     
       <p class="meta">
@@ -98,10 +126,8 @@ Angular.jsでサイトを作りたいです。
 
 
 
-  
 
-
-<time datetime="2016-02-25T00:11:00+09:00" pubdate data-updated="true">2016-02-25 00:11</time>
+<time datetime="2016-02-25T00:11:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
@@ -123,7 +149,7 @@ Angular.jsでサイトを作りたいです。
 
 <ul>
 <li>vagrant upしようとしたら、stdin: is not a ttyが出た
-&#8211; <a href="https://github.com/Varying-Vagrant-Vagrants/VVV/issues/517">githubのフォーラム</a>を見て対処</li>
+-- <a href="https://github.com/Varying-Vagrant-Vagrants/VVV/issues/517">githubのフォーラム</a>を見て対処</li>
 </ul>
 
 
@@ -138,9 +164,9 @@ chefDKをダウンロードして実行。</p>
 
 <ul>
 <li>chefDKを入れた時のお約束
-&#8211; .zprofileに、export PATH=/opt/chefdk/bin:$PATHを追加</li>
+-- .zprofileに、export PATH=/opt/chefdk/bin:$PATHを追加</li>
 <li>berkshelfが見つからない
-&#8211; <a href="http://stackoverflow.com/questions/27772047/could-not-find-berkshelf-0-among-90-total-gems-gemloaderror">stackOverflowのフォーラム</a>を見て解決。最終的に、berkshelfはchefDKの組み込みgemを使うことに。</li>
+-- <a href="http://stackoverflow.com/questions/27772047/could-not-find-berkshelf-0-among-90-total-gems-gemloaderror">stackOverflowのフォーラム</a>を見て解決。最終的に、berkshelfはchefDKの組み込みgemを使うことに。</li>
 </ul>
 
 
@@ -179,8 +205,6 @@ github上のchef-repoフォルダを、各ノードのディレクトリに展�
   <footer>
     <p class="meta">
       
-  
-
 <span class="byline author vcard">Posted by <span class="fn">satrex</span></span>
 
       
@@ -192,10 +216,8 @@ github上のchef-repoフォルダを、各ノードのディレクトリに展�
 
 
 
-  
 
-
-<time datetime="2016-02-25T00:11:00+09:00" pubdate data-updated="true">2016-02-25 00:11</time>
+<time datetime="2016-02-25T00:11:00+09:00" pubdate data-updated="true"></time>
       
 
 
@@ -215,7 +237,7 @@ github上のchef-repoフォルダを、各ノードのディレクトリに展�
         <a class="basic-alignment left" href="/blog/2014/11/10/packer_esx/" title="Previous Post: packer_esx">&laquo; packer_esx</a>
       
       
-        <a class="basic-alignment right" href="/blog/2017/07/05/%5Bsql-server%5Dgrouping%E6%BC%94%E7%AE%97%E5%AD%90/" title="Next Post: SQLでもう一歩頑張るのが大事？">SQLでもう一歩頑張るのが大事？ &raquo;</a>
+        <a class="basic-alignment right" href="/blog/2017/07/05/sql-server-grouping%E6%BC%94%E7%AE%97%E5%AD%90/" title="Next Post: SQLでもう一歩頑張るのが大事？">SQLでもう一歩頑張るのが大事？ &raquo;</a>
       
     </p>
   </footer>
@@ -230,93 +252,6 @@ github上のchef-repoフォルダを、各ノードのディレクトリに展�
 </div>
 
 <aside class="sidebar">
-  
-    <section>
-  <h1>About Me</h1>
-  <p><img src="http://blog.satrex.jp/images/self-portrait_pop.png" height="250" width="200" />
-  <br />
-  satrex(Satoshi Suzuki)
-  <br />
-  <a href="http://twitter.com/satrex">twitter(@satrex)</a><br />
-  <a href="mailto:info@satrex.jp">Mail(info@satrex.jp)</a>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2018/01/16/music_and_passion/">音楽と情熱</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/gas_url/">Google Apps Scriptが便利</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/12/aibo/">AIBOがニュースになってます</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/09/programming_for_everyone/">プログラムを学ぶ=プログラマー？</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2018/01/07/amazon_hard/">神頼み</a>
-      </li>
-    
-  </ul>
-</section>
-
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/satrex">@satrex</a> on GitHub
-  
-  <script type="text/javascript">
-    $.domReady(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
-
-        github.showRepos({
-            user: 'satrex',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
-
-
-<section>
-  <h1>Latest Tweets</h1>
-  <ul id="tweets">
-    <li class="loading">Status updating...</li>
-  </ul>
-  <script type="text/javascript">
-    $.domReady(function(){
-      getTwitterFeed("satrex", 4, false);
-    });
-  </script>
-  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
-  
-    <a href="http://twitter.com/satrex" class="twitter-follow-button" data-show-count="false">Follow @satrex</a>
-  
-</section>
-
-
-
-
-
   
 </aside>
 

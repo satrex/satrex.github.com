@@ -5,7 +5,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Google Apps Scriptが便利 - 電気羊の執務室</title>
+  <title>Google Document API の文書構造 - 電気羊の執務室</title>
   <meta name="author" content="satrex">
 
   
@@ -14,7 +14,7 @@
   
   
     
-      Google Apps Scriptが便利
+      Google Document API の文書構造
     
     
       
@@ -35,9 +35,8 @@
   
 
 
-小さなアプリをGoogleAppsScriptで作る
-
-GoogleAppsScript...">
+こんにちは。
+今回、Googleドキュメントの文書をスクリプトから編集する処理を...">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -46,7 +45,7 @@ GoogleAppsScript...">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://satrex.github.com/blog/2018/01/12/gas_url/">
+  <link rel="canonical" href="http://satrex.github.com/blog/2018/03/10/gas%E3%81%AE%E6%96%87%E6%9B%B8%E6%A7%8B%E9%80%A0/">
   <link href="//favicon.png" rel="icon">
   <link href="//stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="//javascripts/modernizr-2.0.js"></script>
@@ -112,7 +111,7 @@ GoogleAppsScript...">
   
   <header>
     
-      <h1 class="entry-title">Google Apps Scriptが便利</h1>
+      <h1 class="entry-title">Google Document API の文書構造</h1>
     
     
       <p class="meta">
@@ -126,37 +125,73 @@ GoogleAppsScript...">
 
 
 
-<time datetime="2018-01-12T23:32:00+09:00" pubdate data-updated="true"></time>
+<time datetime="2018-03-10T17:48:00+09:00" pubdate data-updated="true"></time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>小さなアプリをGoogleAppsScriptで作る</h2>
+<div class="entry-content"><p>こんにちは。
+今回、Googleドキュメントの文書をスクリプトから編集する処理を書いていて、ハマったポイントがあるので共有します。</p>
 
-<p>GoogleAppsScript(GAS)を知っていますか？
-Googleのサーバー上に、小さなプログラムを乗せる事ができるのです。</p>
+<p>水平線(hの扱い</p>
 
-<p>これは地味にすごいことです。</p>
+<p>今回やろうとしたのは、文書を水平線(hr)で区切る構成です。
+- 水平線以前がテンプレート
+- 水平線以降に出力結果が表示される</p>
 
-<p>Herokuを始め、プログラムを乗せる場所を使わせてくれるサービスは、他にもあります。</p>
+<p>という構成で、水平線以前／以降を判定する処理が必要でした。</p>
 
-<h2>GoogleAppsScriptの何がいいか？</h2>
+<h3>水平線を取得する</h3>
 
-<p>GASのいいところは、ある程度お手軽にサラッと書く事もでき、
-Webアプリに拡張する事もできる事です。</p>
+<p>水平線を取得するのは、
+BodyオブジェクトのfindObjectメソッドで行います。</p>
 
-<p>また、自動実行で定期的な処理をさせる用途にも使えます。</p>
+<pre><code>var firstHr = body.findElement(searchTypeHR);
+</code></pre>
 
-<h2>イメージは太陽や風</h2>
+<p>こんな感じです。
+これで取得できるのはRangeElementオブジェクトなので、さらにgetElement()メソッドで、中身のHorizontalRuleオブジェクトを取り出してあげます。</p>
 
-<p>太陽の光は、毎日定期的に降り注いで、植物を育てたり、熱を与えてくれたりします。
-あるいは、常に吹いている風のようなものです。</p>
+<pre><code>var theHr = firstHr.getElement();
+</code></pre>
 
-<p>その一部分を、自分がうまく行くように仕掛けをしてあげることで、得をすることができます。</p>
+<p>これを基準に、段落（Paragraphオブジェクト）の位置を判定すれば、水平線以前と以降がわかるはずです。</p>
 
-<p>プログラミングは、まず自分が得をしないといけません。</p>
+<h3>水平線の前後要素が取れない</h3>
+
+<p>しかし、ここがハマりポイントとなりました。
+すなわち、HorizontalRuleオブジェクトの、文書内の位置が取れません。</p>
+
+<p>ここで読むべきものはドキュメントです。</p>
+
+<p><a href="https://developers.google.com/apps-script/guides/docs#structure_of_a_document">https://developers.google.com/apps-script/guides/docs#structure_of_a_document</a></p>
+
+<p>これによると、『水平線は、ListItemやParagraphの配下である』と書いてあります。
+文書構造としては、このようになっているわけです。</p>
+
+<pre><code>Body
+  ├ Paragraph
+  │  ├ Text
+  │  └ Text
+  ├ Paragraph
+  │  └ HorizontalRule
+    .
+    .
+    .
+</code></pre>
+
+<h3>解決法</h3>
+
+<p>HorizontalRuleオブジェクトはParagraphオブジェクトの子なので、文書内の位置を知るには、親要素となるParagraphオブジェクトを取得する必要がありました。</p>
+
+<p>というわけで、以下のようにすると、文書内の位置が取れたのでした。</p>
+
+<pre><code>body.getChildIndex( theHr.getParent())
+</code></pre>
+
+<p>めでたし。</p>
 </div>
 
 
@@ -175,7 +210,7 @@ Webアプリに拡張する事もできる事です。</p>
 
 
 
-<time datetime="2018-01-12T23:32:00+09:00" pubdate data-updated="true"></time>
+<time datetime="2018-03-10T17:48:00+09:00" pubdate data-updated="true"></time>
       
 
 
@@ -183,7 +218,7 @@ Webアプリに拡張する事もできる事です。</p>
     
       <div class="sharing">
   
-  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2018/01/12/gas_url/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2018/01/12/gas_url/" >Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://satrex.github.com/blog/2018/03/10/gas%E3%81%AE%E6%96%87%E6%9B%B8%E6%A7%8B%E9%80%A0/" data-via="satrex" data-counturl="http://satrex.github.com/blog/2018/03/10/gas%E3%81%AE%E6%96%87%E6%9B%B8%E6%A7%8B%E9%80%A0/" >Tweet</a>
   
   
   
@@ -192,10 +227,8 @@ Webアプリに拡張する事もできる事です。</p>
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2018/01/12/aibo/" title="Previous Post: AIBOがニュースになってます">&laquo; AIBOがニュースになってます</a>
+        <a class="basic-alignment left" href="/blog/2018/03/10/googleappsscript%E3%81%A7%E5%B7%AE%E3%81%97%E8%BE%BC%E3%81%BF%E5%8D%B0%E5%88%B7/" title="Previous Post: GoogleAppsScriptで差し込み印刷">&laquo; GoogleAppsScriptで差し込み印刷</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2018/01/16/music_and_passion/" title="Next Post: 音楽と情熱">音楽と情熱 &raquo;</a>
       
     </p>
   </footer>
@@ -229,8 +262,8 @@ Webアプリに拡張する事もできる事です。</p>
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://satrex.github.com/blog/2018/01/12/gas_url/';
-        var disqus_url = 'http://satrex.github.com/blog/2018/01/12/gas_url/';
+        var disqus_identifier = 'http://satrex.github.com/blog/2018/03/10/gas%E3%81%AE%E6%96%87%E6%9B%B8%E6%A7%8B%E9%80%A0/';
+        var disqus_url = 'http://satrex.github.com/blog/2018/03/10/gas%E3%81%AE%E6%96%87%E6%9B%B8%E6%A7%8B%E9%80%A0/';
         var disqus_script = 'embed.js';
       
     (function () {
