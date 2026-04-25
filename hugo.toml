@@ -11,9 +11,10 @@ theme = "PaperMod"
   googleAnalytics = "UA-31451390-1"
   defaultTheme = "light"  # ライトモードをデフォルトに
 
-  [params.logo]
-    image = "images/logo.png"  # static/images/logo.png に置く
-    alt = "さとレックス"
+  [params.label]
+    text = ""
+    icon = "images/logo.png"
+    iconHeight = 40
 
 
 [markup]
