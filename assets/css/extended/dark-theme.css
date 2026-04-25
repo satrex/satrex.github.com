@@ -1,0 +1,11 @@
+:root[data-theme="dark"] {
+    --theme: rgb(30, 18, 8);
+    --entry: rgb(45, 28, 12);
+    --primary: rgb(240, 230, 210);
+    --secondary: rgb(196, 180, 154);
+    --tertiary: rgb(74, 53, 32);
+    --content: rgb(230, 218, 196);
+    --code-block-bg: rgb(38, 24, 10);
+    --code-bg: rgb(55, 38, 18);
+    --border: rgb(74, 53, 32);
+}
