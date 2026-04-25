@@ -1,0 +1,25 @@
+baseURL = "https://satrex.github.io/"
+languageCode = "ja"
+defaultContentLanguage = "ja"
+title = "電気羊の執務室"
+theme = "PaperMod"
+
+[params]
+  author = "satrex"
+  description = "魔法を作る仕事をしています。"
+  disqusShortname = "e-sheep"
+  googleAnalytics = "UA-31451390-1"
+  defaultTheme = "light"  # ライトモードをデフォルトに
+
+  [params.logo]
+    image = "images/logo.png"  # static/images/logo.png に置く
+    alt = "さとレックス"
+
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[permalinks]
+  posts = "/blog/:year/:month/:day/:slug/"
