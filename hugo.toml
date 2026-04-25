@@ -23,3 +23,8 @@ theme = "PaperMod"
 
 [permalinks]
   posts = "/blog/:year/:month/:day/:slug/"
+
+[[menu.main]]
+  name = "Posts"
+  url = "/posts/"
+  weight = 1
